@@ -2,7 +2,7 @@
   "format": "design-rules architecture",
   "version": 1,
   "name": "Circuit Lab",
-  "about": "The layers of ARCHITECTURE.md, bottom first. The core knows the laws and nothing of the page; the kit draws and knows no law; each lab joins the two for one idea; the app finds the labs in their list and lays out the page.",
+  "about": "The layers of ARCHITECTURE.md, bottom first. The core knows the laws and nothing of the page; the kit draws and knows no law; each lab joins the two for one idea; the app groups the labs under their lectures and lays out the page.",
   "reader": "es-modules",
   "sources": ["src/**/*.js"],
   "layers": [
@@ -10,7 +10,7 @@
      "forbid": ["document", "window", "fetch", "Date", "Math.random", "localStorage"]},
     {"name": "kit", "why": "Controls, readouts and circuit symbols every lab draws with", "files": ["src/ui/**/*.js"], "uses": ["core"], "packages": []},
     {"name": "labs", "why": "One idea each: a circuit to play with and its practice", "files": ["src/labs/**/*.js"], "uses": ["core", "kit"], "packages": []},
-    {"name": "app", "why": "Reads labs.json, lays out the tabs and the theme", "files": ["src/app.js"], "uses": ["core", "kit", "labs"], "packages": []}
+    {"name": "app", "why": "Reads labs.json, lays out the lectures with their labs, and the theme", "files": ["src/app.js"], "uses": ["core", "kit", "labs"], "packages": []}
   ],
   "allow": []
 }

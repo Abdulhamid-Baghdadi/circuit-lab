@@ -9,7 +9,14 @@ const data = JSON.parse(readFileSync(new URL("../../data/labs.json", import.meta
 
 test("labs.json names its format and version", () => {
   assert.equal(data.format, "circuit-lab labs");
-  assert.equal(data.version, 1);
+  assert.equal(data.version, 2);
+});
+
+test("every lab sits under exactly one lecture, and every lecture's labs exist", () => {
+  const listed = data.lectures.flatMap(l => l.labs);
+  assert.deepEqual([...listed].sort(), data.labs.map(l => l.id).sort());
+  assert.equal(new Set(listed).size, listed.length);
+  for (const l of data.lectures) assert.ok(l.number && l.date && l.title && l.file && l.labs.length, `lecture ${l.number} is complete`);
 });
 
 for (const lab of data.labs) {

@@ -1,14 +1,101 @@
 {
   "format": "circuit-lab labs",
-  "version": 1,
-  "about": "The words of each lab and its practice questions. Answers are the course's own; tests/unit/labs-data.test.js recomputes each with the core and fails if they disagree.",
+  "version": 2,
+  "about": "The course's lectures, each with the labs it teaches, then the words of each lab and its practice questions. Lecture numbers, dates and titles are those on each lecture file's first slide. Answers are the course's own; tests/unit/labs-data.test.js recomputes each with the core and fails if they disagree.",
+  "lectures": [
+    {
+      "number": 1,
+      "date": "28 Sep",
+      "title": "Basic electricity",
+      "file": "02_EAVP V2.3_les1.pdf",
+      "labs": [
+        "ohm",
+        "network",
+        "divider"
+      ]
+    },
+    {
+      "number": 2,
+      "date": "6 Oct",
+      "title": "Power, conductors and batteries",
+      "file": "03_EAVP V2.3_les2.pdf",
+      "labs": [
+        "cable"
+      ]
+    },
+    {
+      "number": 3,
+      "date": "13 Oct",
+      "title": "Electromagnetism, transformers and LEDs",
+      "file": "04_EAVP V2.4_Les3.pdf",
+      "labs": [
+        "transformer",
+        "led"
+      ]
+    },
+    {
+      "number": 4,
+      "date": "20 Oct",
+      "title": "Distribution and safety",
+      "file": "05_EAVP V2.4_Les4.pdf",
+      "labs": [
+        "shock"
+      ]
+    },
+    {
+      "number": 5,
+      "date": "21 Oct",
+      "title": "Introduction to Arduino",
+      "file": "06_EAVP V2.3_les5.pdf",
+      "labs": [
+        "adc",
+        "pwm"
+      ]
+    },
+    {
+      "number": 10,
+      "date": "17 Nov",
+      "title": "Semiconductors",
+      "file": "10_EAVP V2.4_Les10.pdf",
+      "labs": [
+        "rectifier"
+      ]
+    },
+    {
+      "number": 11,
+      "date": "17 Nov",
+      "title": "Digital circuits",
+      "file": "11_EAVP V2.4_les11.pdf",
+      "labs": [
+        "binary"
+      ]
+    },
+    {
+      "number": 12,
+      "date": "24 Nov",
+      "title": "Batteries",
+      "file": "12_EAVP V2.4_Les12.pdf",
+      "labs": [
+        "battery"
+      ]
+    },
+    {
+      "number": 13,
+      "date": "1 Dec",
+      "title": "Motors",
+      "file": "13_EAVP V2.4_Les13.pdf",
+      "labs": [
+        "motor"
+      ]
+    }
+  ],
   "labs": [
     {
       "id": "ohm",
       "title": "Ohm's law",
       "idea": "Push harder (more voltage) and more current flows; narrow the pipe (more resistance) and less flows.",
       "law": "U = I × R    P = U × I",
-      "lecture": "EAVP lesson 1 (29 Sep), slides 37–44; lesson 2, slides 13 and 19 (power)",
+      "lecture": "EAVP lesson 1 (28 Sep), slides 37–44; lesson 2, slides 13 and 19 (power)",
       "practice": [
         {
           "question": "A 12 V battery feeds a 3 Ω lamp. What current flows?",

@@ -15,30 +15,31 @@ the meters and the numbers follow. Made by the [SMART Lab](https://github.com/UA
 <p align="center"><sub>Raise the voltage, lower the resistance: the current follows, and the resistor warns when it would burn. Plays once, 5 s.</sub></p>
 
 <p align="center">
-  <img src="docs/light.png" alt="The voltage divider lab in the light theme: a circuit of two 10 kΩ resistors on 5 V with a voltmeter reading 2.5 V, sliders for the supply, both resistors and a load, and the result 512 for analogRead" width="49%">
+  <img src="docs/light.png" alt="Circuit Lab in the light theme: on the left the lectures in order, each with its labs; on the right the voltage divider lab of lecture 1, a circuit of two 10 kΩ resistors on 5 V with a voltmeter reading 2.5 V, sliders for the supply, both resistors and a load, and the result 512 for analogRead" width="49%">
   <img src="docs/dark.png" alt="The same voltage divider lab in the dark theme" width="49%">
 </p>
 
 ## The labs
 
-Each lab is one idea of the course, with the law, where in the course it comes from, a circuit to play with, and
+The labs are grouped by the lecture that teaches them, in the course's order, with the date and title from each
+lecture's first slide. Each lab is one idea of the course, with the law, where in the course it comes from, a circuit to play with, and
 practice questions from the course's own exercise sheet, checked as you type them ("22.5m" is read as 22.5 mA).
 
-| Lab | What you do | From the course |
+| Lecture | Lab | What you do |
 |---|---|---|
-| Ohm's law | Turn U and R; the current, the meters and the dots on the wire follow; the resistor warns when it gets too hot | Lesson 1, slides 37–44; lesson 2 (power) |
-| Series and parallel | Wire three resistors three ways and watch the course's table method fill in, with its checks | Lesson 1, slides 45–53; syllabus §2.4 |
-| Voltage divider | Two resistors or the kit's potentiometer; add a load and see it pull the output down; the number analogRead would give | Lesson 1; exercise 2; Grove potentiometer |
-| LED series resistor | Pick the colour, supply and current; get the resistor, the one you can buy, and what really flows | Lesson 3, slide 26; exercise 11 |
-| Long cables | Pouillet's law: how much of 230 V reaches a load 700 m away on 6 mm² | Lesson 2, slides 21–27 |
-| Electric shock | Your body as a resistor: where you stand and what you touch, against the lesson's table of effects | Lesson 4, slides 7–8 |
-| Transformer | Change the windings; the voltage, the currents, and the line loss at high and low voltage follow | Lesson 3, slides 20–23; exercise 10 |
-| Battery life | Cell type, cells in series, capacity and load: hours, Wh and the cost of a charge | Lesson 12; example question 3 |
-| From AC to smooth DC | No diode, one diode or a Graetz bridge, then a capacitor: the wave, its average and its ripple | Lesson 10, p. 6–9 |
-| From voltage to analogRead | The voltage on A0, the 10-bit staircase, `map()` and the servo turning | Lesson 5; jury question 2 |
-| PWM | `analogWrite` as a square wave, its duty and average, and an LED dimming | Lesson 5, slide 54; lesson 10 |
-| Binary numbers | Flip bits; see the place values, the two's complement reading and the flash ADC's comparators | Lesson 11, p. 6–17, 53–55 |
-| Sizing a motor | Mass, height and time give the ideal power; a safety factor gives the motor to buy | Lesson 13, p. 24–29 |
+| 1 · 28 Sep · Basic electricity | Ohm's law | Turn U and R; the current, the meters and the dots on the wire follow; the resistor warns when it gets too hot |
+|  | Series and parallel | Wire three resistors three ways and watch the course's table method fill in, with its checks |
+|  | Voltage divider | Two resistors or the kit's potentiometer; add a load and see it pull the output down; the number analogRead would give |
+| 2 · 6 Oct · Power, conductors and batteries | Long cables | Pouillet's law: how much of 230 V reaches a load 700 m away on 6 mm² |
+| 3 · 13 Oct · Electromagnetism, transformers and LEDs | Transformer | Change the windings; the voltage, the currents, and the line loss at high and low voltage follow |
+|  | LED series resistor | Pick the colour, supply and current; get the resistor, the one you can buy, and what really flows |
+| 4 · 20 Oct · Distribution and safety | Electric shock | Your body as a resistor: where you stand and what you touch, against the lesson's table of effects |
+| 5 · 21 Oct · Introduction to Arduino | From voltage to analogRead | The voltage on A0, the 10-bit staircase, `map()` and the servo turning |
+|  | PWM: a voltage by switching | `analogWrite` as a square wave, its duty and average, and an LED dimming |
+| 10 · 17 Nov · Semiconductors | From AC to smooth DC | No diode, one diode or a Graetz bridge, then a capacitor: the wave, its average and its ripple |
+| 11 · 17 Nov · Digital circuits | Binary numbers | Flip bits; see the place values, the two's complement reading and the flash ADC's comparators |
+| 12 · 24 Nov · Batteries | Battery life | Cell type, cells in series, capacity and load: hours, Wh and the cost of a charge |
+| 13 · 1 Dec · Motors | Sizing a motor | Mass, height and time give the ideal power; a safety factor gives the motor to buy |
 
 Every answer on the exercise sheet is recomputed by the program in the tests, so a typo in the data fails the build.
 
@@ -58,7 +59,7 @@ then open http://127.0.0.1:8765. Nothing is sent anywhere; there is no account a
 src/core   the laws, the converter and the units: pure functions, tested headless
 src/ui     sliders, readouts, circuit symbols: knows no law
 src/labs   one file per lab, joining the two; listed in src/labs/index.js
-src/app.js reads data/labs.json and lays out the tabs
+src/app.js reads data/labs.json and lays out the lectures with their labs
 ```
 
 Plain JavaScript modules, no framework and no build step; GitHub Pages serves the folder as it is. The layers and the

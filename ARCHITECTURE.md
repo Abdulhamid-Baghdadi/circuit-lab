@@ -16,7 +16,8 @@ A lab holds one idea. The core names no lab; the app takes the list.
 
 ## Data
 
-`data/labs.json` (`"format": "circuit-lab labs"`, version 1) holds each lab's words and practice questions. Every
+`data/labs.json` (`"format": "circuit-lab labs"`, version 2) holds the lectures (number, date and title from each
+lecture file's first slide, and the labs each teaches), then each lab's words and practice questions. Every
 question has a `compute` block that `src/core/practice.js` works out; `tests/unit/labs-data.test.js` fails when the
 worked answer and the sheet's answer disagree.
 
