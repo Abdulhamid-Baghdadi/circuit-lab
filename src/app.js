@@ -57,12 +57,18 @@ async function start() {
     const w = words.get(id), { lecture } = order[at.get(id)];
     const prev = order[at.get(id) - 1], next = order[at.get(id) + 1];
     const body = h("div", { class: "lab" });
-    const section = h("section", { class: "panel", "aria-labelledby": `title-${id}` },
-      h("header", { class: "intro" },
-        h("a", { href: "#", class: "back" }, "← All labs"),
-        h("p", { class: "eyebrow" }, `Lecture ${lecture.number} · ${lecture.date} · ${lecture.title}`),
-        h("h2", { id: `title-${id}`, tabindex: "-1" }, w.title), h("p", { class: "idea" }, w.idea),
-        h("p", { class: "law" }, w.law), h("p", { class: "source" }, `From the course: ${w.lecture}`)),
+    // The lab opens with its card, large: the same picture and frame as on the overview, so the two read as one.
+    const art = h("span", { class: "art", "aria-hidden": "true" });
+    art.innerHTML = code.get(id).art();
+    const section = h("section", { class: "panel", "data-family": lecture.family, "aria-labelledby": `title-${id}` },
+      h("a", { href: "#", class: "back" }, "← All labs"),
+      h("header", { class: "hero" },
+        h("div", { class: "hero-card" }, art, h("span", { class: "plate" },
+          h("span", { class: "name" }, w.title), h("span", { class: "meta" }, `Lecture ${lecture.number} · ${family.get(lecture.family)}`))),
+        h("div", { class: "intro" },
+          h("p", { class: "eyebrow" }, `Lecture ${lecture.number} · ${lecture.date} · ${lecture.title}`),
+          h("h2", { id: `title-${id}`, tabindex: "-1" }, w.title), h("p", { class: "idea" }, w.idea),
+          h("p", { class: "law" }, w.law), h("p", { class: "source" }, `From the course: ${w.lecture}`))),
       body,
       w.practice.length ? h("section", { class: "practice-list" }, h("h3", {}, "Practise"),
         w.practice.map(q => practice({ ...q, parse: parseSi }))) : null,

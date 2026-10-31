@@ -48,13 +48,14 @@ main { padding: 8px 24px 32px; max-width: 1280px; }
 
 /* A lab card after the Methodical card game: a frame in its family's colour, the picture on a dark art box, the
    title on a light plate. The card is a printed object, so it keeps its colours in both themes. */
-.card { --frame: #0C4A6E; display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: 14px; text-decoration: none;
+.card { display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: 14px; text-decoration: none;
         background: var(--frame); box-shadow: inset 0 0 0 3px rgba(0,0,0,.35), inset 0 0 0 6px rgba(255,255,255,.14), 0 2px 6px rgba(0,0,0,.25);
         transition: transform .12s ease, box-shadow .12s ease; }
-.card[data-family=mains] { --frame: #9F1239; }
-.card[data-family=arduino] { --frame: #047857; }
-.card[data-family=electronics] { --frame: #6D28D9; }
-.card[data-family=energy] { --frame: #92400E; }
+[data-family] { --frame: #0C4A6E; }
+[data-family=mains] { --frame: #9F1239; }
+[data-family=arduino] { --frame: #047857; }
+[data-family=electronics] { --frame: #6D28D9; }
+[data-family=energy] { --frame: #92400E; }
 .card .art { display: block; border-radius: 8px; overflow: hidden; line-height: 0; box-shadow: inset 0 0 0 2px rgba(0,0,0,.4); }
 .card .art svg { width: 100%; height: auto; }
 .card .plate { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; background: linear-gradient(#ffffff, #e9ecf1); color: #16181d; }
@@ -179,3 +180,22 @@ table.method tr.here td { background: var(--danger-bg); font-weight: 700; }
 .bit .weight { color: var(--muted); font-size: 0.85rem; }
 .bit[aria-pressed=true] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
 table.method td:last-child { white-space: nowrap; }
+
+/* A lab page opens with its card, large, and keeps the family colour as a band along its top. */
+.panel[data-family] { border-top: 6px solid var(--frame); }
+.hero { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; align-items: start; }
+.hero-card { display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: 14px; background: var(--frame);
+             box-shadow: inset 0 0 0 3px rgba(0,0,0,.35), inset 0 0 0 6px rgba(255,255,255,.14), 0 2px 6px rgba(0,0,0,.25); }
+.hero-card .art { display: block; border-radius: 8px; overflow: hidden; line-height: 0; }
+.hero-card .art svg { width: 100%; height: auto; }
+.hero-card .plate { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; background: linear-gradient(#ffffff, #e9ecf1); color: #16181d; }
+.hero-card .name { font: 700 1.05rem/1.2 "Arial Narrow", "Roboto Condensed", system-ui, sans-serif; }
+.hero-card .meta { font-size: 0.8rem; color: #4b5059; }
+.panel .law { border-left: 5px solid var(--frame); }
+.practice-list h3 { border-left: 5px solid var(--frame); padding-left: 10px; }
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; gap: 12px; }
+  .hero-card { flex-direction: row; align-items: center; }
+  .hero-card .art { width: 110px; flex: none; }
+  .hero-card .plate { flex: 1; }
+}

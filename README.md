@@ -16,7 +16,7 @@ the meters and the numbers follow. Made by the [SMART Lab](https://github.com/UA
 
 <p align="center">
   <img src="docs/light.png" alt="The overview in the light theme: the lectures in order, each with a row of cards; every card has a line drawing of its idea, such as a circuit loop with a current arrow for Ohm's law, and a frame coloured by topic" width="49%">
-  <img src="docs/dark.png" alt="A lab page in the dark theme: the voltage divider of lecture 1, its circuit with a voltmeter reading 2.5 V, its sliders and the analogRead result 512" width="49%">
+  <img src="docs/dark.png" alt="A lab page in the dark theme: the voltage divider of lecture 1 opens with its card, then its circuit with a voltmeter reading 2.5 V, its sliders and the analogRead result 512" width="49%">
 </p>
 
 ## The labs
