@@ -7,6 +7,14 @@ the meters and the numbers follow. Made by the [SMART Lab](https://github.com/UA
 **Open it:** https://abdulhamid-baghdadi.github.io/circuit-lab/
 
 <p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/ohm-dark.gif">
+    <img src="docs/ohm-light.gif" alt="The Ohm's law lab: the voltage slider rises from 2 V to 10 V and the ammeter climbs from 2 mA; then the resistance slides from 1 kΩ down to 270 Ω, the current reaches 37 mA and the power readout turns into a warning, 370 mW, too hot for a 0.25 W resistor" width="100%">
+  </picture>
+</p>
+<p align="center"><sub>Raise the voltage, lower the resistance: the current follows, and the resistor warns when it would burn. Plays once, 5 s.</sub></p>
+
+<p align="center">
   <img src="docs/light.png" alt="The voltage divider lab in the light theme: a circuit of two 10 kΩ resistors on 5 V with a voltmeter reading 2.5 V, sliders for the supply, both resistors and a load, and the result 512 for analogRead" width="49%">
   <img src="docs/dark.png" alt="The same voltage divider lab in the dark theme" width="49%">
 </p>
@@ -63,7 +71,6 @@ check that holds them: [ARCHITECTURE.md](ARCHITECTURE.md). Tests: `node --test "
 - The rectifier steps ideal diodes with a fixed 0.7 V drop; the shock lab uses the lesson's single body resistances.
 - The cable lab holds the load's current fixed, as the lesson's example does; a real load draws less when its voltage
   drops.
-- No animation of the main task yet in this README; the screenshots show the divider lab.
 
 ## Licence
 

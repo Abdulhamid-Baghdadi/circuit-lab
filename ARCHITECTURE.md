@@ -34,3 +34,11 @@ Trusted to the agent: one idea per lab, the words in labs.json matching the UI.
 
 - No file format round-trip test: the app reads `labs.json` and never writes it.
 - The dependency matrix is not drawn yet; `python ~/.claude/skills/web-app-design/scripts/check_layers.py . --page` draws it.
+
+## README pictures
+
+- `docs/ohm-light.gif`, `docs/ohm-dark.gif`: `node scripts/record-readme.mjs` with the site served on port 8765
+  (headless Edge over its DevTools port, then ffmpeg; 4.7 s, plays once).
+- `docs/light.png`, `docs/dark.png`: headless Edge `--screenshot` of `#divider` with
+  `--blink-settings=preferredColorScheme=1` (light) or `0` (dark), window 1280 × 1000.
+- `tests/unit/readme.test.js` checks that every picture the README shows exists and has alt text.
