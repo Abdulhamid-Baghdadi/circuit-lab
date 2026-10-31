@@ -1,7 +1,7 @@
 // A button on a digital pin (lecture 5, slides 42–44): without a resistor the open pin is "an antenna" and reads
-// whatever it picks up; a 10 kΩ pull-down (or the built-in pull-up) gives it a defined level. The reads over time
-// show it; the floating ones come from a seeded sequence, so the picture is the same every time.
-import { buttonPin, random, si } from "../core/index.js";
+// whatever it picks up; a 10 kΩ pull-down (or the built-in pull-up) gives it a defined level. A floating read is
+// shown as "?": it has no defined value, so the lab invents none.
+import { buttonPin, si } from "../core/index.js";
 import { h, s, slider, readout, choice } from "../ui/kit.js";
 import { svg, wire, resistor } from "../ui/schematic.js";
 import * as a from "../ui/art.js";
@@ -23,12 +23,12 @@ export default {
       a.circle(60, 74, 3, a.INK, 2) + a.line([[60, 77], [60, 89]]) + a.resistor(60, 105, true, a.ACC) + a.line([[60, 121], [60, 132]]) +
       a.line([[46, 132], [74, 132]]) + a.arrow(60, 84, 125, 84, a.INK, 2) + a.text(150, 90, "D2", 18, a.INK) + a.text(150, 60, "0 / 1", 14, a.ACC)),
   mount(root) {
-    let wiring = "none", pressed = false, R = 10e3, seed = 1;
+    let wiring = "none", pressed = false, R = 10e3;
     const pic = h("div", { class: "drawing" });
     const trace = h("div", { class: "trace", role: "img" });
     const read = readout("digitalRead(2)"), current = readout("Current through the resistor while pressed");
     const press = h("button", { type: "button", class: "press", "aria-pressed": "false",
-      onclick: () => { pressed = !pressed; seed++; update(); } }, "Press the button");
+      onclick: () => { pressed = !pressed; update(); } }, "Press the button");
     const update = () => {
       const p = buttonPin(wiring, pressed, R);
       press.setAttribute("aria-pressed", String(pressed));
@@ -40,15 +40,13 @@ export default {
         wire([[220, 130], [360, 130]]), s("text", { x: 368, y: 135, class: "label" }, "D2"), lower,
         lower ? s("text", { x: 220, y: 248, class: "label", "text-anchor": "middle" }, "GND") : s("text", { x: 236, y: 190, class: "label" }, "nothing: the pin floats"),
         lower ? wire([[200, 232], [240, 232]]) : null));
-      // Forty reads in a row: a defined level repeats, a floating pin wanders.
-      const rnd = random(seed);
-      const reads = Array.from({ length: SAMPLES }, () => p.level ?? (rnd() < 0.5 ? 0 : 1));
+      // Forty reads in a row: a defined level repeats; a floating pin has no defined value.
+      const reads = Array.from({ length: SAMPLES }, () => p.level ?? "?");
       trace.replaceChildren(...reads.map(v => h("span", { class: `bit-${v}` }, String(v))));
       trace.setAttribute("aria-label", `Forty reads in a row: ${reads.join(" ")}`);
-      read.set(p.level === null ? "0 or 1, by chance" : p.level ? "HIGH (1)" : "LOW (0)", p.level === null ? "danger" : "",
+      read.set(p.level === null ? "undefined" : p.level ? "HIGH (1)" : "LOW (0)", p.level === null ? "danger" : "",
         p.level === null ? "The open pin picks up whatever is near: an antenna." : wiring === "pullup" ? "With a pull-up, pressed reads LOW: the logic turns round." : "");
-      current.set(wiring === "none" ? "—" : si(buttonPin(wiring, true, R).I, "A"), R < 1e3 ? "warn" : "",
-        R < 1e3 ? "A small resistor wastes current every time the button is held." : "Small: the resistor only sets the level.");
+      current.set(wiring === "none" ? "—" : si(buttonPin(wiring, true, R).I, "A"), "", wiring === "none" ? "" : "I = 5 V / R while the button is held.");
     };
     root.append(h("div", { class: "stage" }, h("div", {}, pic, h("p", { class: "hint" }, "The last forty reads:"), trace),
       h("div", { class: "controls" },

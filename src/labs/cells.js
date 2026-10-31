@@ -1,5 +1,5 @@
-// Real batteries (lecture 2, slides 31–36): cells in series add their voltages, in parallel their capacity; every
-// cell has a little resistance inside, so the voltage at the load drops as the load draws more.
+// Real batteries (lecture 2, slides 30–37): cells in series add their voltages, in parallel they keep it and their
+// resistance inside divides; that resistance makes the voltage at the load drop as the load draws more.
 import { cellPack, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
 import * as a from "../ui/art.js";
@@ -18,13 +18,13 @@ export default {
     const update = () => {
       const p = cellPack(wiring, 4, E, r, R);
       pack.set(`${si(p.E, "V")}, ${si(p.r, "Ω")}`);
-      load.set(si(p.U, "V"), p.U < 0.8 * p.E ? "warn" : "", p.U < 0.8 * p.E ? `${Math.round((1 - p.U / p.E) * 100)} % lost inside: the load is too heavy for these cells.` : "");
+      load.set(si(p.U, "V"), "", `${si(p.E - p.U, "V")} stays inside the pack`);
       current.set(si(p.I, "A"));
       lost.set(si(p.lost, "W"));
     };
     root.append(h("div", { class: "stage" }, h("div", { class: "controls" },
         choice("Four cells", [["series", "In series"], ["parallel", "In parallel"], ["2x2", "Two by two"]], wiring, v => { wiring = v; update(); }),
-        slider({ label: "Cell voltage E", unit: "V", min: 1.2, max: 3.7, value: E, step: 0.1, onInput: v => { E = v; update(); } }),
+        choice("Cell", [["1.5", "AA, 1.5 V"], ["2", "Lead-acid, 2 V"]], "1.5", v => { E = Number(v); update(); }),
         slider({ label: "Resistance inside each cell r", unit: "Ω", min: 0.01, max: 2, value: r, log: true, onInput: v => { r = v; update(); } }),
         slider({ label: "Load R", unit: "Ω", min: 0.1, max: 1000, value: R, log: true, onInput: v => { R = v; update(); } })),
       h("div", { class: "controls" }, pack.el, load.el, current.el, lost.el,

@@ -39,7 +39,7 @@ export default {
     };
     root.append(h("div", { class: "stage" }, h("div", {}, row, chart), h("div", { class: "controls" },
       slider({ label: "Feedback resistor Rf", unit: "Ω", min: 200, max: 2000, value: Rf, step: 100, onInput: x => { Rf = x; update(); },
-        help: "The lecture shows 1 kΩ (111 → −8.75 V) and 800 Ω (111 → −7.00 V)." }),
+        help: "With Rf = R, 111 gives −8.75 V (lecture 11, p. 50); with Rf = 800 Ω, −7.00 V (p. 51), which makes R = 1 kΩ at 5 V." }),
       out.el, step.el,
       h("p", { class: "hint" }, "Each bit has half the weight of the one before it, like the places of a binary number. The opamp inverts, so the output is negative."))));
     update();

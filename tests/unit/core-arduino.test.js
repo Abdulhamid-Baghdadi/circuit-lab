@@ -6,11 +6,12 @@ import { breadboardNet, shorted, multimeter, npnSwitch, clockIn, shiftOutBits, r
 
 const near = (a, b, tol = 1e-9) => assert.ok(Math.abs(a - b) <= tol * Math.max(1, Math.abs(b)), `${a} ≠ ${b}`);
 
-test("breadboard: a–e of a column are one strip, f–j another, rails run the length; a part across one strip is shorted", () => {
+test("breadboard: a–e of a column are one strip, f–j another, rails in two halves as lesson 5 draws them; a part across one strip is shorted", () => {
   assert.equal(breadboardNet("12a"), breadboardNet("12e"));
   assert.notEqual(breadboardNet("12e"), breadboardNet("12f"));
   assert.notEqual(breadboardNet("12a"), breadboardNet("13a"));
-  assert.equal(breadboardNet("+top1"), breadboardNet("+top30"));
+  assert.equal(breadboardNet("+top1"), breadboardNet("+top15"));
+  assert.notEqual(breadboardNet("+top15"), breadboardNet("+top16"));
   assert.ok(shorted("5b", "5d"));
   assert.ok(!shorted("5b", "8b"));
   assert.throws(() => breadboardNet("x"), /not a breadboard hole/);
@@ -45,13 +46,12 @@ test("colour: 255, 100, 50 is #FF6432 (the struct example, lesson 9); three byte
   assert.equal(colourCount, 16777216);
 });
 
-test("types: the lecture 7 ranges on the R3; an int on the R4 is 4 bytes; 32767 + 1 wraps to −32768", () => {
-  const r3 = intType("R3", "int");
-  assert.deepEqual([r3.min, r3.max], [-32768, 32767]);
-  assert.equal(r3.store(32768), -32768);
+test("types: the lecture 7 ranges; an unsigned type wraps modulo 2^bits (255 + 1 in a byte is 0)", () => {
+  const int = intType("R3", "int");
+  assert.deepEqual([int.min, int.max], [-32768, 32767]);
   assert.deepEqual([intType("R3", "unsigned long").min, intType("R3", "unsigned long").max], [0, 4294967295]);
-  assert.equal(intType("R4", "int").max, 2147483647);
   assert.equal(intType("R3", "byte").store(256), 0);
+  assert.equal(intType("R3", "unsigned int").store(65537), 1);
 });
 
 test("typecasting (lesson 9): (int)10.75 → 10, (int)23.67 → 23, 100 / 3 → 33 in whole numbers", () => {
@@ -61,7 +61,7 @@ test("typecasting (lesson 9): (int)10.75 → 10, (int)23.67 → 23, 100 / 3 → 
 });
 
 test("Boeing 787 (lecture 13): a signed 32-bit counter of hundredths of a second overflows after 248 days", () => {
-  near(intType("R4", "long").max / 100 / 86400, 248.55, 1e-4);
+  near(intType("R3", "long").max / 100 / 86400, 248.55, 1e-4);
 });
 
 test("bases: 26 is 11010, 32, 1A (lecture 11, p. 7–8); 7 + 5 in 4 bits is 1100 with carries", () => {

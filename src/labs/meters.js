@@ -1,6 +1,6 @@
 // Where the meters go (lecture 3, slides 6–13): an ammeter has a low resistance and goes in series, a voltmeter a high
 // one and goes in parallel. Put either in the wrong place and the circuit tells you: a short, or nothing flowing.
-import { meters, si } from "../core/index.js";
+import { si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
 import { svg, wire, resistor, source, meter } from "../ui/schematic.js";
 import * as a from "../ui/art.js";
@@ -32,16 +32,18 @@ export default {
     const pic = h("div", { class: "drawing" });
     const ra = readout("The ammeter reads"), rv = readout("The voltmeter reads"), verdict = readout("What really happens");
     const update = () => {
-      const m = meters(U, R, amm, volt);
       // Each meter where the student put it: on the top or bottom wire in series, or on its own branch across R.
-      const A = amm === "series" ? meter(200, 50, "A", si(m.ammeterReads, "A")) : meter(370, 130, "A", si(m.ammeterReads, "A"), "right");
-      const V = volt === "parallel" ? meter(480, 130, "V", si(m.voltmeterReads, "V"), "right") : meter(200, 220, "V", si(m.voltmeterReads, "V"));
+      // Placed right, ideal meters read U and U / R; placed wrong, the lab says what happens rather than inventing a number.
+      const aText = amm === "series" ? (volt === "series" ? "≈ 0 A" : si(U / R, "A")) : "short!";
+      const vText = volt === "parallel" ? (amm === "parallel" ? "≈ 0 V" : si(U, "V")) : (amm === "parallel" ? "≈ 0 V" : `≈ ${si(U, "V")}`);
+      const A = amm === "series" ? meter(200, 50, "A", aText) : meter(370, 130, "A", aText, "right");
+      const V = volt === "parallel" ? meter(480, 130, "V", vText, "right") : meter(200, 220, "V", vText);
       pic.replaceChildren(drawing(amm, volt, A, V));
-      ra.set(si(m.ammeterReads, "A"), amm === "parallel" ? "danger" : "", amm === "parallel" ? "Across R the ammeter is a short circuit: a blown fuse in the meter." : `R carries ${si(m.IR, "A")}: right.`);
-      rv.set(si(m.voltmeterReads, "V"), volt === "series" ? "warn" : "", volt === "series" ? "In series the voltmeter blocks the current: it reads the source, nothing flows." : "The voltage across R: right.");
+      ra.set(aText, amm === "parallel" ? "danger" : "", amm === "parallel" ? "Across R the ammeter, with its low resistance, short-circuits the source." : volt === "series" ? "Almost no current: the voltmeter in series blocks it." : `The current through R: right.`);
+      rv.set(vText, volt === "series" ? "warn" : "", volt === "series" ? "In series the voltmeter's high resistance blocks the current; it reads about the source's voltage." : amm === "parallel" ? "The short circuit leaves almost no voltage across R." : "The voltage across R: right.");
       const ok = amm === "series" && volt === "parallel";
       verdict.set(ok ? "Measured right" : "Measured wrong", ok ? "" : "danger",
-        ok ? `U = ${si(m.voltmeterReads, "V")}, I = ${si(m.ammeterReads, "A")}, so R = U / I = ${si(m.voltmeterReads / m.ammeterReads, "Ω")}.` : "Ammeter in series, voltmeter in parallel.");
+        ok ? `U = ${si(U, "V")}, I = ${si(U / R, "A")}, so R = U / I = ${si(R, "Ω")}.` : "Ammeter in series, voltmeter in parallel.");
     };
     root.append(h("div", { class: "stage" }, pic, h("div", { class: "controls" },
       choice("Ammeter (low resistance)", [["series", "In series with R"], ["parallel", "Across R"]], amm, v => { amm = v; update(); }),

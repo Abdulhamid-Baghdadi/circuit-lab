@@ -11,8 +11,8 @@ export function adcRead(U, Uref = 5, bits = 10) {
 /** The voltage one step of the converter stands for: Uref / 2^n. */
 export const lsb = (Uref = 5, bits = 10) => Uref / 2 ** bits;
 
-/** From a reading back to volts, as a sketch would compute it: value · Uref / (2^n − 1). */
-export const adcToVolts = (value, Uref = 5, bits = 10) => value * Uref / (2 ** bits - 1);
+/** From a reading back to the voltage at the bottom of its step: value · Uref / 2^n, so 512 is 2.5 V (lesson 5). */
+export const adcToVolts = (value, Uref = 5, bits = 10) => value * Uref / 2 ** bits;
 
 /** analogWrite(value) on an 8-bit PWM pin: duty = value / 255; the average voltage is duty · Uhigh. */
 export function pwm(value, Uhigh = 5) {

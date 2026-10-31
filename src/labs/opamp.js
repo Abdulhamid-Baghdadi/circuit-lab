@@ -28,13 +28,13 @@ export default {
         s("text", { x: 230, y: 30, class: "label", "text-anchor": "middle" }, rail === Infinity ? "ideal" : `+${rail} V`),
         s("text", { x: 230, y: 205, class: "label", "text-anchor": "middle" }, rail === Infinity ? "" : `−${rail} V`)));
       out.set(si(v, "V"), v !== ideal ? "warn" : "",
-        v !== ideal ? `Ideally ${si(ideal, "V")}, but the output cannot pass its supply: it saturates.` : `${gain} × (${vp} − ${vm}) = ${si(ideal, "V")}`);
+        v !== ideal ? `Ideally ${si(ideal, "V")}, but the output cannot go beyond its supply; real opamps stop at or a little before it.` : `${gain} × (${vp} − ${vm}) = ${si(ideal, "V")}`);
     };
     root.append(h("div", { class: "stage" }, pic, h("div", { class: "controls" },
       slider({ label: "Plus input V+", unit: "V", min: -10, max: 10, value: vp, step: 0.5, onInput: x => { vp = x; update(); } }),
       slider({ label: "Minus input V−", unit: "V", min: -10, max: 10, value: vm, step: 0.5, onInput: x => { vm = x; update(); } }),
       slider({ label: "Gain Av", unit: "", min: 1, max: 20, value: gain, step: 1, format: x => `${x}×`, onInput: x => { gain = x; update(); } }),
-      choice("Supply", [["ideal", "Ideal, as on the slide"], ["12", "±12 V"], ["5", "±5 V"]], "ideal",
+      choice("Supply (the output stops at most here)", [["ideal", "Ideal, as on the slide"], ["12", "±12 V"], ["5", "±5 V"]], "ideal",
         x => { rail = x === "ideal" ? Infinity : Number(x); update(); }),
       out.el,
       h("p", { class: "hint" }, "Equal inputs give 0 V whatever their size: the opamp amplifies only the difference."))));

@@ -43,7 +43,7 @@ export default {
         slider({ label: "Heat needed a year", unit: "kWh", min: 2000, max: 30000, value: heat, step: 500, format: v => `${v} kWh`, onInput: v => { heat = v; update(); } }),
         slider({ label: "Gas price", unit: "€/kWh", min: 0.05, max: 0.3, value: gas, step: 0.01, format: v => `€${v.toFixed(2)}`, onInput: v => { gas = v; update(); } }),
         table,
-        h("p", { class: "hint" }, "Prices and efficiencies from lecture 4, slides 24–26. Look out for standby: a few watts all year adds up."))));
+        h("p", { class: "hint" }, "Prices and efficiencies from lecture 4, slides 24–26. Slide 27: pay special attention to standby consumption."))));
     update();
   },
 };

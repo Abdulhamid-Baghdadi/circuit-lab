@@ -55,7 +55,7 @@ export default {
       h("p", { class: "hint" }, "Click a hole for the first leg, then one for the second. Or type them:"),
       h("div", { class: "row" }, h("label", {}, "Leg 1 ", inputs[0]), h("label", {}, " Leg 2 ", inputs[1])),
       verdict.el,
-      h("p", { class: "hint" }, "Inside, the five holes a–e of each column are one metal strip, f–j another. The long rails at top and bottom carry + and −. The groove in the middle separates the two halves: a chip sits across it."))));
+      h("p", { class: "hint" }, "Inside, the five holes a–e of each column are one metal strip, f–j another. The rails at top and bottom carry + and −; lesson 5's slide 35 draws them interrupted in the middle, so this board does too. Check your own board."))));
     update();
   },
 };

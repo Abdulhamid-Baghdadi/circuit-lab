@@ -36,7 +36,7 @@ export default {
       slider({ label: "How long the contacts bounce", unit: "ms", min: 0, max: 20, value: bounceMs, step: 1, format: v => `${v} ms`, onInput: v => { bounceMs = v; update(); } }),
       h("button", { type: "button", onclick: () => { seed++; update(); } }, "Press again"),
       raw.el, clean.el,
-      h("p", { class: "hint" }, "Other cures from the lecture: a low-pass filter or a Schmitt trigger in hardware."))));
+      h("p", { class: "hint" }, "Other cures from the lecture (p. 36): buffer springs, a low-pass filter, a hysteretic transistor circuit. The bounce drawn here is an example, not a measurement: the course gives no bounce times."))));
     update();
   },
 };

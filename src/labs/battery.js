@@ -32,7 +32,7 @@ export default {
         slider({ label: "Load power P", unit: "W", min: 0.01, max: 50, value: P, log: true, onInput: v => { P = v; update(); } }),
         slider({ label: "Electricity price", unit: "€/kWh", min: 0.1, max: 1, value: price, step: 0.01, format: v => `€${v.toFixed(2)}`, onInput: v => { price = v; update(); } })),
       h("div", { class: "controls" }, pack.el, current.el, life.el, energy.el, cost.el,
-        h("p", { class: "hint" }, "Cells in series add their voltages; in parallel they add their capacity (lesson 2, slides 31–33)."))));
+        h("p", { class: "hint" }, "Cells in series add their voltages (lesson 2, slides 30–32)."))));
     update();
   },
 };

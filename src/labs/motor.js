@@ -25,7 +25,7 @@ export default {
         slider({ label: "Height h", unit: "m", min: 0.1, max: 10, value: height, step: 0.1, onInput: v => { height = v; update(); } }),
         slider({ label: "Time t", unit: "s", min: 1, max: 120, value: t, step: 1, onInput: v => { t = v; update(); } }),
         slider({ label: "Safety factor", unit: "", min: 1, max: 6, value: margin, step: 0.5, format: v => `${v}×`, onInput: v => { margin = v; update(); },
-          help: "The lesson goes from 25 W in theory to about 100 W for the real door: a factor of 4." })),
+          help: "Lecture 13, p. 29: for its door, 60 kg + acceleration + friction gives about 100 W, four times the ideal 25 W. That is this door, not a general rule." })),
       h("div", { class: "controls" }, force.el, speed.el, ideal.el, design.el,
         h("p", { class: "hint" }, "The same work done twice as fast needs twice the power."))));
     update();

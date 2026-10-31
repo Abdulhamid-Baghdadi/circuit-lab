@@ -10,7 +10,7 @@ const CELLS = {
   nicd: ["NiCd", 1.2, "Memory effect; about 1500 cycles."],
   nimh: ["NiMH", 1.2, "No memory effect; about 750 cycles."],
   lead: ["Lead-acid", 2, "Heavy; can stay on charge; never discharge fully; 95 % recycled. A car battery is 6 cells."],
-  lipo: ["Li-ion / LiPo", 3.7, "Light and strong, but needs protection: stop discharging at 3.2 V, charging at 4.2 V."],
+  lipo: ["Li-ion / LiPo", 3.7, "3.6–3.7 V (3.7 used here). Needs protection: discharging stops at 3.2 V, charging at 4.2 V."],
 };
 
 export default {
@@ -27,7 +27,7 @@ export default {
       const n = cellsFor(target, U);
       pack.set(`${n} cells`, "", `${n} × ${U} V = ${(n * U).toFixed(1)} V for ${name}`);
       safe.set(`${lipo.toFixed(2)} V`, lipo < 3.2 || lipo > 4.2 ? "danger" : "",
-        lipo < 3.2 ? "Below 3.2 V: the protection cuts off; going lower damages the cell." : lipo > 4.2 ? "Above 4.2 V: overcharged, a fire risk; the charger must stop." : "Inside the safe window, 3.2 to 4.2 V.");
+        lipo < 3.2 ? "Below 3.2 V: the protection stops the discharge (lecture 12, p. 10)." : lipo > 4.2 ? "Above 4.2 V: the protection stops the charge (p. 10)." : "Between the limits of 3.2 and 4.2 V (p. 10).");
     };
     root.append(h("div", { class: "stage" }, h("div", { class: "controls" },
         choice("Chemistry", Object.entries(CELLS).map(([k, [n, v]]) => [k, `${n}, ${v} V`]), kind, v => { kind = v; update(); }),

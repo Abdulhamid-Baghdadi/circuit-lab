@@ -6,7 +6,7 @@ import * as a from "../ui/art.js";
 
 // Lesson 4, slide 8.
 const CONTACT = { rubber: [10e6, "Rubber shoes, insulated, about 10 MΩ"], leather: [15e3, "Leather shoes, about 15 kΩ"],
-                  damp: [5e3, "Damp room or puddle, about 5 kΩ"] };
+                  damp: [5e3, "Damp room or puddle, 5 kΩ or even less"] };
 // Lesson 4, slide 7: the current from which each effect starts, DC and AC. Tissue burns has no AC value on the slide.
 const EFFECTS = [
   [1e-3, 0.4e-3, "Tingling"],
@@ -32,7 +32,7 @@ export default {
       const col = ac ? 1 : 0;
       const reached = EFFECTS.filter(e => e[col] !== null && I >= e[col]).length;
       const worst = reached ? EFFECTS[reached - 1][2] : "Nothing felt";
-      current.set(si(I, "A"), reached >= 4 ? "danger" : reached >= 2 ? "warn" : "", `${worst}.${ac && I >= 0.03 ? " A 30 mA differential breaker trips." : ""}`);
+      current.set(si(I, "A"), reached >= 4 ? "danger" : reached >= 2 ? "warn" : "", `${worst}.${ac && I >= 0.03 ? " A 30 mA differential breaker would trip, if the current flows to earth." : ""}`);
       table.replaceChildren(
         h("thead", {}, h("tr", {}, h("th", { scope: "col" }, "From DC"), h("th", { scope: "col" }, "From AC"), h("th", { scope: "col" }, "Effect"), h("th", { scope: "col" }, ""))),
         h("tbody", {}, EFFECTS.map((e, k) => h("tr", { class: k === reached - 1 ? "here" : "" },

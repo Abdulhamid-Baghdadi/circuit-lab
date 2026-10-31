@@ -33,8 +33,7 @@ export default {
                `${C && kind !== "none" ? ` with ${si(C, "F")}` : ""}; ripple ${si(r.ripple, "V")}`,
       }));
       avg.set(si(r.average, "V"));
-      ripple.set(si(r.ripple, "V"), kind !== "none" && r.ripple > 0.1 * Upeak ? "warn" : "",
-        kind === "none" ? "Still AC: it averages to nothing." : r.ripple > 0.1 * Upeak ? "More than 10 % of the peak: a bigger capacitor helps." : "");
+      ripple.set(si(r.ripple, "V"), "", kind === "none" ? "Still AC: it averages to nothing." : "A bigger capacitor or a larger load resistance makes it smaller.");
     };
     root.append(h("div", { class: "stage" }, chart, h("div", { class: "controls" },
       choice("Diodes", [["none", "None (AC)"], ["half", "One diode"], ["bridge", "Graetz bridge"]], kind, v => { kind = v; update(); }),
@@ -43,7 +42,7 @@ export default {
       slider({ label: "Load R", unit: "Ω", min: 10, max: 10e3, value: R, log: true, onInput: v => { R = v; update(); },
         help: "A smaller load resistance draws more current and empties the capacitor faster." }),
       avg.el, ripple.el,
-      h("p", { class: "hint" }, "Each conducting diode takes about 0.7 V; in a bridge two conduct at a time."))));
+      h("p", { class: "hint" }, "Ideal parts except the 0.7 V each conducting diode takes (lecture 10, p. 6); in a bridge two conduct at a time."))));
     update();
   },
 };

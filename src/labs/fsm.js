@@ -29,7 +29,7 @@ export default {
             s("text", { x: (x + nx) / 2 + (k === 1 ? 0 : k === 0 ? 30 : -30), y: (y + ny) / 2 + (k === 1 ? 20 : 0), class: "tick", "text-anchor": "middle" }, `after ${st.ms / 1000} s`),
             s("circle", { cx: x, cy: y, r: 38, class: `state ${st.cls}${st === state ? " on" : ""}` }),
             s("text", { x, y: y + 5, class: "label", "text-anchor": "middle" }, st.label)); })));
-      code.textContent = `enum Toestand { GROEN, ORANJE, ROOD };\nToestand toestand = ${state.name};\n\nswitch (toestand) {\n  case GROEN:  if (millis() - start >= 5000) { toestand = ORANJE; start = millis(); } break;\n  case ORANJE: if (millis() - start >= 2000) { toestand = ROOD;   start = millis(); } break;\n  case ROOD:   if (millis() - start >= 5000) { toestand = GROEN;  start = millis(); } break;\n}`;
+      code.textContent = `// after lesson 9's traffic-light example\nenum Toestand { GROEN, ORANJE, ROOD };\nToestand toestand = ${state.name};\n\nswitch (toestand) {\n  case GROEN:  if (millis() - start >= 5000) { toestand = ORANJE; start = millis(); } break;\n  case ORANJE: if (millis() - start >= 2000) { toestand = ROOD;   start = millis(); } break;\n  case ROOD:   if (millis() - start >= 5000) { toestand = GROEN;  start = millis(); } break;\n}`;
     };
     const time = slider({ label: "Time", unit: "s", min: 0, max: 24, value: 0, step: 0.1, format: v => `${v.toFixed(1)} s`, onInput: v => { t = v * 1000; update(); } });
     root.append(h("div", { class: "stage" }, h("div", {}, pic, code), h("div", { class: "controls" },

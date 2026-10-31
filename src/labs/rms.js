@@ -24,7 +24,7 @@ export default {
         xLabel: "Time [ms]", yLabel: "Voltage [V]", yMin: -Math.ceil(p), yMax: Math.ceil(p),
         label: `A ${f} Hz sine of ${si(U, "V")} RMS: it peaks at ${si(p, "V")}`,
       }));
-      peak.set(si(p, "V"), "", "The insulation must take this, not the RMS.");
+      peak.set(si(p, "V"));
       pp.set(si(2 * p, "V"));
       meter.set(si(U, "V"), "", "RMS: the voltage that heats a resistor as much as that DC voltage would.");
     };

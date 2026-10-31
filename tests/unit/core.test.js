@@ -45,7 +45,7 @@ test("ADC: 10 bits over 5 V; 2.5 V reads 512, 5 V reads 1023, below 0 clamps", (
   assert.equal(adcRead(-1), 0);
   assert.equal(adcRead(3.3, 3.3, 12), 4095);
   near(lsb(), 5 / 1024);
-  near(adcToVolts(1023), 5);
+  near(adcToVolts(512), 2.5); // lesson 5: 512 is 2.5 V
 });
 
 test("PWM: analogWrite(127) is a 49.8 % duty, about 2.49 V average on 5 V", () => {

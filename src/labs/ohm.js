@@ -5,9 +5,6 @@ import { h, slider, readout, choice } from "../ui/kit.js";
 import { svg, wire, resistor, source, meter } from "../ui/schematic.js";
 import * as a from "../ui/art.js";
 
-// A quarter-watt resistor, the kind in the kit and on a breadboard.
-const RATING = 0.25;
-
 export default {
   id: "ohm",
   art: () => a.picture("A source and a resistor in a loop, the current arrow along the top wire",
@@ -29,9 +26,8 @@ export default {
       const P = U * I;
       A.set(si(I, "A")); V.set(si(U, "V"));
       current.set(si(I, "A"));
-      heat.set(si(P, "W"), P > RATING ? "danger" : P > RATING / 2 ? "warn" : "",
-        P > RATING ? `Too hot: a ${RATING} W resistor burns.` : P > RATING / 2 ? "Warm: over half its rating." : "");
-      // Faster dots for more current; the log keeps µA and A both visible.
+      heat.set(si(P, "W"));
+      // A drawing, not a measurement: the dots move faster for more current, on a log scale so µA and A both show.
       const speed = Math.max(0.3, Math.min(8, 2 + Math.log10(I * 1000)));
       flow.style.setProperty("--speed", `${(4 / speed).toFixed(2)}s`);
     };
@@ -43,7 +39,7 @@ export default {
           choice("Draw the current as", [["technical", "Technical current, + to −"], ["electrons", "Electrons, − to +"]], "technical",
             v => { flow.classList.toggle("electrons", v === "electrons"); }),
           current.el, heat.el,
-          h("p", { class: "hint" }, "Double the voltage: the current doubles, the power goes ×4. Try it. The course always draws the technical current, + to −; the electrons really move the other way (lecture 1, slide 33)."))));
+          h("p", { class: "hint" }, "Double the voltage: the current doubles, the power goes ×4 (lesson 2, slides 15–18). Try it. The course always draws the technical current, + to −; the electrons really move the other way (lecture 1, slide 33)."))));
     update();
   },
 };

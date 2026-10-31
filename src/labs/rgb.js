@@ -25,7 +25,7 @@ export default {
       ...["Red", "Green", "Blue"].map((name, k) => slider({ label: name, unit: "", min: 0, max: 255, value: c[k], step: 1, format: String,
         onInput: v => { c[k] = v; update(); } })),
       hex.el, count.el,
-      h("p", { class: "hint" }, "Light adds up: red and green make yellow, all three at 255 make white. Each channel is PWM, like analogWrite."))));
+      h("p", { class: "hint" }, "Light adds up: red and green make yellow, all three at 255 make white."))));
     update();
   },
 };

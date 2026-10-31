@@ -66,10 +66,10 @@ export default {
     };
     root.append(h("div", { class: "stage" }, h("div", {}, chart, arm, code), h("div", { class: "controls" },
       slider({ label: "Voltage on A0", unit: "V", min: 0, max: 5, value: U, step: 0.001, onInput: x => { U = x; update(); } }),
-      choice("Resolution", [["10", "10 bits (default)"], ["14", "14 bits (UNO R4, analogReadResolution(14))"]], "10",
+      choice("Resolution", [["10", "10 bits (default)"], ["14", "14 bits (the UNO R4 supports it, lesson 5, slide 40)"]], "10",
         x => { bits = Number(x); update(); }),
       read.el, angle.el, step.el,
-      h("p", { class: "hint" }, "Move the voltage by less than one step: the number does not change."))));
+      h("p", { class: "hint" }, "The number changes only when the voltage crosses a step edge: a small move can leave it the same."))));
     update();
   },
 };

@@ -18,23 +18,24 @@ const wave = (x0, x1, y, amp) => a.line(Array.from({ length: 41 }, (_, k) => [x0
 
 export default {
   id: "transformer",
-  art: () => a.picture("A large wave in, two coils on an iron core, a small wave out",
+  art: () => a.picture("A large wave in, two coils on a metal core, a small wave out",
     a.line([[95, 32], [95, 118]], a.DIM, 4) + a.line([[105, 32], [105, 118]], a.DIM, 4) +
       a.path("M82,40" + " a8,7 0 0 0 0,14".repeat(5)) + a.path("M118,52" + " a8,11.5 0 0 1 0,23".repeat(2)) +
       wave(12, 64, 75, 26) + wave(136, 188, 75, 10)),
   mount(root) {
-    let U = 230, N1 = 80, N2 = 20, R = 20, Rline = 1;
+    let U = 230, N1 = 80, N2 = 20, R = 20;
     const pic = h("div", { class: "drawing" });
     const out = readout("Uout = Uin × Nout / Nin"), power = readout("Power, the same on both sides"), iin = readout("Current from the mains");
-    const line = readout("Same power through a 1 Ω line");
+    const line = readout("Same power through the same line (P = I² × R)");
     const update = () => {
       const t = transformer(U, N1, N2, R);
       out.set(si(t.Uout, "V"));
       power.set(si(t.P, "W"), "", `Iout = ${si(t.Iout, "A")}`);
       iin.set(si(t.Iin, "A"), "", N2 > N1 ? "Stepping up: more current from the mains than through the lamp." : "Stepping down: less current from the mains than through the lamp.");
       // The load's power carried at the input and at the output voltage over the same line: loss = (P/U)² × R.
-      const lossIn = (t.P / U) ** 2 * Rline, lossOut = (t.P / t.Uout) ** 2 * Rline;
-      line.set(`${si(lossIn, "W")} at ${si(U, "V")}`, "", `${si(lossOut, "W")} at ${si(t.Uout, "V")}: ${(lossOut / lossIn).toFixed(1)}× the loss`);
+      // Same power, so the current goes as 1/U and the loss in any line as 1/U² (lecture 3, slide 23).
+      const hi = Math.max(U, t.Uout), lo = Math.min(U, t.Uout);
+      line.set(`${((hi / lo) ** 2).toFixed(1)}× less loss`, "", `at ${si(hi, "V")} than at ${si(lo, "V")}: (${si(hi, "V")} / ${si(lo, "V")})²`);
       pic.replaceChildren(svg(460, 200, `A transformer: ${N1} windings in, ${N2} out, a ${si(R, "Ω")} lamp on the output`,
         s("polyline", { points: "40,60 120,60", class: "wire", fill: "none" }), s("polyline", { points: "40,130 120,130", class: "wire", fill: "none" }),
         s("text", { x: 36, y: 100, class: "label", "text-anchor": "end" }, "~"),
@@ -51,7 +52,7 @@ export default {
       slider({ label: "Windings out Nout", unit: "", min: 5, max: 400, value: N2, step: 5, format: String, onInput: v => { N2 = v; update(); } }),
       slider({ label: "Lamp R", unit: "Ω", min: 1, max: 1000, value: R, log: true, onInput: v => { R = v; update(); } }),
       out.el, power.el, iin.el, line.el,
-      h("p", { class: "hint" }, "A transformer does not work on DC: only a changing current makes a changing field."))));
+      h("p", { class: "hint" }, "A transformer does not work on DC (lecture 3, slide 21)."))));
     update();
   },
 };

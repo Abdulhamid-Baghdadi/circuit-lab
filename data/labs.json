@@ -240,7 +240,7 @@
             "k": 1
           },
           "solution": "Rt = 18 kΩ; I = 9 V / 18 kΩ = 500 µA; U2 = 500 µA × 10 kΩ = 5 V. Check: 1.5 + 5 + 2.5 = 9 V.",
-          "source": "EAVP syllabus §2.4, table method, series example; lesson 1, slides 46–48"
+          "source": "EAVP syllabus §2.2 and §2.4 (the series example: 9 V over 18 kΩ, 500 µA)"
         },
         {
           "question": "Four 3 Ω heating elements on 12 V. Wired as two parallel pairs in series, what power do they give?",
@@ -274,7 +274,7 @@
     {
       "id": "divider",
       "title": "Voltage divider",
-      "idea": "Two resistors in series share the supply voltage in proportion to their size. A potentiometer is a divider you turn; a light sensor is one whose lower resistor changes with light.",
+      "idea": "Two resistors in series share the supply voltage in proportion to their size. A potentiometer is a divider you turn: its wiper splits it in two.",
       "law": "Uout = Uin × R2 / (R1 + R2)",
       "lecture": "EAVP lesson 1, slides 45–49 (series); exercise 2; lesson 5 and 8 (Grove potentiometer and light sensor)",
       "practice": [
@@ -296,7 +296,7 @@
     {
       "id": "led",
       "title": "LED series resistor",
-      "idea": "An LED keeps about the same voltage across it whatever you do; the resistor takes the rest and sets the current.",
+      "idea": "The course treats an LED's voltage as constant (lecture 3, slide 26): the resistor takes the rest of the supply and sets the current.",
       "law": "R = (Usupply − ULED) / I",
       "lecture": "EAVP lesson 3, slide 26 (an LED does not follow Ohm's law); lesson 5 (220 or 330 Ω); exercise 11",
       "practice": [
@@ -310,7 +310,7 @@
             "Uf": 2,
             "I": 0.02
           },
-          "solution": "R = (5 − 2) V / 0.02 A = 150 Ω. It dissipates P = 3 V × 0.02 A = 0.06 W.",
+          "solution": "R = (5 − 2) V / 0.02 A = 150 Ω. The resistor dissipates 3 V × 0.02 A = 0.06 W; the whole circuit takes 5 V × 0.02 A = 0.1 W, the answer sheet's P.",
           "source": "EAVP exercises with answers, exercise 11 (p. 5)"
         }
       ]
@@ -334,7 +334,7 @@
             "drop": 5
           },
           "solution": "R per wire = 5 V / 25 A = 0.2 Ω. A = ρ × l / R = 0.0175·10⁻⁶ Ω·m × 700 m / 0.2 Ω = 61.25·10⁻⁶ m² = 61.25 mm².",
-          "source": "EAVP lesson 2, slides 24–27"
+          "source": "EAVP lesson 2, slides 24–27; syllabus §2.8"
         }
       ]
     },
@@ -355,7 +355,7 @@
             "R": 5000,
             "find": "I"
           },
-          "solution": "I = 230 V / 5 kΩ = 46 mA. On AC that is above 30 mA: extreme pain, risk of cardiac arrest. A 30 mA differential breaker trips.",
+          "solution": "I = 230 V / 5 kΩ = 46 mA. On AC that is in the row from 30 mA: extreme pain, risk of cardiac arrest. A 30 mA differential breaker would trip, if the current flows to earth.",
           "source": "Body resistance and AC table: EAVP lesson 4, slides 7–8; answer worked by hand"
         }
       ]
@@ -363,7 +363,7 @@
     {
       "id": "transformer",
       "title": "Transformer",
-      "idea": "Two coils on one iron core. The ratio of their windings sets the ratio of the voltages; the power stays the same, so where the voltage goes up the current goes down. Only for AC.",
+      "idea": "Two coils on one metal core. The ratio of their windings sets the ratio of the voltages; the power stays the same, so where the voltage goes up the current goes down. Only for AC.",
       "law": "Uin / Uout = Nin / Nout    Uin × Iin = Uout × Iout",
       "lecture": "EAVP lesson 3, slides 20–23; lesson 4 (distribution); exercise 10",
       "practice": [
@@ -388,7 +388,7 @@
       "title": "Battery life",
       "idea": "Capacity in Ah is current times time. Multiply by the voltage and you have the energy in Wh.",
       "law": "I = P / U    Ah = I × t    Wh = Ah × U",
-      "lecture": "EAVP lesson 2, slides 28–36; lesson 12 (batteries); example exam question 3",
+      "lecture": "EAVP lesson 2, slides 28–34; lesson 12 (batteries); example exam question 3",
       "practice": [
         {
           "question": "A 3 W LED lamp on a 7.4 V LiPo must shine 16 h. How many Ah does the battery need?",
@@ -431,7 +431,7 @@
       "title": "From voltage to analogRead",
       "idea": "The Arduino measures a voltage between 0 and 5 V and gives a whole number: 10 bits, so 2¹⁰ = 1024 steps, 0 to 1023. map() turns that number into what you need, such as a servo angle.",
       "law": "value = U / 5 V × 1024 (whole steps)    angle = map(value, 0, 1023, 0, 180)",
-      "lecture": "EAVP lesson 5, slides 40 and 51 (10-bit ADC); example jury question 2; lesson 11 (ADC and DAC)",
+      "lecture": "EAVP lesson 5, slides 40 and 50–51 (10-bit ADC); example jury question 2 (p. 2); lesson 11, p. 48–50 (ADC and DAC)",
       "practice": [
         {
           "question": "A potentiometer gives 2.5 V on A0. Which angle does map(analogRead(A0), 0, 1023, 0, 180) give?",
@@ -443,7 +443,7 @@
             "U": 2.5,
             "outMax": 180
           },
-          "solution": "analogRead gives 2.5 / 5 × 1024 = 512. map: 512 × 180 / 1023 = 90.08, cut to 90.",
+          "solution": "analogRead gives 2.5 / 5 × 1024 = 512. map: 512 × 180 / 1023 = 90.09, cut to 90.",
           "source": "Worked by hand from the definitions of analogRead and map (example jury question 2 asks for the same chain)"
         }
       ]
@@ -516,7 +516,7 @@
     {
       "id": "motor",
       "title": "Sizing a motor",
-      "idea": "Power is force times speed. Work out the ideal power, then design for the worst case with a margin: a motor should not run at its limit.",
+      "idea": "Power is force times speed. Work out the ideal power, then design for the worst case: lecture 13's door goes from 25 W in theory to about 100 W.",
       "law": "P = F × v    F = m × g (g ≈ 10 m/s²)    v = h / t",
       "lecture": "EAVP lesson 13, p. 24–29 (choosing a motor; the garage door)",
       "practice": [
@@ -561,7 +561,7 @@
       "title": "RMS and peak",
       "idea": "Mains voltage swings up and down 50 times a second. Its RMS value is the DC voltage that would heat a resistor just as much; the peak is √2 times higher.",
       "law": "Upeak = √2 × URMS",
-      "lecture": "EAVP lesson 4, slide 12",
+      "lecture": "EAVP lesson 4, slide 12; lesson 3, slide 24 (50 Hz)",
       "practice": [
         {
           "question": "The mains is 230 V RMS. What is its peak voltage?",
@@ -581,7 +581,7 @@
       "title": "Pull-down resistor",
       "idea": "A pin connected to nothing has no level: it reads whatever it picks up. A resistor to GND (pull-down) or to 5 V (pull-up) holds it at a defined level until the button changes it.",
       "law": "Open: pin pulled to GND through R → LOW    Pressed: pin at 5 V → HIGH",
-      "lecture": "EAVP lesson 5, slides 42–44 (digital input, pull-down 10 kΩ)",
+      "lecture": "EAVP lesson 5, slides 42–44 (digital input, pull-down 10 kΩ); lesson 9 (INPUT_PULLUP)",
       "practice": [
         {
           "question": "A button to 5 V and a 10 kΩ pull-down on D2. While it is pressed, what current flows through the resistor?",
@@ -603,7 +603,7 @@
       "title": "Temperature sensor (NTC)",
       "idea": "An NTC is a resistor that drops as it warms. Put it in a divider and the temperature becomes a voltage the Arduino can read.",
       "law": "Uout = 5 V × Rfixed / (RNTC + Rfixed)",
-      "lecture": "EAVP lesson 8 (sensors: the NTC and its table)",
+      "lecture": "EAVP lesson 8, slide 7 (the NTC and its table)",
       "practice": [
         {
           "question": "The lecture's NTC (11.75 kΩ at 5 °C) above a 4.7 kΩ fixed resistor on 5 V. What voltage reaches A0?",
@@ -645,7 +645,7 @@
     {
       "id": "debounce",
       "title": "Button bounce",
-      "idea": "A button's contacts spring open and shut a few times as they meet. The Arduino is fast enough to see every one: one press counts as several. Waiting until the reading is steady fixes it.",
+      "idea": "A button's contacts bounce as they meet, giving several signals for one press (lecture 11, p. 35); a fast circuit sees every one. Accepting a change only once the reading has stayed the same fixes it.",
       "law": "Accept a change only when steady for longer than debounceDelay (50 ms)",
       "lecture": "EAVP lesson 11, p. 35–37 (contact bounce, debouncing with Arduino)",
       "practice": []
@@ -653,9 +653,9 @@
     {
       "id": "cells",
       "title": "Real batteries",
-      "idea": "Cells in series add their voltages; in parallel they keep the voltage and share the current. Every cell has a little resistance inside, so the voltage at the load sags as the load draws more.",
+      "idea": "Cells in series add their voltages; in parallel they keep the voltage and their resistance inside divides. That resistance inside makes the voltage at the load sag as the load draws more.",
       "law": "Series: E = n × Ecell    Parallel: E = Ecell    U = E − I × r",
-      "lecture": "EAVP lesson 2, slides 28–36 (batteries; non-ideal battery)",
+      "lecture": "EAVP lesson 2, slides 30–37 (batteries in series and parallel; non-ideal battery)",
       "practice": [
         {
           "question": "A 10 V battery with 0.2 Ω inside feeds a 1 Ω load. What voltage reaches the load?",
@@ -675,9 +675,9 @@
     {
       "id": "bill",
       "title": "Energy bill",
-      "idea": "Energy is power times time; the bill is energy times price. For heating, a heat pump gives three times the heat it takes as electricity, which can beat cheaper gas.",
+      "idea": "Energy is power times time; the bill is energy times price. For heating, a heat pump gives three times the heat it takes as electricity: at the course's prices that costs about as much as a condensing gas boiler and less than an old one.",
       "law": "E [kWh] = P [kW] × t [h]    cost = E × price",
-      "lecture": "EAVP lesson 3, slide 25; lesson 4, slides 24–26 (consumption analysis); exercise 10",
+      "lecture": "EAVP lesson 3, slide 25; lesson 4, slides 24–27 (consumption analysis); exercise 10",
       "practice": [
         {
           "question": "A lamp of 165.3 W burns for a whole day. How much energy is that, in kWh?",
@@ -696,8 +696,8 @@
     {
       "id": "regulator",
       "title": "Lowering a voltage",
-      "idea": "A linear regulator such as the LM7805 turns the excess voltage into heat; a series resistor does the same, worse. Switching the voltage on and off fast (PWM) loses little.",
-      "law": "Heat = (Uin − Uout) × I    efficiency = Uout / Uin",
+      "idea": "A linear regulator such as the LM7805 turns the excess voltage into heat (lecture 10, p. 18); a series resistor also burns the excess. Pulsing the voltage (PWM) loses little.",
+      "law": "Heat = (Uin − Uout) × I    efficiency at best Uout / Uin",
       "lecture": "EAVP lesson 10, p. 17–19 (DC to DC conversion); exercise 7",
       "practice": [
         {
@@ -766,7 +766,7 @@
     {
       "id": "iot",
       "title": "Battery budget",
-      "idea": "A sensor node sleeps most of the time and wakes to measure and send. Add up the mAh of each state over a year, and the battery's capacity tells you how long it lasts.",
+      "idea": "Lecture 12's sensor node idles all the time and now and then measures and sends. Add up the mAh of each state over a year, and the battery's capacity tells you how long it lasts.",
       "law": "mAh per year = mA × seconds × times a day × 365 / 3600    life = capacity / mAh per year",
       "lecture": "EAVP lesson 12, p. 19–20 (IoT device examples)",
       "practice": [
@@ -788,16 +788,16 @@
       "id": "breadboard",
       "title": "The breadboard",
       "idea": "Inside a breadboard, metal strips join holes in groups of five. Two legs in one strip are joined to each other, so a part placed that way does nothing: it is shorted.",
-      "law": "a–e of one column: one strip    f–j: another    rails: the whole length",
-      "lecture": "EAVP lesson 5 (the breadboard; the button and LED exercises)",
+      "law": "a–e of one column: one strip    f–j: another    rails along the edges",
+      "lecture": "EAVP lesson 5, slide 35 (the breadboard)",
       "practice": []
     },
     {
       "id": "multimeter",
       "title": "Using a multimeter",
-      "idea": "A multimeter has a socket for each job and a range for each size. Black lead in COM; red in V for voltage, in mA or A for current; start at the highest range.",
+      "idea": "A multimeter has a socket for each job: COM, and V, mA or A. For a voltage the meter goes across the part with the lead in V (high resistance); for a current it goes in the circuit with the lead in mA or A (low resistance).",
       "law": "U: red in V, across the part    I: red in mA or A, in series",
-      "lecture": "EAVP lesson 3, slides 10–13 (multimeter, scale indication, meters in practice)",
+      "lecture": "EAVP lesson 3, slides 11–13 (multimeter, scale indication, meters in practice)",
       "practice": []
     },
     {
@@ -845,7 +845,7 @@
     {
       "id": "rgb",
       "title": "Mixing colours",
-      "idea": "A NeoPixel holds a red, a green and a blue LED, each dimmed from 0 to 255. Light adds up: red and green give yellow, all three give white.",
+      "idea": "An RGB LED is a single LED that can give red, green and blue light, each set from 0 to 255. Light adds up: red and green give yellow, all three give white.",
       "law": "colour = (red, green, blue), each 0–255    256³ colours",
       "lecture": "EAVP lesson 9 (4 Nov), NeoPixel and NeoMatrix; Arduino lesson of 5 Nov, p. 3–12",
       "practice": [
@@ -865,23 +865,23 @@
     {
       "id": "types",
       "title": "Variable types and overflow",
-      "idea": "A whole-number variable has a fixed number of bits. Past its largest value it wraps round to its smallest, without any warning; dividing two whole numbers drops the decimals.",
-      "law": "int on UNO R3: −32 768 to 32 767    32 767 + 1 → −32 768",
-      "lecture": "EAVP lesson 7 (variable types); lesson 9 (typecasting); lecture 13, p. 30–35 (the Boeing 787)",
+      "idea": "A whole-number variable has a fixed number of bits. An unsigned one wraps round past its largest value; for a signed one the result is undefined, which lesson 9 calls an incorrect result. Dividing two whole numbers drops the decimals.",
+      "law": "byte: 0 to 255    255 + 1 → 0 in a byte    int (UNO R3): −32 768 to 32 767",
+      "lecture": "EAVP lesson 7 (variable types); lesson 9 (typecasting); lecture 13, p. 34 (the Boeing 787)",
       "practice": [
         {
-          "question": "On an UNO R3, int x = 32767; x = x + 1; What is x now?",
-          "answer": -32768,
+          "question": "byte b = 255; b = b + 1; What does b hold now?",
+          "answer": 0,
           "unit": "",
+          "tolerance": 0,
           "compute": {
             "law": "wrap",
             "board": "R3",
-            "type": "int",
-            "value": 32768
+            "type": "byte",
+            "value": 256
           },
-          "solution": "An int on the R3 is 16 bits, −32 768 to 32 767. One more wraps round to −32 768.",
-          "source": "Range: EAVP lesson 7, the type table; answer by definition",
-          "tolerance": 0
+          "solution": "A byte holds 0 to 255. An unsigned type wraps round: 256 is stored as 256 − 256 = 0.",
+          "source": "Range: EAVP lesson 7, the type table; the wrap by the rules of C++ for unsigned types"
         }
       ]
     },
@@ -902,7 +902,7 @@
             "base": 16
           },
           "solution": "1A = 1 × 16 + 10 = 26.",
-          "source": "EAVP lesson 11, p. 8 (the conversion table)",
+          "source": "EAVP lesson 11, p. 8 (hex digits 0–9, A–F) and p. 9 (place values)",
           "tolerance": 0
         }
       ]
@@ -910,8 +910,8 @@
     {
       "id": "steppers",
       "title": "Stepper or servo",
-      "idea": "A stepper turns a fixed angle per step and counts steps, but cannot see where it is: under too much load it skips steps and never knows. A servo measures its angle and corrects itself.",
-      "law": "Stepper: angle = steps × 1.8°    Servo: goes to the angle it is told (0–180°)",
+      "idea": "A stepper turns a step angle per step and counts steps, but has no feedback: it can skip steps and does not know its 0 position. A servo has feedback on its position.",
+      "law": "Stepper: angle = steps × step angle (for example 1.8°)    Servo: goes to the angle it is told (0–180°)",
       "lecture": "EAVP lecture 13, p. 18–26 (stepper, servo, servo versus stepper); Arduino lesson of 5 Nov, p. 21–24",
       "practice": [
         {
@@ -931,9 +931,9 @@
     {
       "id": "fsm",
       "title": "State machine",
-      "idea": "A traffic light is always in one state. An event, here its time running out, moves it to the next. Writing a sketch this way keeps it from waiting with delay(), so it can still react to a button.",
+      "idea": "A traffic light is always in one state. An event, here its time running out, moves it to the next. Timing with millis() instead of delay() keeps the sketch free to read a button meanwhile (lesson 9, timers).",
       "law": "states + events + transitions",
-      "lecture": "EAVP lesson 9 (4 Nov), finite state machines: the traffic light",
+      "lecture": "EAVP lesson 9 (4 Nov): finite state machines, the traffic light; timers with millis()",
       "practice": [
         {
           "question": "Green 5 s, orange 2 s, red 5 s. How long is one full cycle of the traffic light?",
@@ -956,7 +956,7 @@
     {
       "id": "chemistry",
       "title": "Battery chemistries",
-      "idea": "Each battery chemistry has its own cell voltage, and those voltages are asked by heart at the exam. Cells in series reach a higher voltage; a LiPo must stay between 3.2 and 4.2 V.",
+      "idea": "Each battery chemistry has its own cell voltage, and those voltages are asked by heart at the exam. Cells in series reach a higher voltage; a LiPo's protection stops it at 3.2 V and 4.2 V.",
       "law": "Alkaline 1.5 V · NiCd 1.2 V · NiMH 1.2 V · lead-acid 2 V · Li-ion/LiPo 3.6–3.7 V",
       "lecture": "EAVP lecture 12, p. 3–13 (battery types, LiPo safety, overview table); lesson 2 (car battery)",
       "practice": [

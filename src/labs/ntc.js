@@ -5,7 +5,7 @@ import { h, slider, readout } from "../ui/kit.js";
 import { lineChart } from "../ui/chart.js";
 import * as a from "../ui/art.js";
 
-// The NTC on lecture 8's slide: R25 = 4.7 kΩ, −15 to 75 °C; resistance in Ω at each temperature (the table stops at 55 °C).
+// The NTC on lecture 8's slide 7: R25 = 4.7 kΩ, −15 to 75 °C; resistance in Ω at each temperature (the table stops at 55 °C).
 const TABLE = [[-15, 32900], [-5, 19400], [5, 11750], [15, 7330], [25, 4700], [35, 3060], [45, 2070], [55, 1410]];
 
 export default {
@@ -17,7 +17,7 @@ export default {
   mount(root) {
     let T = 25, Rfixed = 4700;
     const chart = h("div", { class: "drawing" });
-    const r = readout("NTC resistance (from the table)"), u = readout("Voltage on A0, NTC above, fixed resistor below"),
+    const r = readout("NTC resistance (the table; between its points interpolated)"), u = readout("Voltage on A0, NTC above, fixed resistor below"),
           v = readout("analogRead(A0)"), back = readout("Temperature the sketch works out");
     const update = () => {
       const R = ntcResistance(T, TABLE), { Uout } = divider(5, R, Rfixed), value = adcRead(Uout);

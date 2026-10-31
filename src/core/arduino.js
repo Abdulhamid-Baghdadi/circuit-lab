@@ -2,11 +2,12 @@
 // register, colours, variable types, number bases, the stepper and the servo, a state machine, battery cells.
 
 // ---------------------------------------------------------------- breadboard
-/** A hole on a half-size breadboard: a terminal hole "12c" (column 1–30, row a–j) or a rail hole "+top3". Holes
- *  a–e of one column are one strip, f–j another; each rail runs the length of the board. Returns the net's name. */
+/** A hole on a breadboard of 30 columns: a terminal hole "12c" (column 1–30, row a–j) or a rail hole "+top3". Holes
+ *  a–e of one column are one strip, f–j another. The rails are taken as lesson 5's slide 35 draws them, interrupted in
+ *  the middle (columns 1–15 and 16–30); on a board whose rails run through, the two halves are joined. */
 export function breadboardNet(hole) {
-  const rail = hole.match(/^([+-])(top|bottom)\d+$/);
-  if (rail) return `${rail[1]}${rail[2]}`;
+  const rail = hole.match(/^([+-])(top|bottom)(\d+)$/);
+  if (rail) return `${rail[1]}${rail[2]}${Number(rail[3]) <= 15 ? "-left" : "-right"}`;
   const m = hole.match(/^(\d+)([a-j])$/);
   if (!m) throw new Error(`"${hole}" is not a breadboard hole: use a column and a row such as 12c, or a rail such as +top3.`);
   return `${m[1]}${"abcde".includes(m[2]) ? "a-e" : "f-j"}`;
@@ -29,7 +30,7 @@ export function multimeter(want, socket, range, value) {
 
 // ---------------------------------------------------------------- transistor
 /** An NPN transistor switching a load from a supply: base resistor Rb from a 5 V pin, a base-emitter drop of 0.7 V,
- *  a current gain β (an assumption; 2N2222 datasheets give a range). Saturated when β·Ib covers what the load needs. */
+ *  a current gain β (the syllabus's Hfe, §5.3). Fully on when β·Ib covers what the load needs. */
 export function npnSwitch({ pin = 5, Rb, beta = 100, Usupply, Rload, on = true }) {
   if (!on) return { Ib: 0, Ic: 0, saturated: false, Uload: 0 };
   const Ib = Math.max(0, (pin - 0.7) / Rb), need = Usupply / Rload, Ic = Math.min(beta * Ib, need);
@@ -51,14 +52,13 @@ export const rgbHex = (r, g, b) => "#" + [r, g, b].map(v => Math.round(v).toStri
 export const colourCount = 256 ** 3;
 
 // ---------------------------------------------------------------- variable types
-/** Sizes in bytes: the UNO R3's AVR as the lecture 7 table gives them; the UNO R4's ARM makes int and unsigned int
- *  4 bytes (and double 8). */
+/** Sizes in bytes and whether signed, as lesson 7's table gives them (the UNO R3's). */
 export const TYPES = {
   R3: { byte: [1, false], int: [2, true], "unsigned int": [2, false], long: [4, true], "unsigned long": [4, false] },
-  R4: { byte: [1, false], int: [4, true], "unsigned int": [4, false], long: [4, true], "unsigned long": [4, false] },
 };
 
-/** The range of a whole-number type, and what a value becomes when stored in it (it wraps round, as the hardware does). */
+/** The range of a whole-number type, and what an out-of-range value becomes in an unsigned one (modulo 2^bits, the
+ *  rule of C++; for signed types C++ defines no result, so callers must not use `store` for them). */
 export function intType(board, type) {
   const [bytes, signed] = TYPES[board][type], bits = 8 * bytes;
   const min = signed ? -(2 ** (bits - 1)) : 0, max = signed ? 2 ** (bits - 1) - 1 : 2 ** bits - 1;

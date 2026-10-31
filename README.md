@@ -89,16 +89,14 @@ check that holds them: [ARCHITECTURE.md](ARCHITECTURE.md). Tests: `node --test "
 
 ## Limits
 
-- Ideal parts: no tolerances, no temperature, an LED with a fixed forward voltage, an ideal converter. Measure on the
+- Every number, example and claim in the labs comes from the course files (with the lecture and slide or page), follows
+  from them by definition or arithmetic, or is established physics stated exactly. Generalisations, typical values and
+  made-up models were taken out after a fact check: [docs/fact-check.md](docs/fact-check.md).
+- Ideal parts: no tolerances, no temperature effects, an LED at a fixed voltage, an ideal converter. Measure on the
   real kit too.
-- The rectifier steps ideal diodes with a fixed 0.7 V drop; the shock lab uses the lesson's single body resistances.
-- The switching converter's efficiency in the regulator lab is an assumption to play with; the lecture gives no number.
-- Labelled assumptions, not course data: the transistor's current gain β, the multimeter's 0.2 A mA fuse, the light
-  sensor's resistance range, and the stepper's skipped steps under load (a made-up model to show the effect).
-- Lecture 7's type table is the UNO R3's; on the kit's UNO R4 an int is 4 bytes. The variables lab offers both.
-- The cable lab's temperature uses ρ = ρ20 × (1 + α × (T − 20 °C)); the syllabus writes the law differently (§2.8).
-- The cable lab holds the load's current fixed, as the lesson's example does; a real load draws less when its voltage
-  drops.
+- Two drawn illustrations remain and say so on screen: the moving dots in Ohm's law, and the example bounce in the
+  button-bounce lab (the course gives no bounce times).
+- Values between the points of lecture 8's NTC table are interpolated, and the lab says so.
 
 ## Licence
 

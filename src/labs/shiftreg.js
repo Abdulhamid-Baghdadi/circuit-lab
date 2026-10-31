@@ -1,4 +1,4 @@
-// The 74HC595 shift register (lecture 11, p. 40–46; lesson 14, p. 34–37): three pins drive eight outputs. Set the
+// The 74HC595 shift register (lecture 11, p. 40–46; the Arduino lesson of 5 Nov, p. 34–37): three pins drive eight outputs. Set the
 // data bit, pulse the clock, and the bits move along; latch, and the outputs show them. Or let shiftOut do all eight.
 import { clockIn, shiftOutBits } from "../core/index.js";
 import { h, slider } from "../ui/kit.js";
