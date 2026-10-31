@@ -1,4 +1,4 @@
-// The labs, in the order of the course. Adding a lab: write its module, add it here and its words to data/labs.json.
+// The labs; data/labs.json puts them in the course's order under their lectures. Adding a lab: write its module, add it here and its words to data/labs.json.
 import ohm from "./ohm.js";
 import network from "./network.js";
 import divider from "./divider.js";
@@ -12,5 +12,12 @@ import adc from "./adc.js";
 import pwm from "./pwm.js";
 import binary from "./binary.js";
 import motor from "./motor.js";
+import meters from "./meters.js";
+import rms from "./rms.js";
+import pullres from "./pullres.js";
+import ntc from "./ntc.js";
+import opamp from "./opamp.js";
+import debounce from "./debounce.js";
 
-export const labs = [ohm, network, divider, led, cable, shock, transformer, battery, rectifier, adc, pwm, binary, motor];
+export const labs = [ohm, network, divider, led, cable, shock, transformer, battery, rectifier, adc, pwm, binary, motor,
+  meters, rms, pullres, ntc, opamp, debounce];

@@ -163,7 +163,7 @@ footer { padding: 0 24px 24px; color: var(--muted); font-size: 0.9rem; }
   .card .name { font-size: 0.95rem; }
   .card.small { width: 100%; }
   .steps { flex-direction: column; }
-  .stage { grid-template-columns: 1fr; }
+  .stage { grid-template-columns: minmax(0, 1fr); }
   .panel { padding: 12px; }
 }
 .schematic { max-height: 360px; }
@@ -199,3 +199,8 @@ table.method td:last-child { white-space: nowrap; }
   .hero-card .art { width: 110px; flex: none; }
   .hero-card .plate { flex: 1; }
 }
+.series.rms-line { stroke: var(--danger); stroke-width: 2.5; stroke-dasharray: 8 6; }
+.trace { display: flex; flex-wrap: wrap; gap: 2px; font: 600 14px/1 ui-monospace, Consolas, monospace; }
+.trace span { display: inline-grid; place-items: center; width: 18px; height: 22px; border-radius: 3px; border: 1px solid var(--line); }
+.trace .bit-1 { background: color-mix(in srgb, var(--accent) 22%, var(--panel)); }
+button.press[aria-pressed=true] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }

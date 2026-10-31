@@ -53,6 +53,7 @@
       "title": "Electromagnetism, transformers and LEDs",
       "file": "04_EAVP V2.4_Les3.pdf",
       "labs": [
+        "meters",
         "transformer",
         "led"
       ],
@@ -64,6 +65,7 @@
       "title": "Distribution and safety",
       "file": "05_EAVP V2.4_Les4.pdf",
       "labs": [
+        "rms",
         "shock"
       ],
       "family": "mains"
@@ -74,8 +76,19 @@
       "title": "Introduction to Arduino",
       "file": "06_EAVP V2.3_les5.pdf",
       "labs": [
+        "pullres",
         "adc",
         "pwm"
+      ],
+      "family": "arduino"
+    },
+    {
+      "number": 8,
+      "date": "3 Nov",
+      "title": "Sensors",
+      "file": "08_EAVP V2.4_Les8.pdf",
+      "labs": [
+        "ntc"
       ],
       "family": "arduino"
     },
@@ -85,7 +98,8 @@
       "title": "Semiconductors",
       "file": "10_EAVP V2.4_Les10.pdf",
       "labs": [
-        "rectifier"
+        "rectifier",
+        "opamp"
       ],
       "family": "electronics"
     },
@@ -95,7 +109,8 @@
       "title": "Digital circuits",
       "file": "11_EAVP V2.4_les11.pdf",
       "labs": [
-        "binary"
+        "binary",
+        "debounce"
       ],
       "family": "electronics"
     },
@@ -484,6 +499,121 @@
           "source": "EAVP lesson 13, p. 29"
         }
       ]
+    },
+    {
+      "id": "meters",
+      "title": "Measuring U and I",
+      "idea": "An ammeter has almost no resistance and goes in series, in the path of the current. A voltmeter has a very high resistance and goes in parallel, across the part. Swap them and the circuit shows you.",
+      "law": "Ammeter: in series, low R    Voltmeter: in parallel, high R",
+      "lecture": "EAVP lesson 3, slides 6–13 (meters); exercises 3 and 8",
+      "practice": [
+        {
+          "question": "Two equal resistors in parallel on a battery. The battery supplies 1 A and the voltmeter across R2 reads 2 V. What is R2?",
+          "answer": 4,
+          "unit": "Ω",
+          "compute": {
+            "law": "parallelEqual",
+            "U": 2,
+            "I": 1
+          },
+          "solution": "Equal resistors share the current: 0.5 A each. R2 = 2 V / 0.5 A = 4 Ω.",
+          "source": "EAVP exercises with answers, exercise 3 (p. 3)"
+        }
+      ]
+    },
+    {
+      "id": "rms",
+      "title": "RMS and peak",
+      "idea": "Mains voltage swings up and down 50 times a second. Its RMS value is the DC voltage that would heat a resistor just as much; the peak is √2 times higher.",
+      "law": "Upeak = √2 × URMS",
+      "lecture": "EAVP lesson 4, slide 12",
+      "practice": [
+        {
+          "question": "The mains is 230 V RMS. What is its peak voltage?",
+          "answer": 325.3,
+          "unit": "V",
+          "compute": {
+            "law": "peak",
+            "U": 230
+          },
+          "solution": "Upeak = √2 × 230 V = 325.3 V.",
+          "source": "Formula: EAVP lesson 4, slide 12; answer worked by hand"
+        }
+      ]
+    },
+    {
+      "id": "pullres",
+      "title": "Pull-down resistor",
+      "idea": "A pin connected to nothing has no level: it reads whatever it picks up. A resistor to GND (pull-down) or to 5 V (pull-up) holds it at a defined level until the button changes it.",
+      "law": "Open: pin pulled to GND through R → LOW    Pressed: pin at 5 V → HIGH",
+      "lecture": "EAVP lesson 5, slides 42–44 (digital input, pull-down 10 kΩ)",
+      "practice": [
+        {
+          "question": "A button to 5 V and a 10 kΩ pull-down on D2. While it is pressed, what current flows through the resistor?",
+          "answer": 0.0005,
+          "unit": "A",
+          "compute": {
+            "law": "ohm",
+            "U": 5,
+            "R": 10000,
+            "find": "I"
+          },
+          "solution": "The pin node is at 5 V, so I = 5 V / 10 kΩ = 0.5 mA: small, as the slide says.",
+          "source": "Circuit: EAVP lesson 5, slides 42–44; answer worked by hand"
+        }
+      ]
+    },
+    {
+      "id": "ntc",
+      "title": "Temperature sensor (NTC)",
+      "idea": "An NTC is a resistor that drops as it warms. Put it in a divider and the temperature becomes a voltage the Arduino can read.",
+      "law": "Uout = 5 V × Rfixed / (RNTC + Rfixed)",
+      "lecture": "EAVP lesson 8 (sensors: the NTC and its table)",
+      "practice": [
+        {
+          "question": "The lecture's NTC (11.75 kΩ at 5 °C) above a 4.7 kΩ fixed resistor on 5 V. What voltage reaches A0?",
+          "answer": 1.429,
+          "unit": "V",
+          "compute": {
+            "law": "divider",
+            "Uin": 5,
+            "R1": 11750,
+            "R2": 4700
+          },
+          "solution": "Uout = 5 V × 4.7 / (11.75 + 4.7) = 1.43 V.",
+          "source": "NTC table: EAVP lesson 8; answer worked by hand"
+        }
+      ]
+    },
+    {
+      "id": "opamp",
+      "title": "Opamp amplifier",
+      "idea": "An opamp amplifies the difference between its two inputs. Equal inputs give nothing, however large; a small difference gives a large output, as far as the supply allows.",
+      "law": "Vout = Av × (V+ − V−)",
+      "lecture": "EAVP lesson 10, p. 13 (amplifier, the gain-4 table)",
+      "practice": [
+        {
+          "question": "Gain 4, −3 V on the minus input and 3 V on the plus input. What is the output?",
+          "answer": 24,
+          "unit": "V",
+          "compute": {
+            "law": "opamp",
+            "plus": 3,
+            "minus": -3,
+            "gain": 4
+          },
+          "solution": "Vout = 4 × (3 − (−3)) = 4 × 6 = 24 V.",
+          "source": "EAVP lesson 10, p. 13, the table's ninth column"
+        }
+      ]
+    },
+    {
+      "id": "debounce",
+      "title": "Button bounce",
+      "idea": "A button's contacts spring open and shut a few times as they meet. The Arduino is fast enough to see every one: one press counts as several. Waiting until the reading is steady fixes it.",
+      "law": "Accept a change only when steady for longer than debounceDelay (50 ms)",
+      "lecture": "EAVP lesson 11, p. 35–37 (contact bounce, debouncing with Arduino)",
+      "practice": []
     }
   ]
 }
