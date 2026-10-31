@@ -1,0 +1,251 @@
+{
+  "format": "circuit-lab labs",
+  "version": 1,
+  "about": "The words of each lab and its practice questions. Answers are the course's own; tests/unit/labs-data.test.js recomputes each with the core and fails if they disagree.",
+  "labs": [
+    {
+      "id": "ohm",
+      "title": "Ohm's law",
+      "idea": "Push harder (more voltage) and more current flows; narrow the pipe (more resistance) and less flows.",
+      "law": "U = I × R    P = U × I",
+      "lecture": "EAVP lesson 1 (29 Sep), slides 37–44; lesson 2, slides 13 and 19 (power)",
+      "practice": [
+        {
+          "question": "A 12 V battery feeds a 3 Ω lamp. What current flows?",
+          "answer": 4,
+          "unit": "A",
+          "compute": {
+            "law": "ohm",
+            "U": 12,
+            "R": 3,
+            "find": "I"
+          },
+          "solution": "I = U / R = 12 V / 3 Ω = 4 A.",
+          "source": "EAVP lesson 1, slide 41 (question); answer worked by hand"
+        },
+        {
+          "question": "A 200 Ω resistor is connected to 4.5 V. What current flows?",
+          "answer": 0.0225,
+          "unit": "A",
+          "compute": {
+            "law": "ohm",
+            "U": 4.5,
+            "R": 200,
+            "find": "I"
+          },
+          "solution": "I = U / R = 4.5 V / 200 Ω = 0.0225 A = 22.5 mA.",
+          "source": "EAVP exercises with answers, exercise 1 (p. 3)"
+        },
+        {
+          "question": "A device takes 2 W from 12 V. What is its resistance?",
+          "answer": 72,
+          "unit": "Ω",
+          "compute": {
+            "law": "powerR",
+            "P": 2,
+            "U": 12
+          },
+          "solution": "I = P / U = 2 / 12 = 166.7 mA; R = U / I = 12 / 0.1667 = 72 Ω (or R = U² / P).",
+          "source": "EAVP exercises with answers, exercise 4 (p. 3)"
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "title": "Series and parallel",
+      "idea": "In series the same current flows through each resistor and the voltages add; in parallel each resistor has the same voltage and the currents add.",
+      "law": "Series: R = R1 + R2 + …    Parallel: 1/R = 1/R1 + 1/R2 + …",
+      "lecture": "EAVP lesson 1, slides 45–53; syllabus §2.4 (the table method); exercises 5 and 6",
+      "practice": [
+        {
+          "question": "9 V over 3 kΩ, 10 kΩ and 5 kΩ in series. What voltage stands across the 10 kΩ?",
+          "answer": 5,
+          "unit": "V",
+          "compute": {
+            "law": "seriesShare",
+            "U": 9,
+            "R": [
+              3000,
+              10000,
+              5000
+            ],
+            "k": 1
+          },
+          "solution": "Rt = 18 kΩ; I = 9 V / 18 kΩ = 500 µA; U2 = 500 µA × 10 kΩ = 5 V. Check: 1.5 + 5 + 2.5 = 9 V.",
+          "source": "EAVP syllabus §2.4, table method, series example; lesson 1, slides 46–48"
+        },
+        {
+          "question": "Four 3 Ω heating elements on 12 V. Wired as two parallel pairs in series, what power do they give?",
+          "answer": 48,
+          "unit": "W",
+          "compute": {
+            "law": "pairs",
+            "U": 12,
+            "R": 3
+          },
+          "solution": "Each pair: 3 ∥ 3 = 1.5 Ω. Two pairs in series: 3 Ω. P = U² / R = 144 / 3 = 48 W.",
+          "source": "EAVP exercises with answers, exercise 5 (p. 3)"
+        },
+        {
+          "question": "6 Ω, 12 Ω and 30 Ω in parallel. What is the total resistance?",
+          "answer": 3.53,
+          "unit": "Ω",
+          "compute": {
+            "law": "parallel",
+            "R": [
+              6,
+              12,
+              30
+            ]
+          },
+          "solution": "1/R = 1/6 + 1/12 + 1/30 = 0.2833; R = 3.53 Ω.",
+          "source": "EAVP exercises with answers, exercise 6 (p. 4)"
+        }
+      ]
+    },
+    {
+      "id": "divider",
+      "title": "Voltage divider",
+      "idea": "Two resistors in series share the supply voltage in proportion to their size. A potentiometer is a divider you turn; a light sensor is one whose lower resistor changes with light.",
+      "law": "Uout = Uin × R2 / (R1 + R2)",
+      "lecture": "EAVP lesson 1, slides 45–49 (series); exercise 2; lesson 5 and 8 (Grove potentiometer and light sensor)",
+      "practice": [
+        {
+          "question": "R1 = 110 Ω and R2 in series on 12 V; 4 V stands across R1. What is R2?",
+          "answer": 220,
+          "unit": "Ω",
+          "compute": {
+            "law": "dividerR2",
+            "Uin": 12,
+            "U1": 4,
+            "R1": 110
+          },
+          "solution": "I = U1 / R1 = 4 / 110 = 36.36 mA. U2 = 12 − 4 = 8 V. R2 = 8 V / 36.36 mA = 220 Ω.",
+          "source": "EAVP exercises with answers, exercise 2 (p. 3)"
+        }
+      ]
+    },
+    {
+      "id": "led",
+      "title": "LED series resistor",
+      "idea": "An LED keeps about the same voltage across it whatever you do; the resistor takes the rest and sets the current.",
+      "law": "R = (Usupply − ULED) / I",
+      "lecture": "EAVP lesson 3, slide 26 (an LED does not follow Ohm's law); lesson 5 (220 or 330 Ω); exercise 11",
+      "practice": [
+        {
+          "question": "An LED of 2 V at 20 mA on a 5 V Arduino pin. What series resistor?",
+          "answer": 150,
+          "unit": "Ω",
+          "compute": {
+            "law": "led",
+            "U": 5,
+            "Uf": 2,
+            "I": 0.02
+          },
+          "solution": "R = (5 − 2) V / 0.02 A = 150 Ω. It dissipates P = 3 V × 0.02 A = 0.06 W.",
+          "source": "EAVP exercises with answers, exercise 11 (p. 5)"
+        }
+      ]
+    },
+    {
+      "id": "adc",
+      "title": "From voltage to analogRead",
+      "idea": "The Arduino measures a voltage between 0 and 5 V and gives a whole number: 10 bits, so 2¹⁰ = 1024 steps, 0 to 1023. map() turns that number into what you need, such as a servo angle.",
+      "law": "value = U / 5 V × 1024 (whole steps)    angle = map(value, 0, 1023, 0, 180)",
+      "lecture": "EAVP lesson 5, slides 40 and 51 (10-bit ADC); example jury question 2; lesson 11 (ADC and DAC)",
+      "practice": [
+        {
+          "question": "A potentiometer gives 2.5 V on A0. Which angle does map(analogRead(A0), 0, 1023, 0, 180) give?",
+          "answer": 90,
+          "unit": "°",
+          "tolerance": 0,
+          "compute": {
+            "law": "adcMap",
+            "U": 2.5,
+            "outMax": 180
+          },
+          "solution": "analogRead gives 2.5 / 5 × 1024 = 512. map: 512 × 180 / 1023 = 90.08, cut to 90.",
+          "source": "Worked by hand from the definitions of analogRead and map (example jury question 2 asks for the same chain)"
+        }
+      ]
+    },
+    {
+      "id": "cable",
+      "title": "Long cables",
+      "idea": "A wire is a resistor too. A long, thin cable takes part of the voltage before it reaches the load, and turns it into heat.",
+      "law": "R = ρ × l / A    loss = I × R per wire, two wires",
+      "lecture": "EAVP lesson 2, slides 21–27 (Pouillet); syllabus §2.8; exercise 9; example exam question 5",
+      "practice": [
+        {
+          "question": "A load 700 m away draws 25 A from 230 V and needs 220 V, so each copper wire may drop 5 V. What cross-section is needed (in mm²)?",
+          "answer": 61.25,
+          "unit": "mm²",
+          "compute": {
+            "law": "cableArea",
+            "rho": 1.75e-08,
+            "l": 700,
+            "I": 25,
+            "drop": 5
+          },
+          "solution": "R per wire = 5 V / 25 A = 0.2 Ω. A = ρ × l / R = 0.0175·10⁻⁶ Ω·m × 700 m / 0.2 Ω = 61.25·10⁻⁶ m² = 61.25 mm².",
+          "source": "EAVP lesson 2, slides 24–27"
+        }
+      ]
+    },
+    {
+      "id": "pwm",
+      "title": "PWM: a voltage by switching",
+      "idea": "A digital pin is only 0 V or 5 V. Switch it fast, and the time it is high sets the average: an LED looks dimmer, a motor turns slower.",
+      "law": "average = duty × 5 V    duty = value / 255",
+      "lecture": "EAVP lesson 5, slide 54 (U = Ton / (Ton + Toff) × Vcc); lesson 10, p. 17 (PWM)",
+      "practice": [
+        {
+          "question": "analogWrite(pin, 51) on a 5 V Arduino. What is the average voltage?",
+          "answer": 1,
+          "unit": "V",
+          "compute": {
+            "law": "pwm",
+            "value": 51
+          },
+          "solution": "duty = 51 / 255 = 0.2 = 20 %. Average = 0.2 × 5 V = 1 V.",
+          "source": "Worked by hand from the definition of analogWrite (8 bits, 0–255)"
+        }
+      ]
+    },
+    {
+      "id": "battery",
+      "title": "Battery life",
+      "idea": "Capacity in Ah is current times time. Multiply by the voltage and you have the energy in Wh.",
+      "law": "I = P / U    Ah = I × t    Wh = Ah × U",
+      "lecture": "EAVP lesson 2, slides 28–36; lesson 12 (batteries); example exam question 3",
+      "practice": [
+        {
+          "question": "A 3 W LED lamp on a 7.4 V LiPo must shine 16 h. How many Ah does the battery need?",
+          "answer": 6.5,
+          "unit": "Ah",
+          "tolerance": 0.01,
+          "compute": {
+            "law": "batteryAh",
+            "P": 3,
+            "U": 7.4,
+            "h": 16
+          },
+          "solution": "I = 3 W / 7.4 V = 0.41 A. Ah = 0.41 A × 16 h = 6.5 Ah.",
+          "source": "EAVP lecture 12, flashlight example (p. 18)"
+        },
+        {
+          "question": "A phone battery of 3.7 V and 3500 mAh. How much energy is one full charge?",
+          "answer": 12.95,
+          "unit": "Wh",
+          "compute": {
+            "law": "batteryWh",
+            "U": 3.7,
+            "Ah": 3.5
+          },
+          "solution": "Wh = 3.5 Ah × 3.7 V = 12.95 Wh. Two hundred charges: 2.59 kWh; at €0.50 per kWh, €1.30.",
+          "source": "EAVP example questions, theory question 3 (p. 3)"
+        }
+      ]
+    }
+  ]
+}

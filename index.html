@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Circuit Lab</title>
+<meta name="description" content="Play with the laws of electronic circuits: Ohm's law, series and parallel, the voltage divider, LEDs, cables, batteries, analogRead and PWM.">
+<script>
+  // Before the page draws, so a chosen theme never flashes the other one.
+  try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+</script>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="src/app.js"></script>
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>Circuit Lab</h1>
+    <p>Turn the knobs and watch the laws of the course work. For <i>Electronic aspects of products</i>, University of Antwerp.</p>
+  </div>
+  <button id="theme" type="button">Light or dark</button>
+</header>
+<nav role="tablist" aria-label="Labs"></nav>
+<main></main>
+<footer>
+  <p>A learning aid: ideal parts, no tolerances. Measure on the real kit too. Program the kit in the browser with the
+    <a href="https://ua-smartlab.github.io/arduino-grove-emulator/">Grove Kit Emulator</a>.
+    <a href="https://github.com/Abdulhamid-Baghdadi/circuit-lab">Source</a>.</p>
+</footer>
+<noscript><p>Circuit Lab needs JavaScript.</p></noscript>
+</body>
+</html>
