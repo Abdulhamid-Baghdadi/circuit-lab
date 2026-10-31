@@ -43,7 +43,8 @@
       "title": "Power, conductors and batteries",
       "file": "03_EAVP V2.3_les2.pdf",
       "labs": [
-        "cable"
+        "cable",
+        "cells"
       ],
       "family": "circuits"
     },
@@ -66,7 +67,8 @@
       "file": "05_EAVP V2.4_Les4.pdf",
       "labs": [
         "rms",
-        "shock"
+        "shock",
+        "bill"
       ],
       "family": "mains"
     },
@@ -99,7 +101,8 @@
       "file": "10_EAVP V2.4_Les10.pdf",
       "labs": [
         "rectifier",
-        "opamp"
+        "opamp",
+        "regulator"
       ],
       "family": "electronics"
     },
@@ -110,6 +113,8 @@
       "file": "11_EAVP V2.4_les11.pdf",
       "labs": [
         "binary",
+        "gates",
+        "dac",
         "debounce"
       ],
       "family": "electronics"
@@ -120,7 +125,8 @@
       "title": "Batteries",
       "file": "12_EAVP V2.4_Les12.pdf",
       "labs": [
-        "battery"
+        "battery",
+        "iot"
       ],
       "family": "energy"
     },
@@ -614,6 +620,140 @@
       "law": "Accept a change only when steady for longer than debounceDelay (50 ms)",
       "lecture": "EAVP lesson 11, p. 35–37 (contact bounce, debouncing with Arduino)",
       "practice": []
+    },
+    {
+      "id": "cells",
+      "title": "Real batteries",
+      "idea": "Cells in series add their voltages; in parallel they keep the voltage and share the current. Every cell has a little resistance inside, so the voltage at the load sags as the load draws more.",
+      "law": "Series: E = n × Ecell    Parallel: E = Ecell    U = E − I × r",
+      "lecture": "EAVP lesson 2, slides 28–36 (batteries; non-ideal battery)",
+      "practice": [
+        {
+          "question": "A 10 V battery with 0.2 Ω inside feeds a 1 Ω load. What voltage reaches the load?",
+          "answer": 8.333,
+          "unit": "V",
+          "compute": {
+            "law": "cellLoad",
+            "E": 10,
+            "r": 0.2,
+            "R": 1
+          },
+          "solution": "I = 10 V / (0.2 + 1) Ω = 8.33 A; U = 8.33 A × 1 Ω = 8.33 V. The other 1.67 V stays inside the battery.",
+          "source": "EAVP lesson 2, slides 35–36"
+        }
+      ]
+    },
+    {
+      "id": "bill",
+      "title": "Energy bill",
+      "idea": "Energy is power times time; the bill is energy times price. For heating, a heat pump gives three times the heat it takes as electricity, which can beat cheaper gas.",
+      "law": "E [kWh] = P [kW] × t [h]    cost = E × price",
+      "lecture": "EAVP lesson 3, slide 25; lesson 4, slides 24–26 (consumption analysis); exercise 10",
+      "practice": [
+        {
+          "question": "A lamp of 165.3 W burns for a whole day. How much energy is that, in kWh?",
+          "answer": 4,
+          "unit": "kWh",
+          "compute": {
+            "law": "energyKWh",
+            "P": 165.3125,
+            "h": 24
+          },
+          "solution": "E = 0.1653 kW × 24 h = 3.97 kWh, about 4 kWh; at €0.25 per kWh, €1.",
+          "source": "EAVP exercises with answers, exercise 10 (p. 5)"
+        }
+      ]
+    },
+    {
+      "id": "regulator",
+      "title": "Lowering a voltage",
+      "idea": "A linear regulator such as the LM7805 turns the excess voltage into heat; a series resistor does the same, worse. Switching the voltage on and off fast (PWM) loses little.",
+      "law": "Heat = (Uin − Uout) × I    efficiency = Uout / Uin",
+      "lecture": "EAVP lesson 10, p. 17–19 (DC to DC conversion); exercise 7",
+      "practice": [
+        {
+          "question": "A 400 Ω motor needs 150 V but the mains gives 230 V. Which series resistor drops the rest?",
+          "answer": 213.33,
+          "unit": "Ω",
+          "compute": {
+            "law": "dropper",
+            "U": 230,
+            "R": 400,
+            "Uwanted": 150
+          },
+          "solution": "I = 150 V / 400 Ω = 0.375 A. The resistor takes 80 V: R = 80 V / 0.375 A = 213.33 Ω, burning 30 W.",
+          "source": "EAVP exercises with answers, exercise 7 (p. 4)"
+        }
+      ]
+    },
+    {
+      "id": "gates",
+      "title": "Logic gates",
+      "idea": "A gate turns one or two inputs, each 0 or 1, into one output by a fixed rule: its truth table. In an Arduino sketch the same rules are !, && and ||.",
+      "law": "AND: both    OR: at least one    NOT: the opposite    XOR: exactly one",
+      "lecture": "EAVP lesson 11, p. 19–28 (logic gates)",
+      "practice": [
+        {
+          "question": "A NAND gate gets 1 on both inputs. What is its output (0 or 1)?",
+          "answer": 0,
+          "unit": "",
+          "tolerance": 0,
+          "compute": {
+            "law": "gate",
+            "gate": "NAND",
+            "a": 1,
+            "b": 1
+          },
+          "solution": "AND of 1 and 1 is 1; NAND is NOT AND, so 0.",
+          "source": "EAVP lesson 11, p. 19–27; by definition"
+        }
+      ]
+    },
+    {
+      "id": "dac",
+      "title": "From number to voltage (DAC)",
+      "idea": "A DAC does the opposite of analogRead: it turns a binary number into a voltage. Each bit pushes current through a resistor twice as large as the one before; an opamp adds them.",
+      "law": "Vout = −Rf × (U1/R + U2/2R + U3/4R)",
+      "lecture": "EAVP lesson 11, p. 50–52 (R/2nR DAC)",
+      "practice": [
+        {
+          "question": "The lecture's DAC with an 800 Ω feedback resistor (R = 1 kΩ, 5 V logic). What does code 111 give?",
+          "answer": -7,
+          "unit": "V",
+          "compute": {
+            "law": "dac",
+            "bits": [
+              1,
+              1,
+              1
+            ],
+            "Rf": 800
+          },
+          "solution": "Vout = −800 × (5/1000 + 5/2000 + 5/4000) = −800 × 0.00875 = −7.00 V.",
+          "source": "EAVP lesson 11, p. 51"
+        }
+      ]
+    },
+    {
+      "id": "iot",
+      "title": "Battery budget",
+      "idea": "A sensor node sleeps most of the time and wakes to measure and send. Add up the mAh of each state over a year, and the battery's capacity tells you how long it lasts.",
+      "law": "mAh per year = mA × seconds × times a day × 365 / 3600    life = capacity / mAh per year",
+      "lecture": "EAVP lesson 12, p. 19–20 (IoT device examples)",
+      "practice": [
+        {
+          "question": "The lecture's sensor node uses 2686.4 mAh a year. How many years does a 5200 mAh battery last?",
+          "answer": 1.94,
+          "unit": "years",
+          "compute": {
+            "law": "years",
+            "capacity": 5200,
+            "perYear": 2686.4
+          },
+          "solution": "5200 / 2686.4 = 1.94 years.",
+          "source": "EAVP lesson 12, p. 20"
+        }
+      ]
     }
   ]
 }

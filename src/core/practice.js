@@ -5,6 +5,7 @@ import { adcRead, map, pwm } from "./signal.js";
 import { transformer, liftPower } from "./supply.js";
 import { fromTwos, flashComparators } from "./digital.js";
 import { opamp, peakOf } from "./sensing.js";
+import { cellPack, energyCost, dropper, GATES, binaryDac } from "./energy.js";
 
 const LAWS = {
   ohm: q => ohm({ U: q.U ?? null, R: q.R ?? null, I: q.I ?? null })[q.find],
@@ -29,6 +30,12 @@ const LAWS = {
   parallelEqual: q => q.U / (q.I / 2),
   peak: q => peakOf(q.U),
   opamp: q => opamp(q.plus, q.minus, q.gain),
+  cellLoad: q => cellPack("series", 1, q.E, q.r, q.R).U,
+  energyKWh: q => energyCost(q.P, q.h, 1, 0).kWh,
+  dropper: q => dropper(q.U, q.R, q.Uwanted).R,
+  gate: q => GATES[q.gate](q.a, q.b),
+  dac: q => binaryDac(q.bits, 5, 1000, q.Rf),
+  years: q => q.capacity / q.perYear,
 };
 
 /** The answer to a question's "compute" block; an unknown law is an error naming the ones there are. */

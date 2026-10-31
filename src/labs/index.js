@@ -18,6 +18,12 @@ import pullres from "./pullres.js";
 import ntc from "./ntc.js";
 import opamp from "./opamp.js";
 import debounce from "./debounce.js";
+import cells from "./cells.js";
+import bill from "./bill.js";
+import regulator from "./regulator.js";
+import gates from "./gates.js";
+import dac from "./dac.js";
+import iot from "./iot.js";
 
 export const labs = [ohm, network, divider, led, cable, shock, transformer, battery, rectifier, adc, pwm, binary, motor,
-  meters, rms, pullres, ntc, opamp, debounce];
+  meters, rms, pullres, ntc, opamp, debounce, cells, bill, regulator, gates, dac, iot];

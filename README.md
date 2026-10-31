@@ -31,20 +31,26 @@ practice questions from the course's own exercise sheet, checked as you type the
 |  | Series and parallel | Wire three resistors three ways and watch the course's table method fill in, with its checks |
 |  | Voltage divider | Two resistors or the kit's potentiometer; add a load and see it pull the output down; the number analogRead would give |
 | 2 · 6 Oct · Power, conductors and batteries | Long cables | Pouillet's law: how much of 230 V reaches a load 700 m away on 6 mm² |
+|  | Real batteries | Four cells in series, parallel or two by two, each with a little resistance inside; the voltage at the load sags |
 | 3 · 13 Oct · Electromagnetism, transformers and LEDs | Measuring U and I | Put the ammeter and the voltmeter in series or across R; a wrong place shows as a short or as nothing flowing |
 |  | Transformer | Change the windings; the voltage, the currents, and the line loss at high and low voltage follow |
 |  | LED series resistor | Pick the colour, supply and current; get the resistor, the one you can buy, and what really flows |
 | 4 · 20 Oct · Distribution and safety | RMS and peak | Set the RMS voltage; see the wave reach √2 times higher, as 230 V mains peaks at 325 V |
 |  | Electric shock | Your body as a resistor: where you stand and what you touch, against the lesson's table of effects |
+|  | Energy bill | Power × hours × price for one device; the same heat bought with an electric heater, a heat pump or gas |
 | 5 · 21 Oct · Introduction to Arduino | Pull-down resistor | A button on D2 with no resistor, a pull-down or a pull-up; watch the open pin read at random |
 |  | From voltage to analogRead | The voltage on A0, the 10-bit staircase, `map()` and the servo turning |
 |  | PWM: a voltage by switching | `analogWrite` as a square wave, its duty and average, and an LED dimming |
 | 8 · 3 Nov · Sensors | Temperature sensor (NTC) | Warm the lecture's NTC; its resistance, the divider's voltage, analogRead, and the temperature worked back |
 | 10 · 17 Nov · Semiconductors | From AC to smooth DC | No diode, one diode or a Graetz bridge, then a capacitor: the wave, its average and its ripple |
 |  | Opamp amplifier | Set both inputs and the gain; the output follows the difference, and stops at the supply if you give it one |
+|  | Lowering a voltage | An LM7805 from 12 V: the heat it burns, its efficiency, and a switching converter beside it |
 | 11 · 17 Nov · Digital circuits | Binary numbers | Flip bits; see the place values, the two's complement reading and the flash ADC's comparators |
+|  | Logic gates | Flip two inputs, pick a gate; the output, its row of the truth table and the same test in Arduino code |
+|  | From number to voltage (DAC) | Flip three bits; the lecture's DAC steps down from 0 V, its staircase and the feedback resistor |
 |  | Button bounce | One press of a bouncing button counted raw and with the course's 50 ms debounce |
 | 12 · 24 Nov · Batteries | Battery life | Cell type, cells in series, capacity and load: hours, Wh and the cost of a charge |
+|  | Battery budget | The lecture's sensor node: measuring, idle and sending, the mAh a year and how many years 5200 mAh lasts |
 | 13 · 1 Dec · Motors | Sizing a motor | Mass, height and time give the ideal power; a safety factor gives the motor to buy |
 
 Every answer on the exercise sheet is recomputed by the program in the tests, so a typo in the data fails the build.

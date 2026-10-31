@@ -204,3 +204,6 @@ table.method td:last-child { white-space: nowrap; }
 .trace span { display: inline-grid; place-items: center; width: 18px; height: 22px; border-radius: 3px; border: 1px solid var(--line); }
 .trace .bit-1 { background: color-mix(in srgb, var(--accent) 22%, var(--panel)); }
 button.press[aria-pressed=true] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+table.method tr.best td { background: var(--ok-bg); font-weight: 700; }
+table.method tr.now td { background: color-mix(in srgb, var(--accent) 16%, var(--panel)); font-weight: 700; }
+@media (max-width: 760px) { table.method { display: block; overflow-x: auto; } }
