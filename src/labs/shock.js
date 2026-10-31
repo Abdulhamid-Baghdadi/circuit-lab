@@ -45,7 +45,8 @@ export default {
         choice("Kind of voltage", [["ac", "AC (mains)"], ["dc", "DC"]], "ac", v => { ac = v === "ac"; update(); }),
         slider({ label: "Voltage touched U", unit: "V", min: 1, max: 400e3, value: U, log: true, onInput: v => { U = v; update(); } }),
         current.el,
-        h("p", { class: "hint" }, "AC is more dangerous than DC at the same current. Try 230 V on each floor."))));
+        h("p", { class: "hint" }, "AC is more dangerous than DC at the same current. Try 230 V on each floor."),
+        h("p", { class: "hint" }, "Two kinds of protection (lecture 4): the earth-leakage breaker (30 mA, or 300 mA for the whole house) protects people; the fuse or circuit breaker (10 to 40 A) protects cables and devices. Only the first one saves you here."))));
     update();
   },
 };

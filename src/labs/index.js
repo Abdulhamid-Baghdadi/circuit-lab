@@ -24,6 +24,17 @@ import regulator from "./regulator.js";
 import gates from "./gates.js";
 import dac from "./dac.js";
 import iot from "./iot.js";
+import breadboard from "./breadboard.js";
+import multimeter from "./multimeter.js";
+import transistor from "./transistor.js";
+import shiftreg from "./shiftreg.js";
+import rgb from "./rgb.js";
+import types from "./types.js";
+import bases from "./bases.js";
+import steppers from "./steppers.js";
+import fsm from "./fsm.js";
+import chemistry from "./chemistry.js";
 
 export const labs = [ohm, network, divider, led, cable, shock, transformer, battery, rectifier, adc, pwm, binary, motor,
-  meters, rms, pullres, ntc, opamp, debounce, cells, bill, regulator, gates, dac, iot];
+  meters, rms, pullres, ntc, opamp, debounce, cells, bill, regulator, gates, dac, iot,
+  breadboard, multimeter, transistor, shiftreg, rgb, types, bases, steppers, fsm, chemistry];

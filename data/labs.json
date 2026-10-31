@@ -55,6 +55,7 @@
       "file": "04_EAVP V2.4_Les3.pdf",
       "labs": [
         "meters",
+        "multimeter",
         "transformer",
         "led"
       ],
@@ -78,9 +79,20 @@
       "title": "Introduction to Arduino",
       "file": "06_EAVP V2.3_les5.pdf",
       "labs": [
+        "breadboard",
         "pullres",
         "adc",
         "pwm"
+      ],
+      "family": "arduino"
+    },
+    {
+      "number": 7,
+      "date": "28 Oct",
+      "title": "Variables, functions and serial",
+      "file": "07_EAVP V2.4_les7_Arduino.pdf",
+      "labs": [
+        "types"
       ],
       "family": "arduino"
     },
@@ -95,12 +107,25 @@
       "family": "arduino"
     },
     {
+      "number": 9,
+      "date": "4 Nov",
+      "title": "Advanced Arduino programming",
+      "file": "09_EAVP V2.4_les9_Arduino.pdf",
+      "labs": [
+        "fsm",
+        "rgb"
+      ],
+      "family": "arduino",
+      "note": "The file is named les9; its first slide says Lesson 8."
+    },
+    {
       "number": 10,
       "date": "17 Nov",
       "title": "Semiconductors",
       "file": "10_EAVP V2.4_Les10.pdf",
       "labs": [
         "rectifier",
+        "transistor",
         "opamp",
         "regulator"
       ],
@@ -112,8 +137,10 @@
       "title": "Digital circuits",
       "file": "11_EAVP V2.4_les11.pdf",
       "labs": [
+        "bases",
         "binary",
         "gates",
+        "shiftreg",
         "dac",
         "debounce"
       ],
@@ -125,6 +152,7 @@
       "title": "Batteries",
       "file": "12_EAVP V2.4_Les12.pdf",
       "labs": [
+        "chemistry",
         "battery",
         "iot"
       ],
@@ -136,7 +164,8 @@
       "title": "Motors",
       "file": "13_EAVP V2.4_Les13.pdf",
       "labs": [
-        "motor"
+        "motor",
+        "steppers"
       ],
       "family": "energy"
     }
@@ -752,6 +781,197 @@
           },
           "solution": "5200 / 2686.4 = 1.94 years.",
           "source": "EAVP lesson 12, p. 20"
+        }
+      ]
+    },
+    {
+      "id": "breadboard",
+      "title": "The breadboard",
+      "idea": "Inside a breadboard, metal strips join holes in groups of five. Two legs in one strip are joined to each other, so a part placed that way does nothing: it is shorted.",
+      "law": "a–e of one column: one strip    f–j: another    rails: the whole length",
+      "lecture": "EAVP lesson 5 (the breadboard; the button and LED exercises)",
+      "practice": []
+    },
+    {
+      "id": "multimeter",
+      "title": "Using a multimeter",
+      "idea": "A multimeter has a socket for each job and a range for each size. Black lead in COM; red in V for voltage, in mA or A for current; start at the highest range.",
+      "law": "U: red in V, across the part    I: red in mA or A, in series",
+      "lecture": "EAVP lesson 3, slides 10–13 (multimeter, scale indication, meters in practice)",
+      "practice": []
+    },
+    {
+      "id": "transistor",
+      "title": "Transistor as a switch",
+      "idea": "A small current into the base lets a large current flow from collector to emitter. The Arduino's pin gives the small one; the transistor and its own supply handle the large one.",
+      "law": "Ib = (5 V − 0.7 V) / Rb    Ic ≤ β × Ib",
+      "lecture": "EAVP lesson 10, p. 11 (transistor); Arduino lesson of 5 Nov, p. 28–33 (NPN, LED strip with transistor)",
+      "practice": [
+        {
+          "question": "Pin 9 at 5 V drives an NPN transistor through 220 Ω, with 0.7 V across its base. What base current flows?",
+          "answer": 0.0195,
+          "unit": "A",
+          "compute": {
+            "law": "baseCurrent",
+            "U": 5,
+            "R": 220
+          },
+          "solution": "Ib = (5 − 0.7) V / 220 Ω = 19.5 mA. That is more than the UNO R4's 8 mA per pin from lesson 5: a larger resistor, such as 1 kΩ, is kinder to the pin.",
+          "source": "Circuit: EAVP Arduino lesson of 5 Nov, p. 31; answer worked by hand"
+        }
+      ]
+    },
+    {
+      "id": "shiftreg",
+      "title": "Shift register",
+      "idea": "A 74HC595 takes bits one at a time on a single data pin, each with a clock pulse, and shows all eight at once when latched: eight outputs from three pins.",
+      "law": "shiftOut(dataPin, clockPin, MSBFIRST, data)",
+      "lecture": "EAVP lesson 11, p. 40–46 (shift registers); Arduino lesson of 5 Nov, p. 34–37 (74HC595)",
+      "practice": [
+        {
+          "question": "Two 74HC595s chained, Q7S of the first to the data input of the second. How many outputs do the three Arduino pins drive?",
+          "answer": 16,
+          "unit": "",
+          "compute": {
+            "law": "chain",
+            "n": 2
+          },
+          "solution": "Each 74HC595 has 8 outputs; chained they share data, clock and latch: 2 × 8 = 16.",
+          "source": "EAVP Arduino lesson of 5 Nov, p. 37",
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "rgb",
+      "title": "Mixing colours",
+      "idea": "A NeoPixel holds a red, a green and a blue LED, each dimmed from 0 to 255. Light adds up: red and green give yellow, all three give white.",
+      "law": "colour = (red, green, blue), each 0–255    256³ colours",
+      "lecture": "EAVP lesson 9 (4 Nov), NeoPixel and NeoMatrix; Arduino lesson of 5 Nov, p. 3–12",
+      "practice": [
+        {
+          "question": "How many colours can a NeoPixel make with three channels of 0 to 255?",
+          "answer": 16777216,
+          "unit": "",
+          "compute": {
+            "law": "colours"
+          },
+          "solution": "256 × 256 × 256 = 16 777 216: the slide's 'more than 16 million'.",
+          "source": "EAVP lesson 9, NeoPixel slides",
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "types",
+      "title": "Variable types and overflow",
+      "idea": "A whole-number variable has a fixed number of bits. Past its largest value it wraps round to its smallest, without any warning; dividing two whole numbers drops the decimals.",
+      "law": "int on UNO R3: −32 768 to 32 767    32 767 + 1 → −32 768",
+      "lecture": "EAVP lesson 7 (variable types); lesson 9 (typecasting); lecture 13, p. 30–35 (the Boeing 787)",
+      "practice": [
+        {
+          "question": "On an UNO R3, int x = 32767; x = x + 1; What is x now?",
+          "answer": -32768,
+          "unit": "",
+          "compute": {
+            "law": "wrap",
+            "board": "R3",
+            "type": "int",
+            "value": 32768
+          },
+          "solution": "An int on the R3 is 16 bits, −32 768 to 32 767. One more wraps round to −32 768.",
+          "source": "Range: EAVP lesson 7, the type table; answer by definition",
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "bases",
+      "title": "Number bases",
+      "idea": "The same number can be written in base 10, 2, 8 or 16. Hexadecimal is binary in groups of four bits, octal in groups of three. Adding in binary works like decimal: 1 + 1 = 10, carry the 1.",
+      "law": "26 = 11010₂ = 32₈ = 1A₁₆",
+      "lecture": "EAVP lesson 11, p. 6–16 (numbering systems, conversions, binary arithmetic)",
+      "practice": [
+        {
+          "question": "What is the hexadecimal number 1A in decimal?",
+          "answer": 26,
+          "unit": "",
+          "compute": {
+            "law": "fromBase",
+            "text": "1A",
+            "base": 16
+          },
+          "solution": "1A = 1 × 16 + 10 = 26.",
+          "source": "EAVP lesson 11, p. 8 (the conversion table)",
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "steppers",
+      "title": "Stepper or servo",
+      "idea": "A stepper turns a fixed angle per step and counts steps, but cannot see where it is: under too much load it skips steps and never knows. A servo measures its angle and corrects itself.",
+      "law": "Stepper: angle = steps × 1.8°    Servo: goes to the angle it is told (0–180°)",
+      "lecture": "EAVP lecture 13, p. 18–26 (stepper, servo, servo versus stepper); Arduino lesson of 5 Nov, p. 21–24",
+      "practice": [
+        {
+          "question": "A stepper of 1.8° per step. How many steps make one full turn?",
+          "answer": 200,
+          "unit": "",
+          "compute": {
+            "law": "stepsPerTurn",
+            "angle": 1.8
+          },
+          "solution": "360° / 1.8° = 200 steps.",
+          "source": "Step angle: EAVP lecture 13, p. 26; answer worked by hand",
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "fsm",
+      "title": "State machine",
+      "idea": "A traffic light is always in one state. An event, here its time running out, moves it to the next. Writing a sketch this way keeps it from waiting with delay(), so it can still react to a button.",
+      "law": "states + events + transitions",
+      "lecture": "EAVP lesson 9 (4 Nov), finite state machines: the traffic light",
+      "practice": [
+        {
+          "question": "Green 5 s, orange 2 s, red 5 s. How long is one full cycle of the traffic light?",
+          "answer": 12,
+          "unit": "s",
+          "compute": {
+            "law": "cycle",
+            "ms": [
+              5000,
+              2000,
+              5000
+            ]
+          },
+          "solution": "5 + 2 + 5 = 12 s.",
+          "source": "EAVP lesson 9, the traffic light example",
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "chemistry",
+      "title": "Battery chemistries",
+      "idea": "Each battery chemistry has its own cell voltage, and those voltages are asked by heart at the exam. Cells in series reach a higher voltage; a LiPo must stay between 3.2 and 4.2 V.",
+      "law": "Alkaline 1.5 V · NiCd 1.2 V · NiMH 1.2 V · lead-acid 2 V · Li-ion/LiPo 3.6–3.7 V",
+      "lecture": "EAVP lecture 12, p. 3–13 (battery types, LiPo safety, overview table); lesson 2 (car battery)",
+      "practice": [
+        {
+          "question": "A 12 V car battery is built from lead-acid cells. How many cells does it hold?",
+          "answer": 6,
+          "unit": "",
+          "compute": {
+            "law": "cells",
+            "U": 12,
+            "E": 2
+          },
+          "solution": "12 V / 2 V per cell = 6 cells in series.",
+          "source": "EAVP lesson 2 (a car battery is 6 × 2.0 V); lecture 12, p. 8",
+          "tolerance": 0
         }
       ]
     }

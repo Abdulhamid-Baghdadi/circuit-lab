@@ -207,3 +207,25 @@ button.press[aria-pressed=true] { background: var(--accent); color: var(--accent
 table.method tr.best td { background: var(--ok-bg); font-weight: 700; }
 table.method tr.now td { background: color-mix(in srgb, var(--accent) 16%, var(--panel)); font-weight: 700; }
 @media (max-width: 760px) { table.method { display: block; overflow-x: auto; } }
+.schematic polyline.flow.electrons { animation-direction: reverse; stroke: var(--warn); }
+.arrowhead { fill: var(--wire); }
+.board { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+.gap { stroke: var(--line); stroke-width: 6; }
+.hole { fill: var(--panel); stroke: var(--muted); stroke-width: 1.2; cursor: pointer; }
+.hole.lit { fill: var(--accent); stroke: var(--accent); }
+.hole.leg { stroke: var(--ink); stroke-width: 2.5; }
+.part-leg { stroke: var(--wire); stroke-width: 2.5; }
+.part-body { fill: #d9b38c; stroke: var(--wire); stroke-width: 2; }
+.lcd { font: 700 3rem/1 ui-monospace, Consolas, monospace; padding: 18px 20px; border-radius: 10px; text-align: right;
+       background: #c8d5b9; color: #1b2a12; border: 6px solid #2b2f36; letter-spacing: .06em; }
+.lcd[data-state=fuse] { color: #6b1a12; }
+.strip { fill: var(--glow); }
+.bit[data-on="1"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.swatch { height: 160px; border-radius: 12px; border: 1px solid var(--line); }
+.dial { fill: none; stroke: var(--line); stroke-width: 3; }
+.state { fill: var(--panel); stroke: var(--line); stroke-width: 3; }
+.state.on.go { fill: #4ade80; stroke: #166534; }
+.state.on.wait { fill: #fbbf24; stroke: #92400e; }
+.state.on.stop { fill: #f87171; stroke: #991b1b; }
+.state.on + .label { fill: #111; font-weight: 700; }
+.code.add { font-size: 16px; }

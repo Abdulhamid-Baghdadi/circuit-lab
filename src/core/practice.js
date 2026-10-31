@@ -6,6 +6,7 @@ import { transformer, liftPower } from "./supply.js";
 import { fromTwos, flashComparators } from "./digital.js";
 import { opamp, peakOf } from "./sensing.js";
 import { cellPack, energyCost, dropper, GATES, binaryDac } from "./energy.js";
+import { colourCount, intType, stepper, cellsFor } from "./arduino.js";
 
 const LAWS = {
   ohm: q => ohm({ U: q.U ?? null, R: q.R ?? null, I: q.I ?? null })[q.find],
@@ -36,6 +37,14 @@ const LAWS = {
   gate: q => GATES[q.gate](q.a, q.b),
   dac: q => binaryDac(q.bits, 5, 1000, q.Rf),
   years: q => q.capacity / q.perYear,
+  baseCurrent: q => (q.U - 0.7) / q.R,
+  chain: q => q.n * 8,
+  colours: () => colourCount,
+  wrap: q => intType(q.board, q.type).store(q.value),
+  fromBase: q => parseInt(q.text, q.base),
+  stepsPerTurn: q => 360 / stepper(1, q.angle).believed,
+  cycle: q => q.ms.reduce((a, b) => a + b, 0) / 1000,
+  cells: q => cellsFor(q.U, q.E),
 };
 
 /** The answer to a question's "compute" block; an unknown law is an error naming the ones there are. */

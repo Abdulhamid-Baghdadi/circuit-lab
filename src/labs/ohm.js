@@ -1,7 +1,7 @@
 // Ohm's law as a circuit you can turn: the voltage and the resistance are the controls, the current follows, never
 // the other way round (lesson 1, slide 38). Dots move along the wire at a speed set by the current.
 import { ohm, si } from "../core/index.js";
-import { h, slider, readout } from "../ui/kit.js";
+import { h, slider, readout, choice } from "../ui/kit.js";
 import { svg, wire, resistor, source, meter } from "../ui/schematic.js";
 import * as a from "../ui/art.js";
 
@@ -40,8 +40,10 @@ export default {
         h("div", { class: "controls" },
           slider({ label: "Voltage U", unit: "V", min: 0.5, max: 24, value: U, step: 0.1, onInput: v => { U = v; update(); } }),
           slider({ label: "Resistance R", unit: "Ω", min: 10, max: 1e6, value: R, log: true, onInput: v => { R = v; update(); } }),
+          choice("Draw the current as", [["technical", "Technical current, + to −"], ["electrons", "Electrons, − to +"]], "technical",
+            v => { flow.classList.toggle("electrons", v === "electrons"); }),
           current.el, heat.el,
-          h("p", { class: "hint" }, "Double the voltage: the current doubles, the power goes ×4. Try it."))));
+          h("p", { class: "hint" }, "Double the voltage: the current doubles, the power goes ×4. Try it. The course always draws the technical current, + to −; the electrons really move the other way (lecture 1, slide 33)."))));
     update();
   },
 };

@@ -1,11 +1,14 @@
 // A long cable as two resistors in series with the load (lesson 2, slide 23), sized with Pouillet's law. The bar shows
 // where the supply's voltage goes: the outgoing wire, the load, the return wire.
-import { cable, si } from "../core/index.js";
+import { cable, rhoAt, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
 import * as a from "../ui/art.js";
 
 // Resistivity at about 20 °C, from the table in lesson 2, slide 22 (in 10⁻⁶ Ω·m).
-const MATERIALS = { copper: [0.0175e-6, "Copper"], aluminium: [0.0265e-6, "Aluminium"] };
+const MATERIALS = { copper: [0.0175e-6, "Copper", 0.0039], aluminium: [0.0265e-6, "Aluminium", 0.0043] };
+// Syllabus §2.8, table 2-12: the largest breaker and fuse for each cross-section in a Belgian house (6 mm²: 40 or 32 A
+// breaker, 32 or 25 A fuse; the lower value is taken here, to be safe).
+const FUSES = { 1.5: [16, 10], 2.5: [20, 16], 4: [25, 20], 6: [32, 25], 10: [63, 50], 16: [80, 63], 25: [100, 80], 35: [125, 100] };
 // Cross-sections one buys, in mm².
 const SIZES = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70];
 
@@ -16,12 +19,16 @@ export default {
       a.path("M42,75 C70,40 90,110 118,75 S142,52 158,82") + a.circle(165, 62, 16) + a.rect(157, 80, 16, 12) +
       ["M62,40 q5,-6 0,-12 q-5,-6 0,-12", "M88,96 q5,-6 0,-12", "M112,42 q5,-6 0,-12 q-5,-6 0,-12"].map(d => a.path(d, a.HOT, 2)).join("")),
   mount(root) {
-    let U = 230, l = 700, size = 6, I = 25, material = "copper";
+    let U = 230, l = 700, size = 6, I = 25, material = "copper", T = 20;
     const bar = h("div", { class: "split", role: "img" });
     const r = readout("R of one wire = ρ × l / A"), drop = readout("Lost in the cable, both wires"),
-          load = readout("Left for the load"), heat = readout("Heat in the cable P = I² × R");
+          load = readout("Left for the load"), heat = readout("Heat in the cable P = I² × R"),
+          fuse = readout("Largest breaker / fuse for this cable (Belgium)");
     const update = () => {
-      const c = cable(U, MATERIALS[material][0], l, size * 1e-6, I);
+      const c = cable(U, rhoAt(MATERIALS[material][0], MATERIALS[material][2], T), l, size * 1e-6, I);
+      const f = FUSES[size];
+      fuse.set(f ? `${f[0]} A / ${f[1]} A` : "not in the table", f && I > f[0] ? "danger" : "",
+        !f ? "The syllabus table runs from 1.5 to 35 mm²." : I > f[0] ? `${si(I, "A")} is more than this cable may carry: it would overheat before the breaker trips.` : "This current is allowed in this cable.");
       const lost = Math.min(1, c.drop / U);
       r.set(si(c.Rwire, "Ω"));
       drop.set(si(c.drop, "V"), "", `${(lost * 100).toFixed(1)} % of the supply`);
@@ -44,7 +51,9 @@ export default {
         slider({ label: "Cable length l", unit: "m", min: 1, max: 2000, value: l, log: true, onInput: v => { l = v; update(); } }),
         sizeSlider.el,
         slider({ label: "Current I", unit: "A", min: 0.1, max: 63, value: I, step: 0.1, onInput: v => { I = v; update(); } }),
-        r.el, drop.el, load.el, heat.el,
+        slider({ label: "Temperature of the cable", unit: "°C", min: -20, max: 90, value: T, step: 1, format: v => `${v} °C`, onInput: v => { T = v; update(); },
+          help: "Warmer metal resists more: ρ = ρ20 × (1 + α × (T − 20 °C)), α from lecture 2's table." }),
+        r.el, drop.el, load.el, heat.el, fuse.el,
         h("p", { class: "hint" }, "The fuse table sizes a cable so it does not burn; a long cable must be thicker still so the voltage arrives."))));
     update();
   },
