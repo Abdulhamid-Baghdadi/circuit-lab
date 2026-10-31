@@ -2,12 +2,16 @@
 // gives the hours (lesson 12, p. 12 and 18). The cell voltages are the ones students learn by heart.
 import { battery, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
+import * as a from "../ui/art.js";
 
 // Nominal voltage per cell, lesson 12, p. 4–9 and the overview table on p. 13.
 const CELLS = { alkaline: [1.5, "Alkaline 1.5 V"], nimh: [1.2, "NiMH 1.2 V"], lead: [2, "Lead-acid 2 V"], lipo: [3.7, "Li-ion / LiPo 3.7 V"] };
 
 export default {
   id: "battery",
+  art: () => a.picture("A battery two thirds full",
+    a.rect(42, 42, 108, 66) + a.rect(150, 63, 10, 24, a.INK, 3, a.INK) + a.rect(50, 50, 62, 50, a.COOL, 0, a.COOL) +
+      a.text(132, 81, "+", 22, a.INK) + a.text(100, 136, "Ah · Wh", 16, a.DIM)),
   mount(root) {
     let cell = "lipo", n = 2, mAh = 6500, P = 3, price = 0.5;
     const life = readout("Runs for t = Ah / I"), current = readout("Current I = P / U"), energy = readout("Energy Wh = Ah × U"),

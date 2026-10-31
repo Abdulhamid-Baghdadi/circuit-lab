@@ -1,7 +1,29 @@
 {
   "format": "circuit-lab labs",
   "version": 2,
-  "about": "The course's lectures, each with the labs it teaches, then the words of each lab and its practice questions. Lecture numbers, dates and titles are those on each lecture file's first slide. Answers are the course's own; tests/unit/labs-data.test.js recomputes each with the core and fails if they disagree.",
+  "about": "The course's lectures, each in a topic family that colours its cards, each with the labs it teaches, then the words of each lab and its practice questions. Lecture numbers, dates and titles are those on each lecture file's first slide. Answers are the course's own; tests/unit/labs-data.test.js recomputes each with the core and fails if they disagree.",
+  "families": [
+    {
+      "id": "circuits",
+      "name": "DC circuits"
+    },
+    {
+      "id": "mains",
+      "name": "Mains and safety"
+    },
+    {
+      "id": "arduino",
+      "name": "Arduino"
+    },
+    {
+      "id": "electronics",
+      "name": "Electronics and digital"
+    },
+    {
+      "id": "energy",
+      "name": "Energy and motion"
+    }
+  ],
   "lectures": [
     {
       "number": 1,
@@ -12,7 +34,8 @@
         "ohm",
         "network",
         "divider"
-      ]
+      ],
+      "family": "circuits"
     },
     {
       "number": 2,
@@ -21,7 +44,8 @@
       "file": "03_EAVP V2.3_les2.pdf",
       "labs": [
         "cable"
-      ]
+      ],
+      "family": "circuits"
     },
     {
       "number": 3,
@@ -31,7 +55,8 @@
       "labs": [
         "transformer",
         "led"
-      ]
+      ],
+      "family": "mains"
     },
     {
       "number": 4,
@@ -40,7 +65,8 @@
       "file": "05_EAVP V2.4_Les4.pdf",
       "labs": [
         "shock"
-      ]
+      ],
+      "family": "mains"
     },
     {
       "number": 5,
@@ -50,7 +76,8 @@
       "labs": [
         "adc",
         "pwm"
-      ]
+      ],
+      "family": "arduino"
     },
     {
       "number": 10,
@@ -59,7 +86,8 @@
       "file": "10_EAVP V2.4_Les10.pdf",
       "labs": [
         "rectifier"
-      ]
+      ],
+      "family": "electronics"
     },
     {
       "number": 11,
@@ -68,7 +96,8 @@
       "file": "11_EAVP V2.4_les11.pdf",
       "labs": [
         "binary"
-      ]
+      ],
+      "family": "electronics"
     },
     {
       "number": 12,
@@ -77,7 +106,8 @@
       "file": "12_EAVP V2.4_Les12.pdf",
       "labs": [
         "battery"
-      ]
+      ],
+      "family": "energy"
     },
     {
       "number": 13,
@@ -86,7 +116,8 @@
       "file": "13_EAVP V2.4_Les13.pdf",
       "labs": [
         "motor"
-      ]
+      ],
+      "family": "energy"
     }
   ],
   "labs": [

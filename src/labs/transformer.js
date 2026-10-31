@@ -3,6 +3,7 @@
 import { transformer, si } from "../core/index.js";
 import { h, s, slider, readout } from "../ui/kit.js";
 import { svg, resistor } from "../ui/schematic.js";
+import * as a from "../ui/art.js";
 
 function coil(x, y, n, label) {
   // At most 12 loops are drawn; the label gives the true number.
@@ -12,8 +13,15 @@ function coil(x, y, n, label) {
     s("text", { x: x < 200 ? x - 14 : x + 14, y: y + 40, class: "label", "text-anchor": x < 200 ? "end" : "start" }, label));
 }
 
+// A sine wave from x0 to x1 around y, as a path for a card picture.
+const wave = (x0, x1, y, amp) => a.line(Array.from({ length: 41 }, (_, k) => [x0 + (x1 - x0) * k / 40, y - amp * Math.sin(k / 40 * 4 * Math.PI)]), a.ACC);
+
 export default {
   id: "transformer",
+  art: () => a.picture("A large wave in, two coils on an iron core, a small wave out",
+    a.line([[95, 32], [95, 118]], a.DIM, 4) + a.line([[105, 32], [105, 118]], a.DIM, 4) +
+      a.path("M82,40" + " a8,7 0 0 0 0,14".repeat(5)) + a.path("M118,52" + " a8,11.5 0 0 1 0,23".repeat(2)) +
+      wave(12, 64, 75, 26) + wave(136, 188, 75, 10)),
   mount(root) {
     let U = 230, N1 = 80, N2 = 20, R = 20, Rline = 1;
     const pic = h("div", { class: "drawing" });

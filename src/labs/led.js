@@ -3,6 +3,7 @@
 import { ledResistor, e12, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
 import { svg, wire, resistor, source, led } from "../ui/schematic.js";
+import * as a from "../ui/art.js";
 
 // Typical forward voltages and the maximum current of a 5 mm LED; the datasheet of the LED in hand decides.
 const COLOURS = { red: [2.0, "Red, about 2.0 V"], green: [2.2, "Green, about 2.2 V"], blue: [3.0, "Blue or white, about 3.0 V"] };
@@ -10,6 +11,10 @@ const IMAX = 0.02;
 
 export default {
   id: "led",
+  art: () => a.picture("An LED with its series resistor, giving off light",
+    a.line([[90, 15], [90, 24]]) + a.resistor(90, 40, true) + a.line([[90, 56], [90, 68]]) +
+      a.line([[76, 68], [104, 68], [90, 92], [76, 68]]) + a.line([[76, 92], [104, 92]]) + a.line([[90, 92], [90, 135]]) +
+      a.arrow(112, 70, 136, 56, a.ACC, 2, 7) + a.arrow(114, 86, 140, 74, a.ACC, 2, 7)),
   mount(root) {
     let U = 5, colour = "red", I = 0.015;
     const pic = h("div", { class: "drawing" });

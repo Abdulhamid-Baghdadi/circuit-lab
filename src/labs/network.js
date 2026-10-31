@@ -3,6 +3,7 @@
 import { table as solveTable, si } from "../core/index.js";
 import { h, slider, choice } from "../ui/kit.js";
 import { svg, wire, resistor, source } from "../ui/schematic.js";
+import * as a from "../ui/art.js";
 
 function drawing(kind) {
   if (kind === "series") return svg(460, 220, "Three resistors in series on a source",
@@ -20,6 +21,10 @@ function drawing(kind) {
 
 export default {
   id: "network",
+  art: () => a.picture("Two resistors in parallel, in series with a third, on a source",
+    a.line([[30, 68], [30, 40], [79, 40]]) + a.line([[70, 40], [70, 80], [79, 80]]) + a.line([[111, 40], [170, 40], [170, 62]]) +
+      a.line([[111, 80], [120, 80], [120, 40]]) + a.resistor(95, 40, false, a.ACC) + a.resistor(95, 80, false, a.ACC) +
+      a.resistor(170, 78, true) + a.line([[170, 94], [170, 115], [30, 115], [30, 82]]) + a.cell(30, 75)),
   mount(root) {
     let kind = "series", U = 9, Rs = [3000, 10000, 5000];
     const pic = h("div", { class: "drawing" });

@@ -2,6 +2,7 @@
 // map() to an angle, the servo turning. A staircase shows that the converter only knows whole steps.
 import { adcRead, lsb, map, si } from "../core/index.js";
 import { h, s, slider, readout, choice } from "../ui/kit.js";
+import * as a from "../ui/art.js";
 
 const W = 460, H = 260, PAD = 52;
 
@@ -41,8 +42,14 @@ function servo(angle) {
     s("circle", { cx, cy, r: 8, class: "hub" }));
 }
 
+// The card's picture: eight whole steps under the ramp.
+const stairs = () => Array.from({ length: 8 }, (_, k) => [[20 + k * 20, 130 - k * 13.75], [40 + k * 20, 130 - k * 13.75]]).flat();
+
 export default {
   id: "adc",
+  art: () => a.picture("A straight voltage ramp and the staircase of whole steps that follows it",
+    a.line([[20, 130], [180, 20]], a.DIM, 2) + a.line(stairs(), a.ACC) + a.text(20, 145, "0 V", 12, a.DIM, "start") +
+      a.text(186, 18, "1023", 12, a.DIM, "end")),
   mount(root) {
     let U = 2.5, bits = 10;
     const chart = h("div", { class: "drawing" }), arm = h("div", { class: "drawing small" });

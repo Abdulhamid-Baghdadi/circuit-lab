@@ -2,6 +2,7 @@
 // where the supply's voltage goes: the outgoing wire, the load, the return wire.
 import { cable, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
+import * as a from "../ui/art.js";
 
 // Resistivity at about 20 °C, from the table in lesson 2, slide 22 (in 10⁻⁶ Ω·m).
 const MATERIALS = { copper: [0.0175e-6, "Copper"], aluminium: [0.0265e-6, "Aluminium"] };
@@ -10,6 +11,10 @@ const SIZES = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70];
 
 export default {
   id: "cable",
+  art: () => a.picture("A plug, a long winding cable giving off heat, and a lamp at its end",
+    a.rect(15, 60, 20, 30) + a.line([[35, 68], [42, 68]], a.INK, 2) + a.line([[35, 82], [42, 82]], a.INK, 2) +
+      a.path("M42,75 C70,40 90,110 118,75 S142,52 158,82") + a.circle(165, 62, 16) + a.rect(157, 80, 16, 12) +
+      ["M62,40 q5,-6 0,-12 q-5,-6 0,-12", "M88,96 q5,-6 0,-12", "M112,42 q5,-6 0,-12 q-5,-6 0,-12"].map(d => a.path(d, a.HOT, 2)).join("")),
   mount(root) {
     let U = 230, l = 700, size = 6, I = 25, material = "copper";
     const bar = h("div", { class: "split", role: "img" });

@@ -3,12 +3,17 @@
 import { ohm, si } from "../core/index.js";
 import { h, slider, readout } from "../ui/kit.js";
 import { svg, wire, resistor, source, meter } from "../ui/schematic.js";
+import * as a from "../ui/art.js";
 
 // A quarter-watt resistor, the kind in the kit and on a breadboard.
 const RATING = 0.25;
 
 export default {
   id: "ohm",
+  art: () => a.picture("A source and a resistor in a loop, the current arrow along the top wire",
+    a.line([[40, 68], [40, 35], [140, 35], [140, 59]]) + a.line([[140, 91], [140, 115], [40, 115], [40, 82]]) + a.cell(40, 75) +
+      a.resistor(140, 75, true) + a.arrow(70, 22, 112, 22, a.ACC) + a.text(91, 58, "I", 20, a.ACC) + a.text(18, 81, "U", 16, a.DIM) +
+      a.text(164, 81, "R", 16, a.DIM)),
   mount(root) {
     let U = 5, R = 220;
     const A = meter(250, 40, "A", ""), V = meter(380, 130, "V", "", "right");

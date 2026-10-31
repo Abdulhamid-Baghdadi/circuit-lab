@@ -2,6 +2,7 @@
 // what an LED's brightness or a motor's speed follows (lesson 5, slide 54).
 import { pwm, si } from "../core/index.js";
 import { h, s, slider, readout } from "../ui/kit.js";
+import * as a from "../ui/art.js";
 
 const W = 460, H = 220, PAD = 48, PERIODS = 3;
 
@@ -26,8 +27,13 @@ function wave(duty) {
       "Pin voltage [V]"));
 }
 
+// The card's picture: a square wave high 60 % of each 50-unit period.
+const square = () => [0, 1, 2, 3].flatMap(k => [[15 + k * 50, 110], [15 + k * 50, 40], [45 + k * 50, 40], [45 + k * 50, 110]]).concat([[185, 110]]);
+
 export default {
   id: "pwm",
+  art: () => a.picture("A square wave switching between 0 and 5 V, with its average drawn dashed",
+    a.line(square(), a.INK) + a.line([[15, 68], [185, 68]], a.ACC, 3, "8 6") + a.text(188, 62, "avg", 13, a.ACC, "end")),
   mount(root) {
     let value = 127;
     const chart = h("div", { class: "drawing" });

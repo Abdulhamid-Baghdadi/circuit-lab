@@ -3,9 +3,22 @@
 import { rectifier, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
 import { lineChart } from "../ui/chart.js";
+import * as a from "../ui/art.js";
+
+// The card's picture: the bare sine, its rectified humps, and a smoothed line that sags between the peaks.
+function rectified() {
+  const xs = Array.from({ length: 121 }, (_, k) => 15 + k * 170 / 120), y = v => 120 - v * 80;
+  const sine = xs.map((x, k) => [x, 75 - 45 * Math.sin(k / 120 * 4 * Math.PI)]);
+  const hump = xs.map((x, k) => Math.abs(Math.sin(k / 120 * 4 * Math.PI)));
+  let held = 0;
+  const smooth = hump.map(v => (held = Math.max(v, held * 0.996)));
+  return a.line(sine, a.DIM, 2) + a.line(xs.map((x, k) => [x, y(hump[k])]), a.INK) + a.line(xs.map((x, k) => [x, y(smooth[k])]), a.ACC);
+}
 
 export default {
   id: "rectifier",
+  art: () => a.picture("A sine wave, its rectified humps, and the smoothed line over them",
+    rectified()),
   mount(root) {
     let kind = "bridge", Upeak = 12, C = 470e-6, R = 100;
     const chart = h("div", { class: "drawing" });

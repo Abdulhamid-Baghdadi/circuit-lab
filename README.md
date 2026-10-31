@@ -15,13 +15,13 @@ the meters and the numbers follow. Made by the [SMART Lab](https://github.com/UA
 <p align="center"><sub>Raise the voltage, lower the resistance: the current follows, and the resistor warns when it would burn. Plays once, 5 s.</sub></p>
 
 <p align="center">
-  <img src="docs/light.png" alt="Circuit Lab in the light theme: on the left the lectures in order, each with its labs; on the right the voltage divider lab of lecture 1, a circuit of two 10 kΩ resistors on 5 V with a voltmeter reading 2.5 V, sliders for the supply, both resistors and a load, and the result 512 for analogRead" width="49%">
-  <img src="docs/dark.png" alt="The same voltage divider lab in the dark theme" width="49%">
+  <img src="docs/light.png" alt="The overview in the light theme: the lectures in order, each with a row of cards; every card has a line drawing of its idea, such as a circuit loop with a current arrow for Ohm's law, and a frame coloured by topic" width="49%">
+  <img src="docs/dark.png" alt="A lab page in the dark theme: the voltage divider of lecture 1, its circuit with a voltmeter reading 2.5 V, its sliders and the analogRead result 512" width="49%">
 </p>
 
 ## The labs
 
-The labs are grouped by the lecture that teaches them, in the course's order, with the date and title from each
+The labs are cards, grouped by the lecture that teaches them, in the course's order, with the date and title from each
 lecture's first slide. Each lab is one idea of the course, with the law, where in the course it comes from, a circuit to play with, and
 practice questions from the course's own exercise sheet, checked as you type them ("22.5m" is read as 22.5 mA).
 
@@ -57,8 +57,8 @@ then open http://127.0.0.1:8765. Nothing is sent anywhere; there is no account a
 
 ```
 src/core   the laws, the converter and the units: pure functions, tested headless
-src/ui     sliders, readouts, circuit symbols: knows no law
-src/labs   one file per lab, joining the two; listed in src/labs/index.js
+src/ui     sliders, readouts, circuit symbols, the cards' line art: knows no law
+src/labs   one file per lab, joining the two, with its card picture; listed in src/labs/index.js
 src/app.js reads data/labs.json and lays out the lectures with their labs
 ```
 

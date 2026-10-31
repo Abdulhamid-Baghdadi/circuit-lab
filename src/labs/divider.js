@@ -3,12 +3,17 @@
 import { divider, adcRead, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
 import { svg, wire, resistor, source, meter } from "../ui/schematic.js";
+import * as a from "../ui/art.js";
 
 // The Grove rotary and slide potentiometers are 10 kΩ.
 const POT = 10e3;
 
 export default {
   id: "divider",
+  art: () => a.picture("Two resistors one above the other; the output is taken from between them",
+    a.line([[80, 15], [80, 29]]) + a.resistor(80, 45, true) + a.line([[80, 61], [80, 89]]) + a.resistor(80, 105, true) +
+      a.line([[80, 121], [80, 135]]) + a.line([[64, 135], [96, 135]]) + a.arrow(80, 75, 150, 75, a.ACC) +
+      a.text(172, 80, "out", 16, a.ACC) + a.text(98, 22, "5 V", 14, a.DIM, "start")),
   mount(root) {
     let mode = "fixed", Uin = 5, R1 = 10e3, R2 = 10e3, turn = 0.5, RL = Infinity;
     const V = meter(330, 175, "V", "", "right");

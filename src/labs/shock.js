@@ -2,6 +2,7 @@
 // row the current falls in is marked in words, not by colour alone.
 import { ohm, si } from "../core/index.js";
 import { h, slider, readout, choice } from "../ui/kit.js";
+import * as a from "../ui/art.js";
 
 // Lesson 4, slide 8.
 const CONTACT = { rubber: [10e6, "Rubber shoes, insulated, about 10 MΩ"], leather: [15e3, "Leather shoes, about 15 kΩ"],
@@ -18,6 +19,10 @@ const EFFECTS = [
 
 export default {
   id: "shock",
+  art: () => a.picture("A person reaching towards a lightning bolt",
+    a.circle(45, 38, 10) + a.line([[45, 48], [45, 95]]) + a.line([[30, 130], [45, 95], [60, 130]]) +
+      a.line([[28, 80], [45, 62], [82, 54]]) + a.line([[15, 135], [185, 135]], a.DIM, 2) +
+      a.line([[122, 15], [96, 72], [116, 72], [100, 128], [142, 58], [120, 58], [138, 15], [122, 15]], a.HOT, 3)),
   mount(root) {
     let contact = "leather", ac = true, U = 230;
     const current = readout("Current through the body I = U / R");

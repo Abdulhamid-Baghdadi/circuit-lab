@@ -2,9 +2,14 @@
 // two's complement shows how a processor stores a negative number.
 import { places, fromTwos, twos, flashComparators } from "../core/index.js";
 import { h, readout, choice } from "../ui/kit.js";
+import * as a from "../ui/art.js";
 
 export default {
   id: "binary",
+  art: () => a.picture("Four bits, 1 0 1 1, with their place values 8 4 2 1",
+    ["1", "0", "1", "1"].map((d, k) => a.rect(20 + k * 42, 38, 36, 46, d === "1" ? a.ACC : a.DIM) +
+      a.text(38 + k * 42, 71, d, 28, d === "1" ? a.ACC : a.DIM) + a.text(38 + k * 42, 106, String(8 >> k), 16, a.DIM)).join("") +
+      a.text(100, 138, "= 11", 18, a.INK)),
   mount(root) {
     let bits = 4, value = 0b1011;
     const row = h("div", { class: "bits", role: "group", "aria-label": "The bits, most significant first" });

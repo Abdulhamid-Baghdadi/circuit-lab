@@ -16,7 +16,11 @@ test("every lab sits under exactly one lecture, and every lecture's labs exist",
   const listed = data.lectures.flatMap(l => l.labs);
   assert.deepEqual([...listed].sort(), data.labs.map(l => l.id).sort());
   assert.equal(new Set(listed).size, listed.length);
-  for (const l of data.lectures) assert.ok(l.number && l.date && l.title && l.file && l.labs.length, `lecture ${l.number} is complete`);
+  const families = new Set(data.families.map(f => f.id));
+  for (const l of data.lectures) {
+    assert.ok(l.number && l.date && l.title && l.file && l.labs.length, `lecture ${l.number} is complete`);
+    assert.ok(families.has(l.family), `lecture ${l.number}'s family ${l.family} is listed in families`);
+  }
 });
 
 for (const lab of data.labs) {

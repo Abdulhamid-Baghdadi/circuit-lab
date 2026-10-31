@@ -36,27 +36,42 @@ button { min-height: 32px; padding: 4px 14px; border: 1px solid var(--line); bor
 #theme { white-space: nowrap; flex: none; }
 
 
-.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 20px; padding: 8px 24px 32px; max-width: 1480px; align-items: start; }
-main { min-width: 0; }
-.outline { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow-y: auto; }
-.outline summary { display: none; }
-.lectures, .lectures ul { list-style: none; margin: 0; padding: 0; }
-.lectures > li { margin-bottom: 14px; }
-.lecture { margin: 0 0 4px; display: grid; grid-template-columns: auto 1fr; gap: 0 8px; }
-.lecture .number { font-weight: 700; }
-.lecture .date { color: var(--muted); font-size: 0.85rem; align-self: center; }
-.lecture .title { grid-column: 1 / -1; color: var(--muted); font-size: 0.9rem; }
-.lectures ul a { display: block; padding: 4px 10px; margin-left: 2px; min-height: 28px; border-left: 3px solid var(--line);
-                 color: var(--ink); text-decoration: none; }
-.lectures ul a:hover { background: var(--panel); }
-.lectures ul a[aria-current=page] { border-left-color: var(--accent); background: var(--panel); font-weight: 700; }
+main { padding: 8px 24px 32px; max-width: 1280px; }
+.top h1 a { color: inherit; text-decoration: none; }
+.lead { margin: 4px 0 8px; color: var(--muted); }
+.lecture-rows { display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: start; }
+.lecture-row { margin: 14px 0 8px; max-width: 100%; }
+.lecture-row h2 { font-size: 1.1rem; margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 0 8px; align-items: baseline; max-width: 620px; }
+.lecture-row h2 .number { color: var(--accent); }
+.lecture-row h2 .date { color: var(--muted); font-weight: 400; font-size: 0.95rem; }
+.cards { display: grid; grid-auto-flow: column; grid-auto-columns: 196px; gap: 16px; }
+
+/* A lab card after the Methodical card game: a frame in its family's colour, the picture on a dark art box, the
+   title on a light plate. The card is a printed object, so it keeps its colours in both themes. */
+.card { --frame: #0C4A6E; display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: 14px; text-decoration: none;
+        background: var(--frame); box-shadow: inset 0 0 0 3px rgba(0,0,0,.35), inset 0 0 0 6px rgba(255,255,255,.14), 0 2px 6px rgba(0,0,0,.25);
+        transition: transform .12s ease, box-shadow .12s ease; }
+.card[data-family=mains] { --frame: #9F1239; }
+.card[data-family=arduino] { --frame: #047857; }
+.card[data-family=electronics] { --frame: #6D28D9; }
+.card[data-family=energy] { --frame: #92400E; }
+.card .art { display: block; border-radius: 8px; overflow: hidden; line-height: 0; box-shadow: inset 0 0 0 2px rgba(0,0,0,.4); }
+.card .art svg { width: 100%; height: auto; }
+.card .plate { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; background: linear-gradient(#ffffff, #e9ecf1); color: #16181d; }
+.card .name { font: 700 1.05rem/1.2 "Arial Narrow", "Roboto Condensed", system-ui, sans-serif; letter-spacing: .02em; }
+.card .meta { font-size: 0.8rem; color: #4b5059; }
+.card .dir { font-size: 0.8rem; font-weight: 700; color: #00727a; }
+.card:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 3px rgba(0,0,0,.35), inset 0 0 0 6px rgba(255,255,255,.14), 0 8px 16px rgba(0,0,0,.3); }
+.card:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+.back { display: inline-block; margin-bottom: 6px; font-weight: 600; min-height: 24px; }
+.steps { display: flex; justify-content: space-between; gap: 16px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); }
+.card.small { flex-direction: row; align-items: center; width: min(320px, 48%); padding: 6px; }
+.card.small .art { width: 96px; flex: none; }
+.card.small .plate { flex: 1; }
+.steps .card.small:last-child { margin-left: auto; }
 .eyebrow { margin: 0 0 2px; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
 .intro h2:focus { outline: none; }
-.steps { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--line); }
-.step { display: grid; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; color: var(--ink); max-width: 48%; }
-.step.next { text-align: right; margin-left: auto; }
-.step .dir { color: var(--accent); font-weight: 600; }
-.step .where { color: var(--muted); font-size: 0.85rem; }
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; }
 .intro h2 { margin: 0 0 4px; }
 .idea { margin: 0 0 8px; max-width: 70ch; }
@@ -141,11 +156,12 @@ details summary { cursor: pointer; color: var(--accent); min-height: 24px; }
 footer { padding: 0 24px 24px; color: var(--muted); font-size: 0.9rem; }
 
 @media (max-width: 760px) {
-  .top, .layout, footer { padding-left: 16px; padding-right: 16px; }
-  .layout { grid-template-columns: 1fr; gap: 12px; }
-  .outline { position: static; max-height: none; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
-  .outline summary { display: list-item; padding: 10px 14px; font-weight: 700; cursor: pointer; min-height: 24px; }
-  .outline nav { padding: 0 14px 6px; }
+  .top, main, footer { padding-left: 16px; padding-right: 16px; }
+  .lecture-rows { display: block; }
+  .cards { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .card .name { font-size: 0.95rem; }
+  .card.small { width: 100%; }
+  .steps { flex-direction: column; }
   .stage { grid-template-columns: 1fr; }
   .panel { padding: 12px; }
 }
