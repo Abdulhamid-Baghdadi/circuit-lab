@@ -40,5 +40,6 @@ Trusted to the agent: one idea per lab, the words in labs.json matching the UI.
 - `docs/ohm-light.gif`, `docs/ohm-dark.gif`: `node scripts/record-readme.mjs` with the site served on port 8765
   (headless Edge over its DevTools port, then ffmpeg; 4.7 s, plays once).
 - `docs/light.png`, `docs/dark.png`: headless Edge `--screenshot` of `#divider` with
-  `--blink-settings=preferredColorScheme=1` (light) or `0` (dark), window 1280 × 1000.
+  `--blink-settings=preferredColorScheme=1` (light) or `0` (dark), `--virtual-time-budget=8000`, window 1280 × 1000;
+  a file under 50 kB caught the page before it loaded: take it again.
 - `tests/unit/readme.test.js` checks that every picture the README shows exists and has alt text.
