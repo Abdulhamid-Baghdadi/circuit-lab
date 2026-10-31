@@ -33,25 +33,35 @@ practice questions from the course's own exercise sheet, checked as you type the
 | 2 · 6 Oct · Power, conductors and batteries | Long cables | Pouillet's law: how much of 230 V reaches a load 700 m away on 6 mm² |
 |  | Real batteries | Four cells in series, parallel or two by two, each with a little resistance inside; the voltage at the load sags |
 | 3 · 13 Oct · Electromagnetism, transformers and LEDs | Measuring U and I | Put the ammeter and the voltmeter in series or across R; a wrong place shows as a short or as nothing flowing |
+|  | Using a multimeter | Pick what to measure, the red lead's socket and the range; the display reads, shows OL, or the fuse blows |
 |  | Transformer | Change the windings; the voltage, the currents, and the line loss at high and low voltage follow |
 |  | LED series resistor | Pick the colour, supply and current; get the resistor, the one you can buy, and what really flows |
 | 4 · 20 Oct · Distribution and safety | RMS and peak | Set the RMS voltage; see the wave reach √2 times higher, as 230 V mains peaks at 325 V |
 |  | Electric shock | Your body as a resistor: where you stand and what you touch, against the lesson's table of effects |
 |  | Energy bill | Power × hours × price for one device; the same heat bought with an electric heater, a heat pump or gas |
-| 5 · 21 Oct · Introduction to Arduino | Pull-down resistor | A button on D2 with no resistor, a pull-down or a pull-up; watch the open pin read at random |
+| 5 · 21 Oct · Introduction to Arduino | The breadboard | Click holes and see which are joined inside; place a part's legs and see whether it bridges two strips or is shorted |
+|  | Pull-down resistor | A button on D2 with no resistor, a pull-down or a pull-up; watch the open pin read at random |
 |  | From voltage to analogRead | The voltage on A0, the 10-bit staircase, `map()` and the servo turning |
 |  | PWM: a voltage by switching | `analogWrite` as a square wave, its duty and average, and an LED dimming |
+| 7 · 28 Oct · Variables, functions and serial | Variable types and overflow | Store a number in byte, int or long on the UNO R3 or R4 and watch it wrap; typecasting examples |
 | 8 · 3 Nov · Sensors | Temperature sensor (NTC) | Warm the lecture's NTC; its resistance, the divider's voltage, analogRead, and the temperature worked back |
+| 9 · 4 Nov · Advanced Arduino programming | State machine | The lecture's traffic light: states, events and transitions, stepped through with its switch-case code |
+|  | Mixing colours | Three sliders 0–255 mix a NeoPixel colour, with its code and the 16 777 216 colours |
 | 10 · 17 Nov · Semiconductors | From AC to smooth DC | No diode, one diode or a Graetz bridge, then a capacitor: the wave, its average and its ripple |
+|  | Transistor as a switch | Pin 9 through a base resistor switches an LED strip; the base current against the pin's limit, on or half on |
 |  | Opamp amplifier | Set both inputs and the gain; the output follows the difference, and stops at the supply if you give it one |
 |  | Lowering a voltage | An LM7805 from 12 V: the heat it burns, its efficiency, and a switching converter beside it |
-| 11 · 17 Nov · Digital circuits | Binary numbers | Flip bits; see the place values, the two's complement reading and the flash ADC's comparators |
+| 11 · 17 Nov · Digital circuits | Number bases | One number in decimal, binary, octal and hexadecimal; binary addition with its carries |
+|  | Binary numbers | Flip bits; see the place values, the two's complement reading and the flash ADC's comparators |
 |  | Logic gates | Flip two inputs, pick a gate; the output, its row of the truth table and the same test in Arduino code |
+|  | Shift register | Set the data pin, pulse the clock, latch; or shiftOut a byte: eight outputs from three pins |
 |  | From number to voltage (DAC) | Flip three bits; the lecture's DAC steps down from 0 V, its staircase and the feedback resistor |
 |  | Button bounce | One press of a bouncing button counted raw and with the course's 50 ms debounce |
-| 12 · 24 Nov · Batteries | Battery life | Cell type, cells in series, capacity and load: hours, Wh and the cost of a charge |
+| 12 · 24 Nov · Batteries | Battery chemistries | Each chemistry's cell voltage, cells in series for a voltage, and a LiPo's safe window |
+|  | Battery life | Cell type, cells in series, capacity and load: hours, Wh and the cost of a charge |
 |  | Battery budget | The lecture's sensor node: measuring, idle and sending, the mAh a year and how many years 5200 mAh lasts |
 | 13 · 1 Dec · Motors | Sizing a motor | Mass, height and time give the ideal power; a safety factor gives the motor to buy |
+|  | Stepper or servo | Send steps to a stepper under load and see it lose position without knowing; the servo gets there |
 
 Every answer on the exercise sheet is recomputed by the program in the tests, so a typo in the data fails the build.
 
@@ -82,6 +92,11 @@ check that holds them: [ARCHITECTURE.md](ARCHITECTURE.md). Tests: `node --test "
 - Ideal parts: no tolerances, no temperature, an LED with a fixed forward voltage, an ideal converter. Measure on the
   real kit too.
 - The rectifier steps ideal diodes with a fixed 0.7 V drop; the shock lab uses the lesson's single body resistances.
+- The switching converter's efficiency in the regulator lab is an assumption to play with; the lecture gives no number.
+- Labelled assumptions, not course data: the transistor's current gain β, the multimeter's 0.2 A mA fuse, the light
+  sensor's resistance range, and the stepper's skipped steps under load (a made-up model to show the effect).
+- Lecture 7's type table is the UNO R3's; on the kit's UNO R4 an int is 4 bytes. The variables lab offers both.
+- The cable lab's temperature uses ρ = ρ20 × (1 + α × (T − 20 °C)); the syllabus writes the law differently (§2.8).
 - The cable lab holds the load's current fixed, as the lesson's example does; a real load draws less when its voltage
   drops.
 
