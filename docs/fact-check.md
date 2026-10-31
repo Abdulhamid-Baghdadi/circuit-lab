@@ -65,16 +65,27 @@ ADC (lesson 11, p. 48–50), NTC (lesson 8, slide 7), types (lecture 13, p. 34),
 
 ## Errors in the course material found along the way
 
-Not repeated in the labs; worth telling the lecturers:
+Not repeated in the labs. Each was checked on the page of the PDF; a deck with the pages and the spot boxed was made
+for the lecturers (kept outside this repository, since it reproduces course slides).
 
-- Lesson 5, slides 40 and 51: "0 to 1024" for a 10-bit ADC; the top value is 1023 (as the jury question says).
-- Lessons 3 and 4, slide 23: 19² written as 367; it is 361 (the ratio 230/12 squared is 367.4, so the 367 is right
-  for 230 V against 12 V, but not as 19²).
-- Lecture 12, p. 7: NiMH called "Nickel and Mercury"; it is nickel–metal hydride.
-- Lecture 11, p. 28: "74HC00: 3 × 3-input NAND"; the 74HC00 is four 2-input NANDs.
-- Lecture 13, p. 8: 50 Hz given as 6000 RPM; 50 × 60 = 3000.
-- Lecture 13, p. 34: the Boeing counter's 248 days fits hundredths of a second, not the milliseconds on the slide.
-- The Arduino lesson of 5 Nov, p. 31: a 220 Ω base resistor draws 19.5 mA from the pin, more than the UNO R4's 8 mA
-  that lesson 5 gives.
+Errors:
+
+- Lesson 5, slides 40, 50 and 51: "0 to 1024" for a 10-bit ADC, and "1024 (5 V)"; the top value is 1023, as example
+  jury question 2 says.
+- Lecture 12, slide 7: NiMH called "Nickel and Mercury"; it is nickel–metal hydride.
+- Lecture 13, slide 43: "50Hz = 50/sec = 50*60 = 6000 RPM"; 50 × 60 = 3000. The pole counts below divide this 6000.
+- Lecture 13, slide 69 (Boeing 787): 21 427 200 s is 21 427 200 000 ms, not "2142720000 millisec"; that number is the
+  time in hundredths of a second, which is what reaches 2 147 483 647 after 248 days.
 - Exercise 10's answer: 57.5² / 20 = 165.3 W, not 165.6 W.
-- Syllabus §2.8: the temperature law written as ρ = ρ0 × α × T, which is not the usual form.
+
+To check:
+
+- Lesson 11, p. 28: "IC 74HC00: 3 x 3-input NAND-gate"; the pin diagram drawn is a triple 3-input NAND (74HC10),
+  while the 74HC00 is four 2-input NANDs. The part number needs checking against the datasheets.
+- The Arduino lesson of 5 Nov, p. 31: a 220 Ω base resistor draws (5 − 0.7) / 220 = 19.5 mA from the pin, more than
+  the UNO R4's 8 mA per pin on lesson 5, slide 19.
+- Syllabus §2.8, p. 68: ρ = ρ0 · e^(αT), with ρ0 at absolute zero and T in kelvin. With Table 2-13's copper values
+  (ρ at about 20 °C, α = 0.0039 K⁻¹) this gives ρ0 = 0.0175 / e^(0.0039 × 293) = 0.0056 × 10⁻⁶ Ω·m, a third of the
+  room-temperature value; the form of the law or the meaning of ρ0 needs checking.
+
+Checked and correct, though it looks odd: lessons 3 and 4, slide 23, "367" is (230 V / 12 V)² = 367.4.
