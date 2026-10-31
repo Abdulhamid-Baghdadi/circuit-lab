@@ -2,6 +2,8 @@
 // trusted.
 import { ohm, parallel, series, divider, ledResistor } from "./circuit.js";
 import { adcRead, map, pwm } from "./signal.js";
+import { transformer, liftPower } from "./supply.js";
+import { fromTwos, flashComparators } from "./digital.js";
 
 const LAWS = {
   ohm: q => ohm({ U: q.U ?? null, R: q.R ?? null, I: q.I ?? null })[q.find],
@@ -18,6 +20,11 @@ const LAWS = {
   pwm: q => pwm(q.value).average,
   batteryAh: q => q.P / q.U * q.h,
   batteryWh: q => q.Ah * q.U,
+  transformerU: q => transformer(q.U, q.N1, q.N2, q.R).Uout,
+  lift: q => liftPower(q.m, q.h, q.t).P,
+  binary: q => parseInt(q.pattern, 2),
+  twos: q => fromTwos(q.pattern),
+  comparators: q => flashComparators(q.bits),
 };
 
 /** The answer to a question's "compute" block; an unknown law is an error naming the ones there are. */

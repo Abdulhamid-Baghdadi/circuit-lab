@@ -23,9 +23,14 @@ practice questions from the course's own exercise sheet, checked as you type the
 | Voltage divider | Two resistors or the kit's potentiometer; add a load and see it pull the output down; the number analogRead would give | Lesson 1; exercise 2; Grove potentiometer |
 | LED series resistor | Pick the colour, supply and current; get the resistor, the one you can buy, and what really flows | Lesson 3, slide 26; exercise 11 |
 | Long cables | Pouillet's law: how much of 230 V reaches a load 700 m away on 6 mm² | Lesson 2, slides 21–27 |
+| Electric shock | Your body as a resistor: where you stand and what you touch, against the lesson's table of effects | Lesson 4, slides 7–8 |
+| Transformer | Change the windings; the voltage, the currents, and the line loss at high and low voltage follow | Lesson 3, slides 20–23; exercise 10 |
 | Battery life | Cell type, cells in series, capacity and load: hours, Wh and the cost of a charge | Lesson 12; example question 3 |
+| From AC to smooth DC | No diode, one diode or a Graetz bridge, then a capacitor: the wave, its average and its ripple | Lesson 10, p. 6–9 |
 | From voltage to analogRead | The voltage on A0, the 10-bit staircase, `map()` and the servo turning | Lesson 5; jury question 2 |
 | PWM | `analogWrite` as a square wave, its duty and average, and an LED dimming | Lesson 5, slide 54; lesson 10 |
+| Binary numbers | Flip bits; see the place values, the two's complement reading and the flash ADC's comparators | Lesson 11, p. 6–17, 53–55 |
+| Sizing a motor | Mass, height and time give the ideal power; a safety factor gives the motor to buy | Lesson 13, p. 24–29 |
 
 Every answer on the exercise sheet is recomputed by the program in the tests, so a typo in the data fails the build.
 
@@ -55,6 +60,7 @@ check that holds them: [ARCHITECTURE.md](ARCHITECTURE.md). Tests: `node --test "
 
 - Ideal parts: no tolerances, no temperature, an LED with a fixed forward voltage, an ideal converter. Measure on the
   real kit too.
+- The rectifier steps ideal diodes with a fixed 0.7 V drop; the shock lab uses the lesson's single body resistances.
 - The cable lab holds the load's current fixed, as the lesson's example does; a real load draws less when its voltage
   drops.
 - No animation of the main task yet in this README; the screenshots show the divider lab.

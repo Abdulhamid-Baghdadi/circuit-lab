@@ -131,3 +131,14 @@ footer { padding: 0 24px 24px; color: var(--muted); font-size: 0.9rem; }
 .schematic { max-height: 360px; }
 .schematic[data-colour=green] .glow { fill: #2fbf4a; }
 .schematic[data-colour=blue] .glow { fill: #4c8dff; }
+.grid { stroke: var(--line); stroke-width: 1; }
+.series.faint { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.core { fill: var(--muted); }
+table.method td.text { text-align: left; }
+table.method tr.here td { background: var(--danger-bg); font-weight: 700; }
+.bits { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.bit { display: grid; min-width: 52px; padding: 6px 4px; text-align: center; border: 2px solid var(--line); }
+.bit .digit { font: 700 1.6rem/1.2 ui-monospace, Consolas, monospace; }
+.bit .weight { color: var(--muted); font-size: 0.85rem; }
+.bit[aria-pressed=true] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+table.method td:last-child { white-space: nowrap; }

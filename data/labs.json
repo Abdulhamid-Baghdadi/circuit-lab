@@ -148,28 +148,6 @@
       ]
     },
     {
-      "id": "adc",
-      "title": "From voltage to analogRead",
-      "idea": "The Arduino measures a voltage between 0 and 5 V and gives a whole number: 10 bits, so 2¹⁰ = 1024 steps, 0 to 1023. map() turns that number into what you need, such as a servo angle.",
-      "law": "value = U / 5 V × 1024 (whole steps)    angle = map(value, 0, 1023, 0, 180)",
-      "lecture": "EAVP lesson 5, slides 40 and 51 (10-bit ADC); example jury question 2; lesson 11 (ADC and DAC)",
-      "practice": [
-        {
-          "question": "A potentiometer gives 2.5 V on A0. Which angle does map(analogRead(A0), 0, 1023, 0, 180) give?",
-          "answer": 90,
-          "unit": "°",
-          "tolerance": 0,
-          "compute": {
-            "law": "adcMap",
-            "U": 2.5,
-            "outMax": 180
-          },
-          "solution": "analogRead gives 2.5 / 5 × 1024 = 512. map: 512 × 180 / 1023 = 90.08, cut to 90.",
-          "source": "Worked by hand from the definitions of analogRead and map (example jury question 2 asks for the same chain)"
-        }
-      ]
-    },
-    {
       "id": "cable",
       "title": "Long cables",
       "idea": "A wire is a resistor too. A long, thin cable takes part of the voltage before it reaches the load, and turns it into heat.",
@@ -193,22 +171,47 @@
       ]
     },
     {
-      "id": "pwm",
-      "title": "PWM: a voltage by switching",
-      "idea": "A digital pin is only 0 V or 5 V. Switch it fast, and the time it is high sets the average: an LED looks dimmer, a motor turns slower.",
-      "law": "average = duty × 5 V    duty = value / 255",
-      "lecture": "EAVP lesson 5, slide 54 (U = Ton / (Ton + Toff) × Vcc); lesson 10, p. 17 (PWM)",
+      "id": "shock",
+      "title": "Electric shock",
+      "idea": "Your body is a resistor. The voltage you touch and how well you are insulated decide the current, and the current decides the harm.",
+      "law": "I = U / Rbody",
+      "lecture": "EAVP lesson 4, slides 7–8 (danger of currents, resistance of the body); slides 16–21 (the 30 mA differential breaker)",
       "practice": [
         {
-          "question": "analogWrite(pin, 51) on a 5 V Arduino. What is the average voltage?",
-          "answer": 1,
+          "question": "You stand in a damp room (about 5 kΩ) and touch 230 V. What current flows through you?",
+          "answer": 0.046,
+          "unit": "A",
+          "compute": {
+            "law": "ohm",
+            "U": 230,
+            "R": 5000,
+            "find": "I"
+          },
+          "solution": "I = 230 V / 5 kΩ = 46 mA. On AC that is above 30 mA: extreme pain, risk of cardiac arrest. A 30 mA differential breaker trips.",
+          "source": "Body resistance and AC table: EAVP lesson 4, slides 7–8; answer worked by hand"
+        }
+      ]
+    },
+    {
+      "id": "transformer",
+      "title": "Transformer",
+      "idea": "Two coils on one iron core. The ratio of their windings sets the ratio of the voltages; the power stays the same, so where the voltage goes up the current goes down. Only for AC.",
+      "law": "Uin / Uout = Nin / Nout    Uin × Iin = Uout × Iout",
+      "lecture": "EAVP lesson 3, slides 20–23; lesson 4 (distribution); exercise 10",
+      "practice": [
+        {
+          "question": "A transformer with 80 windings on the mains side and 20 on the lamp side feeds a 20 Ω lamp from 230 V. What voltage stands across the lamp?",
+          "answer": 57.5,
           "unit": "V",
           "compute": {
-            "law": "pwm",
-            "value": 51
+            "law": "transformerU",
+            "U": 230,
+            "N1": 80,
+            "N2": 20,
+            "R": 20
           },
-          "solution": "duty = 51 / 255 = 0.2 = 20 %. Average = 0.2 × 5 V = 1 V.",
-          "source": "Worked by hand from the definition of analogWrite (8 bits, 0–255)"
+          "solution": "Uout = 230 V × 20 / 80 = 57.5 V. The lamp then takes P = 57.5² / 20 ≈ 165 W.",
+          "source": "EAVP exercises with answers, exercise 10 (p. 5)"
         }
       ]
     },
@@ -244,6 +247,123 @@
           },
           "solution": "Wh = 3.5 Ah × 3.7 V = 12.95 Wh. Two hundred charges: 2.59 kWh; at €0.50 per kWh, €1.30.",
           "source": "EAVP example questions, theory question 3 (p. 3)"
+        }
+      ]
+    },
+    {
+      "id": "rectifier",
+      "title": "From AC to smooth DC",
+      "idea": "A diode lets current pass one way only. One diode keeps half of each wave; a Graetz bridge of four turns the negative halves round. A capacitor fills the gaps; the load empties it between the peaks.",
+      "law": "Half wave: one diode    Full wave: Graetz bridge    Smoothing: a capacitor across the load",
+      "lecture": "EAVP lesson 10, p. 6–9 (diode, Graetz bridge, smoothing); example exam question 2",
+      "practice": []
+    },
+    {
+      "id": "adc",
+      "title": "From voltage to analogRead",
+      "idea": "The Arduino measures a voltage between 0 and 5 V and gives a whole number: 10 bits, so 2¹⁰ = 1024 steps, 0 to 1023. map() turns that number into what you need, such as a servo angle.",
+      "law": "value = U / 5 V × 1024 (whole steps)    angle = map(value, 0, 1023, 0, 180)",
+      "lecture": "EAVP lesson 5, slides 40 and 51 (10-bit ADC); example jury question 2; lesson 11 (ADC and DAC)",
+      "practice": [
+        {
+          "question": "A potentiometer gives 2.5 V on A0. Which angle does map(analogRead(A0), 0, 1023, 0, 180) give?",
+          "answer": 90,
+          "unit": "°",
+          "tolerance": 0,
+          "compute": {
+            "law": "adcMap",
+            "U": 2.5,
+            "outMax": 180
+          },
+          "solution": "analogRead gives 2.5 / 5 × 1024 = 512. map: 512 × 180 / 1023 = 90.08, cut to 90.",
+          "source": "Worked by hand from the definitions of analogRead and map (example jury question 2 asks for the same chain)"
+        }
+      ]
+    },
+    {
+      "id": "pwm",
+      "title": "PWM: a voltage by switching",
+      "idea": "A digital pin is only 0 V or 5 V. Switch it fast, and the time it is high sets the average: an LED looks dimmer, a motor turns slower.",
+      "law": "average = duty × 5 V    duty = value / 255",
+      "lecture": "EAVP lesson 5, slide 54 (U = Ton / (Ton + Toff) × Vcc); lesson 10, p. 17 (PWM)",
+      "practice": [
+        {
+          "question": "analogWrite(pin, 51) on a 5 V Arduino. What is the average voltage?",
+          "answer": 1,
+          "unit": "V",
+          "compute": {
+            "law": "pwm",
+            "value": 51
+          },
+          "solution": "duty = 51 / 255 = 0.2 = 20 %. Average = 0.2 × 5 V = 1 V.",
+          "source": "Worked by hand from the definition of analogWrite (8 bits, 0–255)"
+        }
+      ]
+    },
+    {
+      "id": "binary",
+      "title": "Binary numbers",
+      "idea": "A digital circuit only knows 0 and 1. Each place is worth twice the one to its right. Negative numbers: invert every bit and add 1.",
+      "law": "11010₂ = 1×16 + 1×8 + 0×4 + 1×2 + 0×1 = 26",
+      "lecture": "EAVP lesson 11, p. 6–17 (number systems, two's complement); p. 53–55 (flash ADC)",
+      "practice": [
+        {
+          "question": "What is 11010 in binary as a decimal number?",
+          "answer": 26,
+          "unit": "",
+          "tolerance": 0,
+          "compute": {
+            "law": "binary",
+            "pattern": "11010"
+          },
+          "solution": "16 + 8 + 0 + 2 + 0 = 26.",
+          "source": "EAVP lesson 11, p. 7"
+        },
+        {
+          "question": "Which number is 1011 in 4-bit two's complement?",
+          "answer": -5,
+          "unit": "",
+          "tolerance": 0,
+          "compute": {
+            "law": "twos",
+            "pattern": "1011"
+          },
+          "solution": "The first bit is 1, so it is negative. Invert: 0100, add 1: 0101 = 5. So 1011 = −5.",
+          "source": "EAVP lesson 11, p. 15"
+        },
+        {
+          "question": "How many comparators does an 8-bit flash ADC need?",
+          "answer": 255,
+          "unit": "",
+          "tolerance": 0,
+          "compute": {
+            "law": "comparators",
+            "bits": 8
+          },
+          "solution": "2⁸ − 1 = 255.",
+          "source": "EAVP lesson 11, p. 53–55"
+        }
+      ]
+    },
+    {
+      "id": "motor",
+      "title": "Sizing a motor",
+      "idea": "Power is force times speed. Work out the ideal power, then design for the worst case with a margin: a motor should not run at its limit.",
+      "law": "P = F × v    F = m × g (g ≈ 10 m/s²)    v = h / t",
+      "lecture": "EAVP lesson 13, p. 24–29 (choosing a motor; the garage door)",
+      "practice": [
+        {
+          "question": "A garage door motor must lift 30 kg by 2.5 m in 30 s. What power is that, ideally?",
+          "answer": 25,
+          "unit": "W",
+          "compute": {
+            "law": "lift",
+            "m": 30,
+            "h": 2.5,
+            "t": 30
+          },
+          "solution": "F = 30 kg × 10 m/s² = 300 N; v = 2.5 m / 30 s = 0.083 m/s; P = 300 × 0.083 = 25 W. With 60 kg, acceleration and friction the lesson takes about 100 W.",
+          "source": "EAVP lesson 13, p. 29"
         }
       ]
     }

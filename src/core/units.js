@@ -7,18 +7,19 @@ export function si(value, unit, digits = 3) {
   if (!Number.isFinite(value)) return value > 0 ? `∞ ${unit}` : `— ${unit}`;
   if (value === 0) return `0 ${unit}`;
   const [scale, prefix] = PREFIXES.find(([s]) => Math.abs(value) >= s * 0.9995) ?? PREFIXES.at(-1);
-  return `${Number((value / scale).toPrecision(digits))} ${prefix}${unit}`;
+  return `${Number((value / scale).toPrecision(digits))} ${prefix}${unit}`.trimEnd();
 }
 
 /** "4k7", "4.7k", "10 µ", "220n" → a number; null when it cannot be read. */
 export function parseSi(text) {
-  const t = String(text).trim().replace(",", ".").replace(/\s+/g, "").replace(/[ΩFVAWsu]$/i, m => m === "u" ? "µ" : "");
-  const m = t.match(/^(\d*\.?\d+)([GMkmµunp]?)(\d*)$/);
+  const t = String(text).trim().replace(",", ".").replace(/\s+/g, "").replace(/^[−–]/, "-")
+    .replace(/[ΩFVAWsu]$/i, m => m === "u" ? "µ" : "");
+  const m = t.match(/^(-?)(\d*\.?\d+)([GMkmµunp]?)(\d*)$/);
   if (!m) return null;
-  const scale = { G: 1e9, M: 1e6, k: 1e3, "": 1, m: 1e-3, µ: 1e-6, u: 1e-6, n: 1e-9, p: 1e-12 }[m[2]];
+  const scale = { G: 1e9, M: 1e6, k: 1e3, "": 1, m: 1e-3, µ: 1e-6, u: 1e-6, n: 1e-9, p: 1e-12 }[m[3]];
   // "4k7": the prefix stands where the decimal point would.
-  const number = m[3] ? Number(`${m[1]}.${m[3]}`) : Number(m[1]);
-  return number * scale;
+  const number = m[4] ? Number(`${m[2]}.${m[4]}`) : Number(m[2]);
+  return (m[1] ? -1 : 1) * number * scale;
 }
 
 /** The E12 series, the resistor values one buys: the nearest standard value to r. */

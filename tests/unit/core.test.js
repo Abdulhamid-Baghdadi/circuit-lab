@@ -68,6 +68,8 @@ test("SI prefixes both ways, and E12 values", () => {
   near(parseSi("10 µF"), 10e-6);
   near(parseSi("220n"), 220e-9);
   assert.equal(parseSi("abc"), null);
+  assert.equal(parseSi("-5"), -5);
+  assert.equal(parseSi("−5"), -5); // the minus sign students may paste
   near(e12(150), 150);
   near(e12(160), 150);
   near(e12(160, "up"), 180);

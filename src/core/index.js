@@ -3,3 +3,5 @@ export { ohm, power, series, parallel, divider, ledResistor, tau, charge, discha
 export { adcRead, lsb, adcToVolts, pwm, map } from "./signal.js";
 export { si, parseSi, e12 } from "./units.js";
 export { solve, isRight } from "./practice.js";
+export { transformer, rectifier, liftPower } from "./supply.js";
+export { places, toBinary, twos, fromTwos, flashComparators } from "./digital.js";
