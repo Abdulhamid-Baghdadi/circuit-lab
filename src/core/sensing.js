@@ -70,6 +70,18 @@ export function debounce(signal, delay) {
 /** How many times a signal goes from 0 to 1: the presses a sketch would count. */
 export const risingEdges = signal => signal.reduce((n, v, k) => n + (k > 0 && v === 1 && signal[k - 1] === 0 ? 1 : 0), 0);
 
+/** An opamp circuit, after Carter & Brown (2016): with feedback the resistors set the gain; without it any input
+ *  difference drives the output to saturation (p. 14). Inputs in volts, resistors in Ω, the output at most ±rail.
+ *  kind "open" (e1 on −, e2 on +), "noninverting" (EI = e2, p. 17), "inverting" (EI = e1, p. 18), "difference"
+ *  (EO = (RO/RI)(E2 − E1), p. 74). Returns the ideal output and the output the supply allows. */
+export function opampCircuit(kind, { e1 = 0, e2 = 0, RI = 1e3, RO = 1e3, rail }) {
+  const ideal = kind === "open" ? (e2 === e1 ? 0 : Math.sign(e2 - e1) * Infinity)
+    : kind === "noninverting" ? e2 * (1 + RO / RI)
+    : kind === "inverting" ? -(RO / RI) * e1
+    : (RO / RI) * (e2 - e1);
+  return { ideal, out: Math.max(-rail, Math.min(rail, ideal)), saturated: Math.abs(ideal) > rail };
+}
+
 /** Differential amplifier, Vout = Av × (V+ − V−) (lecture 10, p. 13). A real opamp cannot go beyond its supply:
  *  `rail` clips the output to ±rail; Infinity gives the slide's ideal table. */
 export function opamp(vPlus, vMinus, gain, rail = Infinity) {

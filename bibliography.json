@@ -1,0 +1,17 @@
+{
+  "format": "design-rules bibliography",
+  "version": 1,
+  "about": "Sources of Circuit Lab's own subject that are not in the course files. checked.how: 'full text' (read), 'record' (matched against a bibliographic record), 'carried' (not re-checked). Never add an entry from memory.",
+  "entries": [
+    {
+      "key": "carter2016",
+      "authors": ["Carter, B.", "Brown, T. R."],
+      "year": 2016,
+      "title": "Handbook of Operational Amplifier Applications (Rev. B)",
+      "venue": "Texas Instruments application report SBOA092B",
+      "url": "https://www.ti.com/lit/an/sboa092b/sboa092b.pdf",
+      "backs": "Op amps are used with negative feedback, which sets the gain (p. 7); open loop, any input difference drives the output to saturation and is not practical (p. 14); non-inverting EO = EI(1 + RO/RI) (p. 17); inverting EO = −(RO/RI)EI (p. 18); difference amplifier EO = (RO/RI)(E2 − E1) (p. 74).",
+      "checked": { "how": "full text", "date": "2026-11-01" }
+    }
+  ]
+}

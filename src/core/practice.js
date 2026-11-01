@@ -4,7 +4,7 @@ import { ohm, parallel, series, divider, ledResistor } from "./circuit.js";
 import { adcRead, map, pwm } from "./signal.js";
 import { transformer, liftPower } from "./supply.js";
 import { fromTwos, flashComparators } from "./digital.js";
-import { opamp, peakOf } from "./sensing.js";
+import { opamp, opampCircuit, peakOf } from "./sensing.js";
 import { cellPack, energyCost, dropper, GATES, binaryDac } from "./energy.js";
 import { colourCount, intType, stepper, cellsFor } from "./arduino.js";
 
@@ -31,6 +31,7 @@ const LAWS = {
   parallelEqual: q => q.U / (q.I / 2),
   peak: q => peakOf(q.U),
   opamp: q => opamp(q.plus, q.minus, q.gain),
+  opampCircuit: q => opampCircuit(q.kind, { e1: q.e1, e2: q.e2, RI: q.RI, RO: q.RO, rail: q.rail ?? Infinity }).out,
   cellLoad: q => cellPack("series", 1, q.E, q.r, q.R).U,
   energyKWh: q => energyCost(q.P, q.h, 1, 0).kWh,
   dropper: q => dropper(q.U, q.R, q.Uwanted).R,

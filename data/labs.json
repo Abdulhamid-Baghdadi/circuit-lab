@@ -622,23 +622,39 @@
     },
     {
       "id": "opamp",
-      "title": "Opamp amplifier",
-      "idea": "An opamp amplifies the difference between its two inputs. Equal inputs give nothing, however large; a small difference gives a large output, as far as the supply allows.",
-      "law": "Vout = Av × (V+ − V−)",
-      "lecture": "EAVP lesson 10, p. 13 (amplifier, the gain-4 table)",
+      "title": "Opamp circuits",
+      "idea": "An opamp is used with feedback: resistors from its output back to its input set the gain, not the chip. Without feedback any difference between its inputs drives the output to the supply. Lecture 10's “gain 4” is a difference amplifier with RO = 4 × RI.",
+      "law": "Difference amplifier: EO = (RO / RI) × (E2 − E1)    Non-inverting: EO = EI × (1 + RO / RI)    Inverting: EO = −(RO / RI) × EI",
+      "lecture": "EAVP lesson 10, p. 13 (amplifier, the gain-4 table); syllabus §5.3; the circuits after Carter & Brown (2016), TI's Handbook of Operational Amplifier Applications, p. 7, 14, 17, 18, 74",
       "practice": [
         {
-          "question": "Gain 4, −3 V on the minus input and 3 V on the plus input. What is the output?",
+          "question": "A difference amplifier with RO = 4 × RI gets −3 V on E1 and 3 V on E2. What is the output, if the supply allows it?",
           "answer": 24,
           "unit": "V",
           "compute": {
-            "law": "opamp",
-            "plus": 3,
-            "minus": -3,
-            "gain": 4
+            "law": "opampCircuit",
+            "kind": "difference",
+            "e1": -3,
+            "e2": 3,
+            "RI": 1000,
+            "RO": 4000
           },
-          "solution": "Vout = 4 × (3 − (−3)) = 4 × 6 = 24 V.",
-          "source": "EAVP lesson 10, p. 13, the table's ninth column"
+          "solution": "EO = (RO / RI) × (E2 − E1) = 4 × (3 − (−3)) = 24 V: the ninth column of lecture 10's table. On a ±12 V supply it would stop at 12 V.",
+          "source": "EAVP lesson 10, p. 13; formula Carter & Brown (2016, p. 74)"
+        },
+        {
+          "question": "A non-inverting amplifier with RI = 1 kΩ and RO = 9 kΩ gets 0.5 V. What is the output?",
+          "answer": 5,
+          "unit": "V",
+          "compute": {
+            "law": "opampCircuit",
+            "kind": "noninverting",
+            "e2": 0.5,
+            "RI": 1000,
+            "RO": 9000
+          },
+          "solution": "EO = EI × (1 + RO / RI) = 0.5 V × (1 + 9) = 5 V.",
+          "source": "Formula Carter & Brown (2016, p. 17); answer worked by hand"
         }
       ]
     },

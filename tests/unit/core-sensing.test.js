@@ -1,7 +1,7 @@
 // Meters, the button pin, bounce, the opamp, RMS and the NTC, against the course's own tables and hand calculations.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { meters, buttonPin, bouncyPress, debounce, risingEdges, opamp, peakOf, rmsOf, ntcResistance, ntcTemperature }
+import { meters, buttonPin, bouncyPress, debounce, risingEdges, opamp, opampCircuit, peakOf, rmsOf, ntcResistance, ntcTemperature }
   from "../../src/core/index.js";
 
 const near = (a, b, tol = 1e-9) => assert.ok(Math.abs(a - b) <= tol * Math.max(1, Math.abs(b)), `${a} ≠ ${b}`);
@@ -53,4 +53,24 @@ test("NTC: the table points of lecture 8 come back exactly, and the inverse retu
   assert.ok(R20 < 7330 && R20 > 4700);
   near(ntcTemperature(R20, NTC), 20, 1e-9);
   assert.throws(() => ntcResistance(80, NTC), /outside the table/);
+});
+
+test("opamp circuits, Carter & Brown (2016): the handbook's formulas and examples", () => {
+  // Difference amplifier with 1 kΩ and 100 kΩ: EO = 100 (E2 − E1) (p. 74).
+  near(opampCircuit("difference", { e1: 0.01, e2: 0.03, RI: 1e3, RO: 100e3, rail: 15 }).out, 2);
+  // Non-inverting: EO = EI (1 + RO/RI) (p. 17); inverting: EO = −(RO/RI) EI (p. 18).
+  near(opampCircuit("noninverting", { e2: 0.5, RI: 1e3, RO: 9e3, rail: 15 }).out, 5);
+  near(opampCircuit("inverting", { e1: 0.5, RI: 1e3, RO: 4e3, rail: 15 }).out, -2);
+  // Open loop: any difference saturates the output at the supply (p. 14).
+  assert.equal(opampCircuit("open", { e1: 0, e2: 0.001, rail: 12 }).out, 12);
+  assert.equal(opampCircuit("open", { e1: 0.001, e2: 0, rail: 12 }).out, -12);
+  assert.equal(opampCircuit("open", { e1: 1, e2: 1, rail: 12 }).out, 0);
+});
+
+test("a difference amplifier with RO = 4 RI gives lecture 10's gain-4 table; past the supply it saturates", () => {
+  const table = [[0, 0, 0], [0, 1, 4], [0, 2.5, 10], [0, 7, 28], [1, 0, -4], [2.5, 0, -10], [7, 0, -28], [3, 3, 0], [-3, 3, 24], [-2, -7, -20]];
+  for (const [minus, plus, out] of table) near(opampCircuit("difference", { e1: minus, e2: plus, RI: 1e3, RO: 4e3, rail: Infinity }).ideal, out);
+  const c = opampCircuit("difference", { e1: 0, e2: 7, RI: 1e3, RO: 4e3, rail: 15 });
+  assert.equal(c.out, 15);
+  assert.ok(c.saturated);
 });

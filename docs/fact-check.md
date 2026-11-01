@@ -88,4 +88,9 @@ To check:
   (ρ at about 20 °C, α = 0.0039 K⁻¹) this gives ρ0 = 0.0175 / e^(0.0039 × 293) = 0.0056 × 10⁻⁶ Ω·m, a third of the
   room-temperature value; the form of the law or the meaning of ρ0 needs checking.
 
+- Lecture 10, p. 13: a bare opamp with "gain 4", Vout = AV(Input+ − Input−), and outputs of ±28 V with ±Vsupply drawn
+  but ignored. An opamp is used with feedback, which sets the gain; open loop it saturates (Carter & Brown (2016),
+  p. 7, 14). The opamp lab now shows the four circuits of that handbook, with the slide's table as a difference
+  amplifier with RO = 4 × RI, always on a supply.
+
 Checked and correct, though it looks odd: lessons 3 and 4, slide 23, "367" is (230 V / 12 V)² = 367.4.

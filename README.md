@@ -49,7 +49,7 @@ practice questions from the course's own exercise sheet, checked as you type the
 |  | Mixing colours | Three sliders 0–255 mix a NeoPixel colour, with its code and the 16 777 216 colours |
 | 10 · 17 Nov · Semiconductors | From AC to smooth DC | No diode, one diode or a Graetz bridge, then a capacitor: the wave, its average and its ripple |
 |  | Transistor as a switch | Pin 9 through a base resistor switches an LED strip; the base current against the pin's limit, on or half on |
-|  | Opamp amplifier | Set both inputs and the gain; the output follows the difference, and stops at the supply if you give it one |
+|  | Opamp circuits | Without feedback, non-inverting, inverting or difference amplifier: the resistors set the gain, the supply limits the output; lecture 10's ×4 table as a difference amplifier |
 |  | Lowering a voltage | An LM7805 from 12 V: the heat it burns, its efficiency, and a switching converter beside it |
 | 11 · 17 Nov · Digital circuits | Number bases | One number in decimal, binary, octal and hexadecimal; binary addition with its carries |
 |  | Binary numbers | Flip bits; see the place values, the two's complement reading and the flash ADC's comparators |
