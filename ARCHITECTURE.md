@@ -4,6 +4,22 @@ Binds the design rules ([UA-SMARTLab/design-rules](https://github.com/UA-SMARTLa
 [`fe7ef94`](https://github.com/UA-SMARTLab/design-rules/tree/fe7ef94)
 (2026-10-31). This file is the kit's design authority: it changes its own rules here, never the shared ones.
 
+```mermaid
+flowchart TD
+    DR["<b>UA-SMARTLab/design-rules</b><br/>on GitHub, shared by all projects<br/>rules · skill · bibliography"]
+    AR["<b>This project's ARCHITECTURE.md</b><br/>in git · the project's design authority<br/>the rules in this project's names<br/>departures: rule · why · date · propose back?"]
+    CH["<b>architecture.json</b> and<br/>the project's own tests"]
+    US(["The user, or a session<br/>on the user's word"])
+
+    DR -- "1. taken once, at commit fe7ef94" --> AR
+    US -- "2. a rule added, changed or dropped:<br/>edited here, never upstream" --> AR
+    AR -- "3. held by" --> CH
+    AR -. "4. proposed back;<br/>the user decides" .-> DR
+    DR -. "5. a later change upstream:<br/>taken in only on purpose" .-> AR
+```
+
+Solid arrows happen every time; dashed ones only when the user chooses.
+
 ## Layers, bottom first
 
 | Layer | Files | May use | Front door |
