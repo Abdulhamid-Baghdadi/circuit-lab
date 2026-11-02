@@ -1,6 +1,7 @@
 # Architecture
 
-Binds the design rules (UA-SMARTLab/design-rules) to this project's names, as they were at commit `fe7ef94`
+Binds the design rules ([UA-SMARTLab/design-rules](https://github.com/UA-SMARTLab/design-rules)) to this project's names, as they were at commit
+[`fe7ef94`](https://github.com/UA-SMARTLab/design-rules/tree/fe7ef94)
 (2026-10-31). This file is the kit's design authority: it changes its own rules here, never the shared ones.
 
 ## Layers, bottom first
