@@ -1,6 +1,7 @@
 # Architecture
 
-Binds the design rules (UA-SMARTLab/design-rules) to this project's names.
+Binds the design rules (UA-SMARTLab/design-rules) to this project's names, as they were at commit `fe7ef94`
+(2026-10-31). This file is the kit's design authority: it changes its own rules here, never the shared ones.
 
 ## Layers, bottom first
 
@@ -39,6 +40,9 @@ worked answer and the sheet's answer disagree.
 Trusted to the agent: one idea per lab, the words in labs.json matching the UI.
 
 ## Where it departs from the rules
+
+Neither departure is worth proposing back (a suggestion; the user decides): the first comes from this app only
+reading its data, the second is work not yet done.
 
 - No file format round-trip test: the app reads `labs.json` and never writes it.
 - The dependency matrix is not drawn yet; `python ~/.claude/skills/web-app-design/scripts/check_layers.py . --page` draws it.
