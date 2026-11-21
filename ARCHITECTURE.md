@@ -2,7 +2,7 @@
 
 Binds the design rules ([UA-SMARTLab/design-rules](https://github.com/UA-SMARTLab/design-rules)) to this project's names, as they were at commit
 [`fe7ef94`](https://github.com/UA-SMARTLab/design-rules/tree/fe7ef94)
-(2026-10-31). This file is the kit's design authority: it changes its own rules here, never the shared ones.
+(2026-10-31), and follows them at [`ca374d1`](https://github.com/UA-SMARTLab/design-rules/tree/ca374d1) since 2026-11-21. This file is the kit's design authority: it changes its own rules here, never the shared ones.
 
 ```mermaid
 flowchart TD
@@ -11,7 +11,7 @@ flowchart TD
     CH["<b>architecture.json</b> and<br/>the project's own tests"]
     US(["The user, or a session<br/>on the user's word"])
 
-    DR -- "1. taken once, at commit fe7ef94" --> AR
+    DR -- "1. taken once, at commit fe7ef94;<br/>moved to ca374d1 on 2026-11-21" --> AR
     US -- "2. a rule added, changed or dropped:<br/>edited here, never upstream" --> AR
     AR -- "3. held by" --> CH
     AR -. "4. proposed back;<br/>the user decides" .-> DR
@@ -19,6 +19,19 @@ flowchart TD
 ```
 
 Solid arrows happen every time; dashed ones only when the user chooses.
+
+
+### Moved to `ca374d1` on 2026-11-21
+
+The pin moved on purpose from `fe7ef94`. The commits between add five window rules (taken back from the SMART-Lab Design
+Suite on 2026-11-19, `7615f26`), a Python reader for the audit tool, and wording; none changes the layering contract
+for this project's reader. The five rules here:
+
+| Rule | Here | Why |
+|---|---|---|
+| H4a, E3a, B4a, B9, B10 | does not apply | The labs compute at once and use no AI; a practice answer's tolerance is a marking rule, not an estimate's range. |
+
+No departure is listed.
 
 ## Layers, bottom first
 
